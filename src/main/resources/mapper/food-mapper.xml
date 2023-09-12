@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ac.kr.kopo.HanaInsureFit.healthCare.food.dao.FoodMapper">
+
+    <select id="foodListFindByName"  resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.Food">
+        <![CDATA[
+        select *
+        from (select * from food where foodName like CONCAT(#{foodName}, '%') ORDER BY foodName ASC)
+        where ROWNUM <= 5
+        ]]>
+    </select>
+    <select id="findByName" parameterType="String" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.Food">
+        select * from food where foodName = #{foodName}
+    </select>
+
+    <select id="checkDuplicate" resultType="int">
+        SELECT COUNT(*)
+        FROM CustomerDiet
+        WHERE customerID = #{customerID}
+          AND recordDate = TO_CHAR(SYSDATE, 'yy/MM/dd')
+          AND mealCode = #{mealCode}
+    </select>
+
+    <insert id="insertCustomerDiet" parameterType="java.util.HashMap">
+        INSERT INTO customerDiet(customerID, mealCode, recordDate)
+            VALUES (#{customerID}, #{mealCode}, TO_CHAR(SYSDATE, 'yy/MM/dd') )
+    </insert>
+<!--    <insert id="insertFoodDietMapping" parameterType="java.util.HashMap">-->
+<!--        <selectKey keyProperty="mappingID" resultType="long" order="BEFORE">-->
+<!--            SELECT mapping_id_sequence.NEXTVAL FROM dual-->
+<!--        </selectKey>-->
+<!--        INSERT INTO foodDietMapping (mappingID, foodID, mealCode, recordDate, calories, protein, fat, carbs, weightInput)-->
+<!--        VALUES (#{mappingID}, #{foodID}, #{mealCode}, #{recordDate}, #{calories}, #{protein}, #{fat}, #{carbs}, #{weightInput})-->
+<!--    </insert>-->
+    <!-- foodDietMapping 테이블에 데이터를 삽입하는 매퍼 -->
+    <insert id="insertFoodDietMapping" parameterType="java.util.HashMap">
+        <selectKey keyProperty="mappingID" resultType="long" order="BEFORE">
+            SELECT mapping_id_sequence.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO foodDietMapping (mappingID, foodID, MEALCODE, recordDate, calories, protein, fat, carbs, weightInput)
+        VALUES (#{mappingID}, #{foodID}, #{mealCode}, TO_CHAR(SYSDATE, 'yy/MM/dd'), #{calories}, #{protein}, #{fat}, #{carbs}, #{weightInput})
+    </insert>
+
+    <select id="getFoodNames" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames">
+        SELECT f.foodName, fdm.mealCode
+        FROM food f
+        INNER JOIN foodDietMapping fdm ON f.foodID = fdm.foodID
+        WHERE fdm.foodID = f.foodID and recorddate = TO_CHAR(SYSDATE, 'yy/MM/dd')
+    </select>
+
+    <select id="getIngredients" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients">
+        SELECT
+            fdm.mealCode,
+            fdm.recordDate,
+            SUM(fdm.calories) AS total_calories,
+            SUM(fdm.carbs) AS total_carbs,
+            SUM(fdm.protein) AS total_protein,
+            SUM(fdm.fat) AS total_fat
+        FROM
+            foodDietMapping fdm
+        WHERE
+            fdm.recordDate = TO_CHAR(SYSDATE, 'yy/MM/dd')
+        GROUP BY
+            fdm.mealCode,
+            fdm.recordDate
+    </select>
+
+
+
+</mapper>
+

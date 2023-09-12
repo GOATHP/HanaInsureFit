@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ac.kr.kopo.HanaInsureFit.healthCare.weightManage.dao.WeightManageMapper">
+    <!-- 회원 전체 조회 -->
+    <select id="getInfo" resultType="ac.kr.kopo.HanaInsureFit.healthCare.weightManage.vo.WeightManage">
+        SELECT
+            c.CUSTOMERID AS id,
+            c.NAME AS name,
+            c.GENDER AS gender,
+            hc.HEIGHT AS height,
+            hc.WEIGHT AS weight,
+            ct.CALORIES AS goalCal,
+            ct.PROTEIN AS protein,
+            ct.FAT AS fat,
+            ct.CARBOHYDRATES AS carbohydrates
+        FROM
+            HanaCustomer c
+                INNER JOIN
+            CustomerTargetDiet ct
+            ON
+                c.CUSTOMERID = ct.CUSTOMERID
+                INNER JOIN
+            HealthCheckInfo hc
+            ON
+                c.CUSTOMERID = hc.CUSTOMERID
+                INNER JOIN
+            CustomerTargetdiet cti
+            ON
+                c.CUSTOMERID = cti.CUSTOMERID
+        WHERE
+            c.CUSTOMERID = #{id}
+    </select>
+
+
+</mapper>
+

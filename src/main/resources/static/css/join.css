@@ -1,0 +1,334 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Tenada';
+    src:
+            url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2')
+            format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Hana';
+    font-weight: 300;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.eot');
+    src:
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.eot?#iefix')
+            format('embedded-opentype'),
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.woff2')
+            format('woff2'),
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.woff')
+            format('woff'),
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaLight.ttf')
+            format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Hana';
+    font-weight: 500;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.eot');
+    src:
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.eot?#iefix')
+            format('embedded-opentype'),
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.woff2')
+            format('woff2'),
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.woff')
+            format('woff'),
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaMedium.ttf')
+            format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Hana';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.eot');
+    src:
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.eot?#iefix')
+            format('embedded-opentype'),
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.woff2')
+            format('woff2'),
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.woff')
+            format('woff'),
+            url('https://cdn.jsdelivr.net/gh/webfontworld/hana/HanaBold.ttf')
+            format("truetype");
+    font-display: swap;
+}
+
+
+
+.test {
+    margin-top: 15px !important;
+}
+
+.custom-btn2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: white !important;
+    font-family: "Hana", sans-serif !important;
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    padding: 0;
+    gap: 10px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.custom-btn2 button {
+    max-width: 90%;
+    font-size: 1vw;
+    height: auto;
+    border: none !important;
+    background-color: #009490 !important;
+}
+
+.custom-btn2 img {
+    width: 70%;
+    height: auto;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-bottom: 3px;
+}
+
+.container {
+    max-width: 1200px;
+    width: 80%;
+    padding: 0 25px;
+}
+
+.btn-resize {
+    transition: all 0.3s;
+}
+
+.btn-resize:hover {
+    font-size: 95%;
+}
+
+.mypage {
+    background: linear-gradient(135deg, #009490, #001e1f);
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+
+#mypage {
+    font-family: "Hana", sans-serif;
+}
+
+#json-data-left, #json-data-right {
+    font-weight: 700;
+    font-size: 20px;
+    width: 49%;
+    height: 400px;
+    background-color: #FFF;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10px;
+}
+
+
+
+form {
+    font-family: 'Hana', Arial, sans-serif;
+    max-width: 1500px;
+    width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0 auto
+}
+
+.join-form {
+    width: 100px;
+    padding: 5px;
+}
+
+#joinForm{
+    width: 600px;
+
+}
+
+form table {
+    width: 90%;
+}
+
+
+.qr-description {
+    font-size: 16px; /* 원하는 폰트 크기로 변경 */
+    margin-top: 10px; /* 위 여백을 조절하거나 필요한 여백으로 변경 */
+    padding-top: 0px;
+}
+
+form table td {
+    padding: 5px;
+    max-width: 230px;
+    width: 230px;
+}
+
+
+
+
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"]
+{
+    font-family: 'Hana', Arial, sans-serif;
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    width: 200px;
+    padding: 8px;
+    border: none;
+    background-color: #00857E;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover {
+    background-color: #035652;
+}
+
+button {
+    font-family: 'Hana', Arial, sans-serif;
+    width: 200px;
+
+    padding: 8px;
+
+    border: none;
+    background-color: rgb(219, 36, 100);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.joinTable tbody{
+    border-left : 20px;
+}
+
+/* style.css */
+
+/* 네비게이션 바 스타일 */
+
+button:hover {
+    background-color: #b70e4f;
+}
+
+.valiButton {
+    font-family: 'Hana', Arial, sans-serif;
+    width: 130px;
+    padding: 8px;
+    border: none;
+    background-color: rgb(246, 11, 171);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 0px auto;
+    font-size: 16px;
+    font-weight: bold;
+}
+.joinTitle{
+    text-align: center;
+    color:#001e1f;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 50px;
+    font-weight: bold;
+}
+.error-message {
+    color: red;
+    display: none;
+}
+
+
+
+.passwordMatchMessage {
+    padding: 5px;
+}
+
+.HanaInsureFit{
+    font-size: 40px;
+    padding-bottom: 10px;
+}
+
+.joinTitle img{
+    width: 90px;
+    padding-bottom: 10px;
+}
+.findPostal {
+    font-family: 'Hana', Arial, sans-serif;
+    width: 84px;
+    padding: 0px;
+    border: none;
+    background-color: #555;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    height: 42px;
+}
+
+
+
+.tdBtn{
+    padding: 0px;
+
+    height: 42px;
+}
+
+.joinRowName{
+    width: 115px !important;
+    min-width: 115px;
+    height: 22px;
+    min-height: 22px;
+    padding-left: 20px;
+}
+
+.addressBox{
+    width: 200px !important;
+}
+
+#sample4_roadAddress,
+#sample4_jibunAddress,
+#sample4_detailAddress,
+#sample4_extraAddress {
+    margin-bottom: 10px; /* 각 주소 입력 필드 사이에 10px의 간격 생성 */
+}
+
+
+
+#joinButton{
+    width: 100%;
+
+}
+
+.custom-hr {
+    background-color:#00857E;
+    color:#001e1f;
+    height: 1px;
+    border:0;
+}

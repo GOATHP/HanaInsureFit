@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ac.kr.kopo.HanaInsureFit.healthCare.restaurant.dao.RestaurantMapper">
+    <!-- 회원 전체 조회 -->
+    <select id="getRestaurant" resultType="ac.kr.kopo.HanaInsureFit.healthCare.restaurant.vo.Restaurant">
+        SELECT *
+        FROM restaurant
+        WHERE address LIKE '%' || #{guDong} || '%'
+    </select>
+
+
+</mapper>
+
