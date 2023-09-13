@@ -14,4 +14,5 @@ public interface MemberMapper {
     List<Member> getAllMember();
     Member selectNameOfMember(String m_id);
     Member loginMember(HashMap<String, String> loginData);
+    int getGrade(String customerID);
 }

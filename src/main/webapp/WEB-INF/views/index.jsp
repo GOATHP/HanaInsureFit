@@ -1,4 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,40 +26,54 @@
             width: 80%;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
     <div class="navAll">
         <div class="upper">
-            <ul class="link_crfix">
-                <li class="item">
-                    <a href="https://www.hanainsure.co.kr/">
-                        하나손해보험
-                    </a>
-                </li>
-                <li class="item">
-                    <a href="/introduce">
-                        서비스소개
-                    </a>
-                </li>
-                <li class="item">
-                    <a href="https://www.hanafn.com:8002/info/people/careerNonscheduledEmploy.do">
-                        채용안내
-                    </a>
-                </li>
-            </ul>
-            <ul class="link_crfix">
-                <li class="item"><a href="/joinMember">회원가입</a></li>
-                <li class="item"><div class="loginButton">로그인</div>
+                        <ul class="link_crfix">
+                            <li class="item">
+                                <a href="https://www.hanainsure.co.kr/">
+                                    하나손해보험
+                                </a>
+                            </li>
+                            <li class="item">
+                                <a href="/introduce">
+                                    서비스소개
+                                </a>
+                            </li>
+                            <li class="item">
+                                <a href="https://www.hanafn.com:8002/info/people/careerNonscheduledEmploy.do">
+                                    채용안내
+                                </a>
+                            </li>
+                        </ul>
 
-                </li>
-            </ul>
-        </div>
-        <div class="menu">
-            <nav>
-                <div class="logo">
-                    <a href="/">
-                        <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
+                        <ul class="link_crfix">
+                            <%
+                                String name = (String) session.getAttribute("name");
+                                String customerID = (String) session.getAttribute("customerID");
+                                if (name != null) {
+                            %>
+                            <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
+                            <li><a href="javascript:void(0);" onclick="logout();">로그아웃</a></li>
+                            <%
+                            } else {
+                            %>
+                            <li class="item"><a href="/joinMember">회원가입</a></li>
+                            <li class="item"><div class="loginButton">로그인</div></li>
+                            <%
+                                }
+                            %>
+                        </ul>
+
+                </div>
+                <div class="menu">
+                    <nav>
+                        <div class="logo">
+                            <a href="/">
+                                <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
                     </a>
                 </div>
                 <ul>
@@ -131,17 +148,29 @@
 </div>
 <div class="modal">
     <div class="modal_body">
-        <form action="/loginMember" id="loginForm" method="post">
-            <div class="form-group">
-                <label for="customerID">아이디</label>
-                <input type="text" id="customerID" name="customerID">
-            </div>
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password">
-            </div>
-            <button type="submit" class="login-button" value="로그인">로그인</button>
-        </form>
+<%--        <form action="/loginMember" id="loginForm" method="post">--%>
+    <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
+        로그인
+        <table>
+                <tr>
+                    <th>
+                        <label for="customerID">아이디</label>
+                    </th>
+                    <td>
+                        <input type="text" id="customerID" name="customerID">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="password">비밀번호</label>
+                    </th>
+                    <td>
+                        <input type="password" id="password" name="password">
+                    </td>
+                </tr>
+            </table>
+            <input type="button" class="login-button" value="로그인" onclick="loginFormFunc()">
+<%--        </form>--%>
     </div>
 </div>
 <footer id="footer">
@@ -175,6 +204,60 @@
     }
 
     setInterval(toggleSlider, 7000); // 7초마다 슬라이드 변경
+</script>
+<script>
+    function loginFormFunc() {
+        console.log("꿀");
+        // var formData = $("#loginForm").serialize();
+        var customerID = $("#customerID").val();
+        var password = $("#password").val();
+
+        console.log(customerID);
+        console.log(password);
+
+        $.ajax({
+            type: "POST",
+            url: "/loginMember",
+            data: JSON.stringify({
+                customerID: customerID,
+                password: password
+            }),
+            contentType: 'application/json',
+            error: function (xhr, status, error) {
+                alert(error + "error");
+            },
+            success: function (response) {
+                if (response === "로그인 성공") {
+                    alert("로그인 성공");
+                    var link = document.createElement("a");
+                    link.href = "/";
+                    link.click();
+                } else {
+                    console.error("로그인 실패");
+                }
+            }
+        });
+    }
+    function logout() {
+        $.ajax({
+            type: "POST",
+            url: "/logout",
+            dataType: "json", // 응답 형식을 JSON으로 설정
+            success: function (response) {
+                if (response.status === "success") {
+                    // 로그아웃 성공 시 세션 정보 삭제 및 화면 갱신
+                    alert(response.message);
+                    location.reload(); // 페이지 새로고침
+                } else {
+                    console.error(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("서버 오류: " + error);
+            }
+        });
+    }
+
 </script>
 </body>
 </html>

@@ -27,7 +27,7 @@ public class RestaurantController {
 
         List<Restaurant> restaurantList = restaurantService.getRestaurant(guDong);
         for (Restaurant restaurant : restaurantList) {
-            System.out.println("이름: " + restaurant.getName());
+            System.out.println("이거 다 먹어야지 ~!~!~!~! : " + restaurant.getName());
         }
 
 //        HttpSession session = request.getSession();

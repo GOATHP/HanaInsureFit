@@ -74,8 +74,23 @@
                 </li>
             </ul>
             <ul class="link_crfix">
+                <%
+                    String name = (String) session.getAttribute("name");
+                    String customerID = (String) session.getAttribute("customerID");
+                    String identifyNum = (String) session.getAttribute("identifyNum");
+                    int healthGrade = (int) session.getAttribute("healthGrade");
+                    if (name != null) {
+                %>
+                <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
+                <li><a href="javascript:void(0);" onclick="logout();">로그아웃</a></li>
+                <%
+                } else {
+                %>
                 <li class="item"><a href="/joinMember">회원가입</a></li>
-                <li class="item"><a href="/loginMember">로그인</a></li>
+                <li class="item"><div class="loginButton">로그인</div></li>
+                <%
+                    }
+                %>
             </ul>
         </div>
         <div class="menu">
@@ -142,7 +157,7 @@
                                 이름
                             </th>
                             <td>
-                                박태현
+                                <%= name %>
                             </td>
                         </tr>
                         <tr>
@@ -158,7 +173,26 @@
                                 건강등급
                             </th>
                             <td>
-                                5등급(Grade3)
+                                <%
+                                    String healthGradeText = ""; // 결과를 저장할 변수
+
+
+
+                                    // 등급 계산
+                                    if (healthGrade >= 1 && healthGrade <= 2) {
+                                        healthGradeText = "Grade1";
+                                    } else if (healthGrade >= 3 && healthGrade <= 4) {
+                                        healthGradeText = "Grade2";
+                                    } else if (healthGrade >= 5 && healthGrade <= 6) {
+                                        healthGradeText = "Grade3";
+                                    } else if (healthGrade >= 7 && healthGrade <= 9) {
+                                        healthGradeText = "Grade4";
+                                    } else {
+                                        // 다른 경우에 대한 처리
+                                        healthGradeText = "알 수 없음"; // 예를 들어, 범위를 벗어나는 값인 경우
+                                    }
+                                %>
+                                <%=healthGrade%>등급(<%=healthGradeText%>)
                             </td>
                         </tr>
                         <tr>
@@ -166,7 +200,7 @@
                                 주민등록번호
                             </th>
                             <td>
-                                960503-1132333
+                                <%= identifyNum %>
                             </td>
                         </tr>
                         <tr>
@@ -243,6 +277,60 @@
         Hana TI 2019. ALL RIGHT RESERVE
     </div>
 </footer>
+<script>
+    function loginFormFunc() {
+        console.log("꿀");
+        // var formData = $("#loginForm").serialize();
+        var customerID = $("#customerID").val();
+        var password = $("#password").val();
+
+        console.log(customerID);
+        console.log(password);
+
+        $.ajax({
+            type: "POST",
+            url: "/loginMember",
+            data: JSON.stringify({
+                customerID: customerID,
+                password: password
+            }),
+            contentType: 'application/json',
+            error: function (xhr, status, error) {
+                alert(error + "error");
+            },
+            success: function (response) {
+                if (response === "로그인 성공") {
+                    alert("로그인 성공");
+                    var link = document.createElement("a");
+                    link.href = "/";
+                    link.click();
+                } else {
+                    console.error("로그인 실패");
+                }
+            }
+        });
+    }
+    function logout() {
+        $.ajax({
+            type: "POST",
+            url: "/logout",
+            dataType: "json", // 응답 형식을 JSON으로 설정
+            success: function (response) {
+                if (response.status === "success") {
+                    // 로그아웃 성공 시 세션 정보 삭제 및 화면 갱신
+                    alert(response.message);
+                    location.reload(); // 페이지 새로고침
+                } else {
+                    console.error(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("서버 오류: " + error);
+            }
+        });
+    }
+
+</script>
 <script>
     const modal = document.querySelector('.modal');
     const btnOpenPopup = document.querySelector('.btn-open-popup');

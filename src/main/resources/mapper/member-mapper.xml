@@ -21,5 +21,9 @@
         FROM HanaCustomer
         where customerID = #{customerID}
     </select>
+
+    <select id="getGrade" resultType="int">
+        select healthgrade from healthgrade where customerID = #{customerID}
+    </select>
 </mapper>
 

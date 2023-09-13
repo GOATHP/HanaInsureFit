@@ -32,4 +32,8 @@ public class MemberServiceImpl implements MemberService {
     public Member loginMember(HashMap<String, String> loginData) {
         return memberMapper.loginMember(loginData);
     }
+
+    public int getGrade(String customerID) {
+        return memberMapper.getGrade(customerID);
+    }
 }

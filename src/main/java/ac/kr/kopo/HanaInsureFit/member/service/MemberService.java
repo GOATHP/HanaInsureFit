@@ -9,4 +9,6 @@ public interface MemberService {
     public List<Member> getAllMember();
     Member selectNameOfMember(String id);
     Member loginMember(HashMap<String, String> loginData);
+
+    int getGrade(String customerID);
 }

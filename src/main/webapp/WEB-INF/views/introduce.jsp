@@ -38,15 +38,28 @@
                 </li>
             </ul>
             <ul class="link_crfix">
+                <%
+                    String name = (String) session.getAttribute("name");
+                    String customerID = (String) session.getAttribute("customerID");
+                    if (name != null) {
+                %>
+                <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
+                <li><a href="javascript:void(0);" onclick="logout();">로그아웃</a></li>
+                <%
+                } else {
+                %>
                 <li class="item"><a href="/joinMember">회원가입</a></li>
-                <li class="item"><a href="/loginMember">로그인</a></li>
+                <li class="item"><div class="loginButton">로그인</div></li>
+                <%
+                    }
+                %>
             </ul>
         </div>
         <div class="menu">
             <nav>
                 <div class="logo">
                     <a href="/">
-                        <img src="image/플젝로고.png" alt="프로젝트 로고">
+                        <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
                     </a>
                 </div>
                 <ul>
@@ -105,6 +118,60 @@
     <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
         Hana TI 2019. ALL RIGHT RESERVE</div>
 </footer>
+<script>
+    function loginFormFunc() {
+        console.log("꿀");
+        // var formData = $("#loginForm").serialize();
+        var customerID = $("#customerID").val();
+        var password = $("#password").val();
+
+        console.log(customerID);
+        console.log(password);
+
+        $.ajax({
+            type: "POST",
+            url: "/loginMember",
+            data: JSON.stringify({
+                customerID: customerID,
+                password: password
+            }),
+            contentType: 'application/json',
+            error: function (xhr, status, error) {
+                alert(error + "error");
+            },
+            success: function (response) {
+                if (response === "로그인 성공") {
+                    alert("로그인 성공");
+                    var link = document.createElement("a");
+                    link.href = "/";
+                    link.click();
+                } else {
+                    console.error("로그인 실패");
+                }
+            }
+        });
+    }
+    function logout() {
+        $.ajax({
+            type: "POST",
+            url: "/logout",
+            dataType: "json", // 응답 형식을 JSON으로 설정
+            success: function (response) {
+                if (response.status === "success") {
+                    // 로그아웃 성공 시 세션 정보 삭제 및 화면 갱신
+                    alert(response.message);
+                    location.reload(); // 페이지 새로고침
+                } else {
+                    console.error(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("서버 오류: " + error);
+            }
+        });
+    }
+
+</script>
 </body>
 
 </html>

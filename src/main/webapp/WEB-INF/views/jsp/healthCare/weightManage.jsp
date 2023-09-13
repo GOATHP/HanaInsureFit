@@ -100,7 +100,7 @@
 
         }
 
-        var id = 'CUST0001';
+        var id = customerID;
         var weightManageArray = []
         function sendAddressInfoToServer(id) {
             var xhr = new XMLHttpRequest();
@@ -570,8 +570,21 @@
                 </li>
             </ul>
             <ul class="link_crfix">
+                <%
+                    String name = (String) session.getAttribute("name");
+                    String customerID = (String) session.getAttribute("customerID");
+                    if (name != null) {
+                %>
+                <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
+                <li><a href="javascript:void(0);" onclick="logout();">로그아웃</a></li>
+                <%
+                } else {
+                %>
                 <li class="item"><a href="/joinMember">회원가입</a></li>
-                <li class="item"><a href="/loginMember">로그인</a></li>
+                <li class="item"><div class="loginButton">로그인</div></li>
+                <%
+                    }
+                %>
             </ul>
         </div>
         <div class="menu">
@@ -612,11 +625,12 @@
                     <div class="heart">
                         <canvas id="heartCanvas" width="100" height="100"></canvas>
                         <p class="imageWord1">
-                            박태현님 칼로리하트
+
+                            <%=name%>님 칼로리하트
                         </p>
                     </div>
                     <div class="weightInfo">
-                        박태현님 안녕하세요! 체중관리(감량)을 위해서는<br>
+                        <%=name%>님 안녕하세요! 체중관리(감량)을 위해서는<br>
                         오늘 하루 <div class="calories" id="goalCalories">2238</div>를 드셔야 합니다! <br>
                         현재 <div class="calories" id="currentCalories">0</div>kcal(<div class="calories" id="caloriesPercentage">0% </div>)를 드셨네요!<br>
 
@@ -852,7 +866,60 @@
 
 
 </script>
+<script>
+    function loginFormFunc() {
+        console.log("꿀");
+        // var formData = $("#loginForm").serialize();
+        var customerID = $("#customerID").val();
+        var password = $("#password").val();
 
+        console.log(customerID);
+        console.log(password);
+
+        $.ajax({
+            type: "POST",
+            url: "/loginMember",
+            data: JSON.stringify({
+                customerID: customerID,
+                password: password
+            }),
+            contentType: 'application/json',
+            error: function (xhr, status, error) {
+                alert(error + "error");
+            },
+            success: function (response) {
+                if (response === "로그인 성공") {
+                    alert("로그인 성공");
+                    var link = document.createElement("a");
+                    link.href = "/";
+                    link.click();
+                } else {
+                    console.error("로그인 실패");
+                }
+            }
+        });
+    }
+    function logout() {
+        $.ajax({
+            type: "POST",
+            url: "/logout",
+            dataType: "json", // 응답 형식을 JSON으로 설정
+            success: function (response) {
+                if (response.status === "success") {
+                    // 로그아웃 성공 시 세션 정보 삭제 및 화면 갱신
+                    alert(response.message);
+                    location.reload(); // 페이지 새로고침
+                } else {
+                    console.error(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("서버 오류: " + error);
+            }
+        });
+    }
+
+</script>
 </body>
 
 </html>

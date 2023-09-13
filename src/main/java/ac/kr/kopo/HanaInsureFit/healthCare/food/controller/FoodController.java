@@ -53,7 +53,7 @@ public class FoodController {
     @ResponseBody
     @PostMapping(value = "/insertDiet")
     public ResponseEntity<String> insertCustomerDiet(@RequestBody dataForDiet data) {
-        System.out.println("여까지 진입");
+        System.out.println("여까지 진입 라고 할뻔 진입 못함 진입 못함 이슈 잠시대기 ");
         System.out.println(data.getId());
         System.out.println(data.getFoodID());
 
