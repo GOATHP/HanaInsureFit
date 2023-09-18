@@ -112,7 +112,7 @@
         </div>
         <div class="middleCon">
             <div class="section">
-                <a href="/calander">
+                <a href="/calendar">
                     캘린더
                 </a>
                 <div class="subSection">

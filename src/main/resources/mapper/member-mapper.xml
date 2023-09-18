@@ -26,4 +26,3 @@
         select healthgrade from healthgrade where customerID = #{customerID}
     </select>
 </mapper>
-

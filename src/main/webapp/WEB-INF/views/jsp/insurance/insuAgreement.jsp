@@ -64,7 +64,7 @@
         <div class="menu">
             <nav>
                 <div class="logo">
-                    <a href="main.html">
+                    <a href="/">
                         <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
                     </a>
                 </div>

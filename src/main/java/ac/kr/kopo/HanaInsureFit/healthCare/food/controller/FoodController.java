@@ -1,10 +1,7 @@
 package ac.kr.kopo.HanaInsureFit.healthCare.food.controller;
 
 import ac.kr.kopo.HanaInsureFit.healthCare.food.service.FoodService;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.Food;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.dataForDiet;
+import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,17 +46,30 @@ public class FoodController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @ResponseBody
+    @PostMapping(value = "/weightManage")
+    public TargetIngre getTargetIngre(@RequestParam("customerID") String customerID) {
+        System.out.println("Controller 여까지옴"  + customerID);
+        TargetIngre targetIngre = foodService.getTargetIngre(customerID);
+        if (targetIngre != null) {
+            return targetIngre;
+        } else {
+            return null;
+        }
+    }
+
+
     @SneakyThrows
     @ResponseBody
     @PostMapping(value = "/insertDiet")
     public ResponseEntity<String> insertCustomerDiet(@RequestBody dataForDiet data) {
         System.out.println("여까지 진입 라고 할뻔 진입 못함 진입 못함 이슈 잠시대기 ");
-        System.out.println(data.getId());
+
         System.out.println(data.getFoodID());
 
+        String customerID = data.getCustomerID();
         String foodID = data.getFoodID();
-        String customerID = data.getId();
-
         double amountPerOnce = data.getAmountPerOnce();
         double weightInput = data.getWeightInput();
         int mealCode = (int) data.getMealCode(); // int로 형변환
@@ -67,8 +77,6 @@ public class FoodController {
         double calories = data.getCalories();
         double protein = data.getProtein();
         double fat = data.getFat();
-
-
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("foodID", foodID);
         paramMap.put("customerID", customerID);
@@ -88,7 +96,6 @@ public class FoodController {
         responseData.put("foodNames", foodNames);
         responseData.put("ingredients", ingredients);
         // 응답 데이터 생성
-
         System.out.println("foodNames: " + responseData.get("foodNames"));
         System.out.println("ingredients: " + responseData.get("ingredients"));
         ObjectMapper objectMapper = new ObjectMapper();
@@ -97,6 +104,5 @@ public class FoodController {
 // ResponseEntity를 사용하여 JSON 형식으로 응답
         return ResponseEntity.ok().body(json);
         // ResponseEntity를 사용하여 JSON 형식으로 응답
-
     }
 }

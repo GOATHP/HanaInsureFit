@@ -2,19 +2,55 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ac.kr.kopo.HanaInsureFit.member.dao.MemberMapper">
+<mapper namespace="ac.kr.kopo.HanaInsureFit.insurance.dao.InsuMapper">
     <!-- 회원 전체 조회 -->
-    <select id="getAllInsu" resultType="ac.kr.kopo.HanaInsureFit.member.vo.Insurance">
+    <select id="getAllInsu" resultType="ac.kr.kopo.HanaInsureFit.insurance.vo.Insurance">
         SELECT *
         FROM GradeInsurance
     </select>
     <!-- 로그인 -->
-    <select id="getOneInsu" parameterType="String" resultType="ac.kr.kopo.HanaInsureFit.member.vo.Insurance">
+    <select id="getOneInsu" resultType="ac.kr.kopo.HanaInsureFit.insurance.vo.Insurance">
         SELECT *
         FROM GradeInsurance
         where insuranceProductNumber = #{insuranceProductNumber}
-
     </select>
 
-</mapper>
 
+    <insert id="insertInsu" parameterType="HashMap">
+        INSERT INTO customerInusMapping (CUSTOMERID, INSURANCESTARTDATE, INSURANCEENDDATE, INSURANCEPRODUCTNUMBER)
+        VALUES (
+                   #{customerID},
+                   TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
+                   TO_CHAR(ADD_MONTHS(SYSDATE, 12 * 20), 'YYYY-MM-DD'),
+                   #{insuranceProductNumber}
+               )
+    </insert>
+
+    <select id="insuByCustID" parameterType="String" resultType="ac.kr.kopo.HanaInsureFit.insurance.vo.insuNum">
+        select INSURANCEPRODUCTNUMBER
+        from customerInusMapping
+        where customerid = #{customerID}
+    </select>
+
+
+<select id="insuByCustIDList" resultType="ac.kr.kopo.HanaInsureFit.insurance.vo.insuByCustID">
+    SELECT
+    a.INSURANCEPRODUCTNUMBER,
+    a.INSURANCECOMPANYCODE,
+    a.INSURANCEPRODUCTNAME,
+    a.INSURANCEFEE,
+    a.INSURANCECOMPANYNAME,
+    a.INSUCONTENT,
+    a.MINAGEATREGISTRATION,
+    a.MAXAGEATREGISTRATION,
+    b.CUSTOMERID,
+    b.INSURANCESTARTDATE,
+    b.INSURANCEENDDATE
+    FROM
+    GradeInsurance a
+    JOIN
+    customerInusMapping b
+    ON
+    a.INSURANCEPRODUCTNUMBER = #{insuranceProductNumber}
+</select>
+</mapper>

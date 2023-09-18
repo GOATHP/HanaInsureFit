@@ -1,7 +1,12 @@
+<%@ page import="ac.kr.kopo.HanaInsureFit.insurance.vo.Insurance" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
+<%
+    String insuranceProductNumber = request.getParameter("insuranceProductNumber");
+
+%>
 
 <head>
     <meta charset="UTF-8">
@@ -20,6 +25,27 @@
         document.getElementById('gradeRegistration').style.display = 'block';
         document.getElementById('gradeCalculation').style.display = 'none';
     }
+</script>
+<script>
+    // 페이지 로드 시 실행되는 함수
+    window.onload = function () {
+        // insuranceProductNumber 변수 값을 JavaScript로 가져옵니다.
+        var insuranceProductNumber = '<%= request.getParameter("insuranceProductNumber") %>';
+        console.log(insuranceProductNumber)
+        // Ajax 요청을 사용하여 컨트롤러로 변수를 전달합니다.
+        $.ajax({
+            type: "POST", // 또는 "POST" 요청을 사용하실 수도 있습니다.
+            url: "/Insusearching", // 컨트롤러의 엔드포인트 URL
+            data: {
+                input: insuranceProductNumber
+            },
+            success: function (data) {
+            },
+            error: function () {
+                // Ajax 요청이 실패한 경우 처리할 코드를 작성합니다.
+            }
+        });
+    };
 </script>
 
 <body>
@@ -47,6 +73,7 @@
                 <%
                     String name = (String) session.getAttribute("name");
                     String customerID = (String) session.getAttribute("customerID");
+                    String insuranceProductName = (String) session.getAttribute("insuranceProductName");
                     if (name != null) {
                 %>
                 <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
@@ -64,7 +91,7 @@
         <div class="menu">
             <nav>
                 <div class="logo">
-                    <a href="main.html">
+                    <a href="/">
                         <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
                     </a>
                 </div>
@@ -112,11 +139,13 @@
 
                 <div class="rightArea3">
                     <div class="centerAlign">
+
                         하나 Grade 건강보험 가입
                     </div>
                     <div class="gradeInsurance">
+
                         하나InsureFit<br>
-                        무배당 하나 Grade 건강보험(다이렉트)<br>
+                        <%=insuranceProductName %><br>
                         보험사 : 하나InsureFit<br>
                         가입나이 : 19~60세<br>
                         납입방법 : 보장(담보)총3종, 80세만기, 20년납, 순수보장형, 해지환급금이 없는 유형<br>
@@ -137,6 +166,7 @@
     <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
         Hana TI 2019. ALL RIGHT RESERVE</div>
 </footer>
+
 <script>
     function loginFormFunc() {
         console.log("꿀");

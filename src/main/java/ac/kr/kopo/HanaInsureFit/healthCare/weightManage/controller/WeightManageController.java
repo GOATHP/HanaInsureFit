@@ -19,11 +19,11 @@ public class WeightManageController {
     @Autowired
     private WeightManageService WeightManageService;
 
-    @PostMapping("/weightManage")
+    @PostMapping("/weig2htManage")
     public ResponseEntity<Object> weightManage(@RequestBody HashMap<String, String> data, HttpServletRequest request) {
-        String id = data.get("id");
-        System.out.println("Controller 여까지옴"  + id);
-        WeightManage weightManage = WeightManageService.getInfo(id);
+        String customerID = data.get("customerID");
+        System.out.println("Controller 여까지옴"  + customerID);
+        WeightManage weightManage = WeightManageService.getInfo(customerID);
         System.out.println("=> 객체 이름" + weightManage.getName());
 
 

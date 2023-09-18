@@ -13,7 +13,7 @@ public class dataForDiet {
     private String foodID;
     private static long nextDietID = 1;
     private double weightInput;
-    private String id;
+    private String customerID;
     double amountPerOnce;
     private int mealCode;
     private double calories;

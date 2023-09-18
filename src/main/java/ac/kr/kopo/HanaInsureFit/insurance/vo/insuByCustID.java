@@ -9,7 +9,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class Insurance {
+public class insuByCustID {
     private int insuranceProductNumber;
     private int insuranceCompanyCode;
     private String insuranceProductName;
@@ -18,8 +18,10 @@ public class Insurance {
     private String insuContent;
     private int minAgeAtRegistration;
     private int maxAgeAtRegistration;
+    private String customerID;
+    private String insuranceStartDate;
+    private String insuranceEndDate;
 
-    public Insurance(){
-
+    public insuByCustID(){
     }
 }

@@ -11,6 +11,88 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <script>
+    $(document).ready(function () {
+        // AllInsusearching 요청을 보내고 서버로부터 보험 정보를 받아옵니다.
+        $.ajax({
+            type: "POST",  // HTTP GET 요청
+            url: "/AllInsusearching",  // 서버 측 URL
+            dataType: "json",  // 응답 데이터 타입은 JSON
+            success: function (response) {
+                // 서버로부터 받은 데이터를 처리합니다.
+                if (response.status === "success") {
+                    console.log("데이터 불러오기 성공")
+                    // 보험 정보를 화면에 출력하거나 다른 처리를 수행합니다.
+                    var insuList = response.data;
+                    var insuranceData = [];
+
+                    for (var i = 0; i < insuList.length; i++) {
+                        var insurance = insuList[i];
+                        var insuranceObj = {
+                            insuContent: insurance.insuContent,
+                            insuranceCompanyCode: insurance.insuranceCompanyCode,
+                            insuranceCompanyName: insurance.insuranceCompanyName,
+                            insuranceFee: insurance.insuranceFee,
+                            insuranceProductName: insurance.insuranceProductName,
+                            insuranceProductNumber: insurance.insuranceProductNumber,
+                            maxAgeAtRegistration: insurance.maxAgeAtRegistration,
+                            minAgeAtRegistration: insurance.minAgeAtRegistration
+                        };
+                        insuranceData.push(insuranceObj);
+                    }
+
+                    // 데이터를 테이블에 추가
+                    appendInsuranceDataToTable(insuranceData);
+                } else {
+                    console.log("데이터 불러오기 실패")
+                    console.error(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("서버 오류: " + error);
+            }
+        });
+    });
+
+    // 보험 정보를 테이블에 추가하는 함수
+    function appendInsuranceDataToTable(insuranceData) {
+        // 테이블의 tbody 요소를 가져옵니다. 여기에 데이터를 추가할 것입니다.
+        var tbody = $("#insuranceTable tbody");
+
+
+        var headerRow = $("<tr class='insuHeader'>");
+        headerRow.append("<th>보험 번호</th>");
+        headerRow.append("<th>회사명</th>");
+        headerRow.append("<th>보험 상품명</th>");
+        headerRow.append("<th>보험 내용</th>");
+        headerRow.append("<th>가입 연령</th>");
+        headerRow.append("<th>보험료</th>");
+        tbody.append(headerRow);
+
+        // insuranceData 배열을 순회하면서 각 보험 정보를 테이블에 추가합니다.
+        for (var i = 0; i < insuranceData.length; i++) {
+            var insurance = insuranceData[i];
+
+            // 새로운 행(tr) 요소를 생성합니다.
+            var newRow = $("<tr class='insuContent'>");
+
+            // 보험 정보를 새로운 셀(td)에 추가합니다.
+            newRow.append("<td><a href='/insuJoin?insuranceProductNumber=" + insurance.insuranceProductNumber + "'>" + insurance.insuranceProductNumber + "</a></td>");
+            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceCompanyName + "</a></td>");
+            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceProductName + "</a></td>");
+            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuContent + "</a></td>");
+            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.minAgeAtRegistration + "세 ~ " +
+                insurance.maxAgeAtRegistration + "세</a></td>");
+            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceFee + "원(월)</a></td>");
+            tbody.append(newRow);
+        }
+    }
+    function redirectToInsuJoin(insuranceProductNumber) {
+        // You can perform any desired actions here before redirecting
+        // Redirect to the '/insuJoin' page with the insurance product number as a query parameter
+        window.location.href = '/insuJoin?productNumber=' + insurance.insuranceProductNumber;
+    }
+</script>
+<script>
     function showGradeCalculation() {
         document.getElementById('gradeCalculation').style.display = 'block';
         document.getElementById('gradeRegistration').style.display = 'none';
@@ -49,13 +131,17 @@
                     String customerID = (String) session.getAttribute("customerID");
                     if (name != null) {
                 %>
-                <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
+                <li>
+                    <div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div>
+                </li>
                 <li><a href="javascript:void(0);" onclick="logout();">로그아웃</a></li>
                 <%
                 } else {
                 %>
                 <li class="item"><a href="/joinMember">회원가입</a></li>
-                <li class="item"><div class="loginButton">로그인</div></li>
+                <li class="item">
+                    <div class="loginButton">로그인</div>
+                </li>
                 <%
                     }
                 %>
@@ -64,7 +150,7 @@
         <div class="menu">
             <nav>
                 <div class="logo">
-                    <a href="main.html">
+                    <a href="/">
                         <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
                     </a>
                 </div>
@@ -123,46 +209,10 @@
                         건강등급 보험 목록
                     </div>
                     <div id="gradeCalculation">
-                        <table>
-                            <tr>
-                                <th>
-                                    <a href="/insuJoin">
-                                        <img class="insuComLogo" src="https://www.hanafn.com:8002/assets/img/ko/info/img-hana-symbol.png">
-                                        하나손해보험
-                                    </a>
-                                </th>
-                                <td>
-                                    <a href="/insuJoin">
-                                        (무)하나 Grade 건강보험(다이렉트)
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="/insuJoin">
-                                        70,000원/월
-                                    </a>
-                                </td>
-                            </tr>
+                        <table id="insuranceTable">
+                            <tbody>
 
-                            <tr>
-                                <th><img class="insuComLogoLotte1"
-                                         src="data:image/jpeg;base64,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">
-                                    MG손해보험
-                                </th>
-                                <td>(무)다이렉트DIY마이플랜종합보험
-                                </td>
-                                <td>70,000원/월
-                                </td>
-                            </tr>
-                            <tr>
-                                <th><img class="insuComLogoLotte2"
-                                         src="https://cdn.kbanker.co.kr/news/photo/202303/208721_57181_750.jpg">
-                                    ABL생명
-                                </th>
-                                <td>(무)ABL건강하면THE소중한종신보험(해약환급금 일부지급형)
-                                </td>
-                                <td>70,000원/월
-                                </td>
-                            </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -172,7 +222,8 @@
 </div>
 <footer id="footer">
     <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
-        Hana TI 2019. ALL RIGHT RESERVE</div>
+        Hana TI 2019. ALL RIGHT RESERVE
+    </div>
 </footer>
 <script>
     function loginFormFunc() {
@@ -207,6 +258,7 @@
             }
         });
     }
+
     function logout() {
         $.ajax({
             type: "POST",

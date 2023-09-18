@@ -18,17 +18,26 @@
     <link rel="stylesheet" href="resources/static/css/chartStyle.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <script>
 
+    <script>
+         <%
+         String name = (String) session.getAttribute("name");
+         String customerID = (String) session.getAttribute("customerID");
+         %>
+         var customerID = "<%=(String) session.getAttribute("customerID")%>";
+         console.log(customerID);
+
+    </script>
+    <script>
+        var barChartCalories;
+        var foodData;
         var foodID;
         var dataForServer;
         var weight;
         var amountPerOnce;
+
         // 검색창
-
         $(document).ready(function () {
-
-
                 $('.search-box').on('input', function () {
 
                 var input = $('.search-box').val();
@@ -84,49 +93,104 @@
                     selectedFoodInfo = foodData;
                     amountPerOnce = foodData.amountPerOnce;
                     foodID = foodData.foodID;
+
+                    // 기존 테이블 삭제
                     var foodInfo = document.getElementById('foodInfo');
-                    foodInfo.textContent = ' | 식품명=>: ' + foodData.foodName +' | 탄수화물=>: ' +  foodData.carbs + '\t' +
-                                            ' | 지방=>: ' + foodData.fat + ' | 단백질=>: '+ foodData.protein + '\t' +
-                                            ' | 칼로리=>: ' + foodData.calories + ' | 1회 제공량=>:'+ foodData.amountPerOnce;
+                    while (foodInfo.firstChild) {
+                        foodInfo.removeChild(foodInfo.firstChild);
+                    }
+
+                    var table = document.createElement("table");
+
+                    var rows = [
+                        { label: "식품명 : ", value: foodData.foodName },
+                        { label: "탄수화물 : ", value: foodData.carbs },
+                        { label: "지방 : ", value: foodData.fat },
+                        { label: "단백질 : ", value: foodData.protein },
+                        { label: "칼로리 : ", value: foodData.calories },
+                        { label: "1회 제공량 : ", value: foodData.amountPerOnce }
+                    ];
+
+                    // 테이블 데이터 동적 생성 및 추가
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = document.createElement("tr");
+
+                        var labelCell = document.createElement("td");
+                        labelCell.textContent = rows[i].label;
+
+                        var valueCell = document.createElement("td");
+                        valueCell.textContent = rows[i].value;
+
+                        row.appendChild(labelCell);
+                        row.appendChild(valueCell);
+
+                        table.appendChild(row);
+                    }
+
+                    foodInfo.appendChild(table);
 
                     weight = document.getElementById('weightInput');
                     weight.textContent = foodData.amountPerOnce;
-                    },
+                },
 
                 error: function () {
                     console.log("Error occurred.");
                 },
             });
-
         }
 
-        var id = customerID;
-        var weightManageArray = []
-        function sendAddressInfoToServer(id) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/weightManage", true);
-            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-            var data = JSON.stringify({ id: id });
-            console.log(id);
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // 서버로부터 응답을 받았을 때 처리할 로직
-                    console.log("Data sent successfully!");
-                    var response = JSON.parse(xhr.responseText);
+        var weightManageArray = [];
+
+        function sendAddressInfoToServer(customerID) {
+            $.ajax({
+                type: "POST",
+                url: "/weightManage?customerID=" + customerID, // 'customerID'를 URL 파라미터로 보냄
+                success: function (response) {
                     console.log("Data received from server:", response);
 
                     weightManageArray.push(response);
                     var currentCaloriesElement = document.getElementById("goalCalories");
-                    currentCaloriesElement.textContent = weightManageArray[0].goalCal + "kcal";
-                    dailyRecommendedCalories = weightManageArray[0].goalCal;
+                    currentCaloriesElement.textContent = weightManageArray[0].calories + "kcal";
+                    dailyRecommendedCalories = weightManageArray[0].calories;
+                },
+                error: function (xhr, status, error) {
+                    console.error("Request failed with status:", status, error);
                 }
-            };
-            xhr.send(data);
+            });
         }
+        sendAddressInfoToServer(customerID);
 
-        sendAddressInfoToServer(id);
+        // function sendAddressInfoToServer(customerID) {
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.open("POST", "/weightManage", true);
+        //     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        //
+        //     var data = JSON.stringify({ customerID: customerID });
+        //
+        //     xhr.onreadystatechange = function () {
+        //         if (xhr.readyState === 4) {
+        //             if (xhr.status === 200) {
+        //                 try {
+        //                     var response = JSON.parse(xhr.responseText);
+        //                     console.log("Data received from server:", response);
+        //
+        //                     weightManageArray.push(response);
+        //                     var currentCaloriesElement = document.getElementById("goalCalories");
+        //                     currentCaloriesElement.textContent = weightManageArray[0].goalCal + "kcal";
+        //                     dailyRecommendedCalories = weightManageArray[0].goalCal;
+        //                 } catch (error) {
+        //                     console.error("Error parsing JSON response:", error);
+        //                 }
+        //             } else {
+        //                 console.error("Request failed with status:", xhr.status, xhr.statusText);
+        //             }
+        //         }
+        //     };
+        //
+        //     xhr.send(data);
+        // }
     </script>
 
     <script>
@@ -154,7 +218,6 @@
         var totalProtein = 0;
         var caloriesDesc, fatDesc, carbsDesc, proteinDesc;
 
-
          // 하루 섭취 권장 칼로리
         var currentCalories = 0; // 현재 섭취한 칼로리
         var caloriesPercentage = (0 / dailyRecommendedCalories) * 100; // 섭취한 칼로리의 백분율
@@ -170,10 +233,6 @@
             myBarChart.update();
         }
         function addMeal() {
-            var totalCalories = 0;
-            var totalFat = 0;
-            var totalCarbs = 0;
-            var totalProtein = 0;
 
             var mealTypeRadios = document.getElementsByName('mealType');
             var selectedMealType;
@@ -186,7 +245,6 @@
             var mealCode;
 
             weightInput = document.getElementById('weightInput').value;
-
 
             var mealSection;
             var mealCircle;
@@ -208,48 +266,34 @@
                 var selectedFoodInfo = foodData // 수정된 부분
                 console.log(foodData)
                 console.log(selectedFoodInfo)
-                var foodEntry = selectedFoodInfo.foodName + ' (' + weightInput + 'g)'; // 수정된 부분
-                console.log(foodEntry)
-                if (mealSection.innerHTML.trim() !== '') {
-                    mealSection.innerHTML += ', ';
-                }
-
-                mealSection.innerHTML += foodEntry;
-
 
                 mealKcal = parseInt(mealCircle.textContent);
 
-                totalCalories += (selectedFoodInfo.calories / selectedFoodInfo.amountPerOnce) * parseInt(weightInput);
+                totalCalories = (selectedFoodInfo.calories / selectedFoodInfo.amountPerOnce) * parseInt(weightInput);
                 mealKcal = (selectedFoodInfo.calories / selectedFoodInfo.amountPerOnce) * parseInt(weightInput);
                 mealCircle.innerHTML = totalCalories.toFixed(0);
                 mealKcal = 0;
-                totalFat += (selectedFoodInfo.fat / selectedFoodInfo.amountPerOnce) * (parseInt(weightInput));
-                totalCarbs += (selectedFoodInfo.carbs / selectedFoodInfo.amountPerOnce) * (parseInt(weightInput));
-                totalProtein += (selectedFoodInfo.protein / selectedFoodInfo.amountPerOnce) * (parseInt(weightInput));
+                totalFat = (selectedFoodInfo.fat / selectedFoodInfo.amountPerOnce) * (parseInt(weightInput));
+                totalCarbs = (selectedFoodInfo.carbs / selectedFoodInfo.amountPerOnce) * (parseInt(weightInput));
+                totalProtein = (selectedFoodInfo.protein / selectedFoodInfo.amountPerOnce) * (parseInt(weightInput));
 
                 currentCalories = totalCalories; // 현재 섭취한 칼로리
                 caloriesPercentage = (currentCalories / dailyRecommendedCalories) * 100; // 섭취한 칼로리의 백분율
-
-
                 document.getElementById('currentCalories').textContent = currentCalories.toFixed(1);
                 document.getElementById('caloriesPercentage').textContent = caloriesPercentage.toFixed(1) + '%';
-
-
             }
-            updateGraph();
-            updateChart();
 
             dataForServer = {
                 foodID: foodID,
                 amountPerOnce: weightInput,
-                id: id,
+                customerID: customerID,
                 mealCode: mealCode,
                 calories: totalCalories.toFixed(0),
                 fat: totalFat.toFixed(0),
                 carbs: totalCarbs.toFixed(0),
                 protein: totalProtein.toFixed(0)
             };
-
+            console.log("데이터 확인 =>" + dataForServer);
             $.ajax({
                 url: '/insertDiet', // 식사 정보를 등록하는 서버 엔드포인트 URL로 변경해야 합니다.
                 type: 'POST', // POST 요청 사용
@@ -257,15 +301,30 @@
                 contentType: 'application/json',
                 success: function (response) {
                     var jsonResponse = JSON.parse(response);
-
 // foodNames 속성이 어떤 구조를 가지고 있는지 확인합니다.
                     console.log(jsonResponse.foodNames);
+                    console.log(jsonResponse.ingredients);
                     var foodNames = jsonResponse.foodNames;
                     var ingredients = jsonResponse.ingredients;
-                    var total_calories = ingredients[2].total_calories + ingredients[1].total_calories + ingredients[0].total_calories;
-                    var total_carbs = ingredients[2].total_carbs + ingredients[1].total_carbs + ingredients[0].total_carbs;
-                    var total_fat = ingredients[2].total_fat + ingredients[1].total_fat + ingredients[0].total_fat;
-                    var total_protein = ingredients[2].total_protein + ingredients[1].total_protein + ingredients[0].total_protein;
+
+                    var total_calories = 0;
+                    var total_carbs = 0;
+                    var total_fat = 0;
+                    var total_protein = 0;
+                    console.log("영양소" +  ingredients);
+                    for (var i = 0; i < ingredients.length; i++) {
+                        if (ingredients[i] !== null) { // null 체크
+                            total_calories += ingredients[i].total_calories || 0; // null이나 undefined인 경우 0으로 처리
+                            total_carbs += ingredients[i].total_carbs || 0;
+                            total_fat += ingredients[i].total_fat || 0;
+                            total_protein += ingredients[i].total_protein || 0;
+                        }
+                    }
+                    console.log("Total Calories: " + total_calories);
+                    console.log("Total Carbs: " + total_carbs);
+                    console.log("Total Fat: " + total_fat);
+                    console.log("Total Protein: " + total_protein);
+                    barChartCalories = total_calories;
                     // foodNames 출력
                     console.log('foodNames:');
                     for (var i = 0; i < foodNames.length; i++) {
@@ -273,8 +332,6 @@
                         console.log('Meal Code: ' + foodNames[i].mealCode);
                         var foodInfo = foodNames[i];
                         var foodEntry = foodInfo.foodName;
-
-
                         if (foodInfo.mealCode === 0) {
                             morningSection = document.querySelector('.section:nth-child(1) .ateFood');
                             morningCircle= document.querySelector('.section:nth-child(1) .circle');
@@ -284,7 +341,8 @@
                             }
 
                             morningSection.innerHTML += foodEntry;
-                            morningCircle.innerHTML = ingredients[0].total_calories;
+                            morningCircle.innerHTML = ingredients.find(ingredient => ingredient.mealCode === foodInfo.mealCode)?.total_calories;
+
                         } else if (foodInfo.mealCode === 1) {
                             lunchSection = document.querySelector('.section:nth-child(2) .ateFood');
                             lunchCircle= document.querySelector('.section:nth-child(2) .circle');
@@ -293,7 +351,7 @@
                                 mealCircle.innerHTML = totalCalories.toFixed(0);
                             }
                             lunchSection.innerHTML += foodEntry;
-                            lunchCircle.innerHTML = ingredients[1].total_calories;
+                            lunchCircle.innerHTML = ingredients.find(ingredient => ingredient.mealCode === foodInfo.mealCode)?.total_calories;
                         } else if (foodInfo.mealCode === 2) {
                             dinnerSection = document.querySelector('.section:nth-child(3) .ateFood');
                             dinnerCircle= document.querySelector('.section:nth-child(3) .circle');
@@ -301,25 +359,25 @@
                                 dinnerSection.innerHTML += ', ';
                             }
                             dinnerSection.innerHTML += foodEntry;
-                            dinnerCircle.innerHTML = ingredients[2].total_calories;
+                            dinnerCircle.innerHTML = ingredients.find(ingredient => ingredient.mealCode === foodInfo.mealCode)?.total_calories;
                         }
-
                     }
-
-
                     // ingredients 출력
                     console.log("총지방 => " + total_fat);
 
+                    console.log("총 칼로리" + barChartCalories);
                     document.getElementById('currentCalories').textContent = total_calories;
-                    caloriesPercentage = (total_calories / weightManageArray[0].goalCal) * 100; // 섭취한 칼로리의 백분율
+                    caloriesPercentage = (total_calories / weightManageArray[0].calories) * 100; // 섭취한 칼로리의 백분율
                     document.getElementById('caloriesPercentage').textContent = caloriesPercentage.toFixed(1) + '%';
 
+                    console.log("칼로리퍼센트" + caloriesPercentage);
+                    setHeartClass(caloriesPercentage);
                     // 추가적인 로직 또는 UI 업데이트를 여기에 추가할 수 있습니다.const ctx = document.getElementById('myChart').getContext('2d');
                     const ctx = document.getElementById('bar-chart-calories').getContext('2d');
                     const myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: ['Red'],
+                            labels: ['Kcal'],
                             datasets: [{
                                 label: '칼로리 총합',
                                 data: [total_calories],
@@ -354,7 +412,7 @@
                     const myChart2 = new Chart(ctx2, {
                         type: 'bar',
                         data: {
-                            labels: ['Red'],
+                            labels: ['g'],
                             datasets: [{
                                 label: '탄수화물 총합',
                                 data: [total_carbs],
@@ -389,7 +447,7 @@
                     const myChart3 = new Chart(ctx3, {
                         type: 'bar',
                         data: {
-                            labels: ['Red'],
+                            labels: ['g'],
                             datasets: [{
                                 label: '단백질 총합',
                                 data: [total_protein],
@@ -455,7 +513,8 @@
                             }
                         }
                     });
-                },
+                    updateChart();
+                    },
                 error: function (error) {
                     // 등록 중 오류가 발생한 경우에 수행할 동작
                     console.log(dataForServer);
@@ -466,6 +525,7 @@
                 },
 
             });
+
         }
 
         function selectFood(food) {
@@ -527,28 +587,40 @@
             carbsEm.textContent = totalCarbs.toFixed(0);
             proteinEm.textContent = totalProtein.toFixed(0);
         }
-
-
-
     </script>
     <script>
-        function sendFoodInfoToServer(selectedFoodInfo, id) {
+        function sendFoodInfoToServer(selectedFoodInfo, customerID) {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/insertFood", true);
             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
             var data = {
                 selectedFoodInfo: selectedFoodInfo,
-                id: id
+                customerID : customerID
             };
             var jsonData = JSON.stringify(data);
-
             console.log(selectedFoodInfo);
         }
 
     </script>
-
+    <script>
+        function setHeartClass(caloriesPercentage) {
+            const heart = document.querySelector('.heart');
+// Remove existing classes
+            console.log(caloriesPercentage);
+            if (caloriesPercentage <= 25) {
+                heart.src = "resources/static/image/heart_25.png";
+            } else if (caloriesPercentage <= 50) {
+                heart.src = "resources/static/image/heart_half.png";
+            } else if (caloriesPercentage <= 75) {
+                heart.src = "resources/static/image/heart_75.png";
+            } else {
+                heart.src = "resources/static/image/heart_full.png";
+            }
+        }
+    </script>
 </head>
 <body>
+
 <header>
     <div class="navAll">
         <div class="upper">
@@ -569,10 +641,9 @@
                     </a>
                 </li>
             </ul>
+
             <ul class="link_crfix">
                 <%
-                    String name = (String) session.getAttribute("name");
-                    String customerID = (String) session.getAttribute("customerID");
                     if (name != null) {
                 %>
                 <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
@@ -591,6 +662,7 @@
             <nav>
                 <div class="logo">
                     <a href="/">
+
                         <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
                     </a>
                 </div>
@@ -622,13 +694,12 @@
             <div class="calManageMoongoo">내 칼로리 관리</div>
             <div class="image-row">
                 <div class="image-column">
-                    <div class="heart">
-                        <canvas id="heartCanvas" width="100" height="100"></canvas>
-                        <p class="imageWord1">
+                    <img class="heart" src="resources/static/image/heart_25.png" alt="Heart Image">
 
-                            <%=name%>님 칼로리하트
-                        </p>
-                    </div>
+                    <br>
+                    <p class="imageWord1">
+                        <%=name%>님 칼로리하트
+                    </p>
                     <div class="weightInfo">
                         <%=name%>님 안녕하세요! 체중관리(감량)을 위해서는<br>
                         오늘 하루 <div class="calories" id="goalCalories">2238</div>를 드셔야 합니다! <br>
@@ -710,12 +781,12 @@
                     <div class="foodColName">
                         <label for="foodInput">음식 검색:</label>
                     </div>
-<%--                    <input type="text" id="foodInput" name="foodInput" placeholder="음식을 검색하세요"--%>
-<%--                           oninput="updateFoodList(this)">--%>
 
                     <div class = "search-food">
                     <input class="search-box" type="text" placeholder="🔍 SEARCH">
-                        <div class="foodInfo" id="foodInfo"></div>
+                        <div class="foodInfo" id="foodInfo">
+
+                        </div>
                     <div class="search-result"></div>
                     <button class="search-button" onclick="handleSearch()">추가</button>
 
@@ -748,31 +819,7 @@
                     </div>
                 </div>
 
-                <div class="graphTitle">현재 섭취량</div>
-                <div class="stats_graph_box">
-                    <div class="graph">
-                        <div class="bar green"></div>
-                        <div class="bar pink"></div>
-                        <div class="bar clear"></div>
-                        <div class="bar clear"></div>
-                    </div>
-                    <dl class="desc">
-                        <dt>칼로리</dt>
-                        <dd class="green"><em id="caloriesEm">0</em> kcal</dd>
-                    </dl>
-                    <dl class="desc">
-                        <dt>지방</dt>
-                        <dd class="pink"><em id="fatEm">0</em> g</dd>
-                    </dl>
-                    <dl class="desc">
-                        <dt>탄수화물</dt>
-                        <dd class="clear"><em id="carbsEm">0</em> g</dd>
-                    </dl>
-                    <dl class="desc">
-                        <dt>단백질</dt>
-                        <dd class="clear"><em id="proteinEm">0</em> g</dd>
-                    </dl>
-                </div>
+
             </div>
     </div>
     </main>
@@ -784,21 +831,23 @@
         Hana TI 2019. ALL RIGHT RESERVE</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
     var ctx = document.getElementById('caloriesChart').getContext('2d');
     var currentDate = new Date();
     var labels = [];
-    for (var i = 4; i >= 0; i--) {
+    for (var i = 6; i >= 0; i--) {
         var date = new Date(currentDate);
         date.setDate(currentDate.getDate() - i);
         var formattedDate = (date.getMonth() + 1) + '/' + date.getDate(); // 월은 0부터 시작하므로 1을 더해줌
         labels.push(formattedDate);
     }
+
     var data = {
         labels: labels, // 날짜 데이터 (예시)
         datasets: [{
             label: '하루 총 칼로리',
-            data: [2000, 2000, 1800, 2800, totalCalories], // 하루 총 칼로리 데이터 (예시)
+            data: [2000, 2000, 1800, 2800, 0], // 하루 총 칼로리 데이터 (예시)
             backgroundColor: '#00857E',
             barThickness: 20,
         }]
@@ -812,59 +861,61 @@
             },
         },
     };
-
     var myBarChart = new Chart(ctx, {
         type: 'bar',
         data: data,
         options: options
     });
-
     // totalCalories 값이 변경되었을 때 차트 데이터 업데이트 및 재렌더링
     function updateChart() {
-        data.datasets[0].data[4] = totalCalories;
+        console.log("데이터 확인" + barChartCalories);
+        // for (var i = 0; i < barChartCalories.length; i++) {
+        //     if (ingredients[i] !== null) { // null 체크
+        //         total_calories += barChartCalories[i].total_calories || 0; // null이나 undefined인 경우 0으로 처리
+        //         total_carbs += barChartCalories[i].total_carbs || 0;
+        //         total_fat += barChartCalories[i].total_fat || 0;
+        //         total_protein += barChartCalories[i].total_protein || 0;
+        //     }
+        data.datasets[0].data[4] = barChartCalories;
         myBarChart.update();
     }
 
-    var canvas = document.getElementById('heartCanvas');
-    var ctx = canvas.getContext('2d');
+    // var canvas = document.getElementById('heartCanvas');
+    // var ctx = canvas.getContext('2d');
 
     var currentCalories = 0;
-    var dailyRecommendedCalories = 2238;
+    var dailyRecommendedCalories = weightManageArray[0].calories;
 
     // Update currentCalories value (you need to get this value from your existing logic)
     // For demonstration purposes, let's set it to a random value between 0 and dailyRecommendedCalories
     currentCalories = Math.floor(Math.random() * dailyRecommendedCalories);
-
-    var caloriesPercentage = (currentCalories / dailyRecommendedCalories) * 100;
-
-    // Draw heart outline
-    ctx.beginPath();
-    ctx.moveTo(75, 40);
-    ctx.bezierCurveTo(75, 37, 70, 25, 50, 25);
-    ctx.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
-    ctx.bezierCurveTo(20, 80, 40, 102, 75, 120);
-    ctx.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
-    ctx.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
-    ctx.bezierCurveTo(85, 25, 75, 37, 75, 40);
-    ctx.fillStyle = 'white';
-    ctx.fill();
-    ctx.strokeStyle = 'black';
-    ctx.stroke();
-
-    // Draw filled portion of the heart
-    ctx.beginPath();
-    ctx.moveTo(75, 40);
-    ctx.bezierCurveTo(75, 37, 70, 25, 50, 25);
-    ctx.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
-    ctx.bezierCurveTo(20, 80, 40, 102, 75, 120);
-    ctx.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
-    ctx.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
-    ctx.bezierCurveTo(85, 25, 75, 37, 75, 40);
-    ctx.lineTo(75, 40 + (1 - caloriesPercentage / 100) * 80); // Calculate the y-coordinate based on the percentage
-    ctx.fillStyle = '#00857E';
-    ctx.fill();
-
-
+    // // Draw heart outline
+    // ctx.beginPath();
+    // ctx.moveTo(75, 40);
+    // ctx.bezierCurveTo(75, 37, 70, 25, 50, 25);
+    // ctx.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
+    // ctx.bezierCurveTo(20, 80, 40, 102, 75, 120);
+    // ctx.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
+    // ctx.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
+    // ctx.bezierCurveTo(85, 25, 75, 37, 75, 40);
+    // ctx.fillStyle = 'white';
+    // ctx.fill();
+    // ctx.strokeStyle = 'black';
+    // ctx.stroke();
+    //
+    // // Draw filled portion of the heart
+    // ctx.beginPath();
+    // ctx.moveTo(75, 40);
+    // ctx.bezierCurveTo(75, 37, 70, 25, 50, 25);
+    // ctx.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
+    // ctx.bezierCurveTo(20, 80, 40, 102, 75, 120);
+    // ctx.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
+    // ctx.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
+    // ctx.bezierCurveTo(85, 25, 75, 37, 75, 40);
+    // ctx.lineTo(75, 40 + (1 - caloriesPercentage / 100) * 80); // Calculate the y-coordinate based on the percentage
+    // ctx.fillStyle = '#00857E';
+    // ctx.fill();
+    //
 </script>
 <script>
     function loginFormFunc() {
@@ -918,8 +969,7 @@
             }
         });
     }
-
 </script>
-</body>
 
+</body>
 </html>

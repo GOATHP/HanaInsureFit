@@ -4,6 +4,7 @@ import ac.kr.kopo.HanaInsureFit.healthCare.food.dao.FoodMapper;
 import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.Food;
 import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients;
 import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames;
+import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.TargetIngre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,7 +100,6 @@ public class FoodServiceImpl implements FoodService {
 
         foodMapper.insertFoodDietMapping(paramMap);
     }
-
     public int checkDuplicate(Map<String, Object> paramMap) {
         return foodMapper.checkDuplicate(paramMap);
     }
@@ -112,13 +112,18 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.getIngredients();
     }
 
+    @Override
+    public TargetIngre getTargetIngre(String customerID) {
+        return foodMapper.getTargetIngre(customerID);
+    }
+
     public List<FoodNames> getFoodNames(){
         return foodMapper.getFoodNames();
     }
 
     @Override
     public void insertCustomerDiet(Map<String, Object> paramMap) {
-
+        System.out.println(paramMap);
         int duplicateCount = foodMapper.checkDuplicate(paramMap);
         if (duplicateCount == 0) {
             foodMapper.insertCustomerDiet(paramMap);

@@ -30,7 +30,7 @@
             ON
                 c.CUSTOMERID = cti.CUSTOMERID
         WHERE
-            c.CUSTOMERID = #{id}
+            c.CUSTOMERID = #{customerID}
     </select>
 
 

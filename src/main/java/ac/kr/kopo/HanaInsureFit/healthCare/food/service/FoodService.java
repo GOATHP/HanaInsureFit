@@ -3,6 +3,7 @@ package ac.kr.kopo.HanaInsureFit.healthCare.food.service;
 import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.Food;
 import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients;
 import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames;
+import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.TargetIngre;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ public interface FoodService {
 
     List<FoodIngredients> getIngredients();
 
+
+    TargetIngre getTargetIngre(String customerID);
     List<FoodNames> getFoodNames();
     long getDietID();
 }

@@ -112,6 +112,7 @@
         </div>
     </div>
 </header>
+
 <div class="mainSideContainer">
     <div class="sideBar">
         <div class="sideBarName">
@@ -142,11 +143,8 @@
             <div class="insuInfo2">
             보험 가입 신청서
             </div>
-
             <div class="areaContainer">
-
                 <div class="rightArea5">
-
                     <div class="tableContainer">
                     <table>
                         <tr>
@@ -175,9 +173,6 @@
                             <td>
                                 <%
                                     String healthGradeText = ""; // 결과를 저장할 변수
-
-
-
                                     // 등급 계산
                                     if (healthGrade >= 1 && healthGrade <= 2) {
                                         healthGradeText = "Grade1";
@@ -266,6 +261,8 @@
                                 </td>
 
                         </table>
+                        <button id="insertInsuButton">보험 가입하기</button>
+
                     </div>
             </div>
     </div>
@@ -277,6 +274,28 @@
         Hana TI 2019. ALL RIGHT RESERVE
     </div>
 </footer>
+<script>
+    $(document).ready(function() {
+        $("#insertInsuButton").click(function(e) {
+            e.preventDefault(); // 기본 클릭 동작(페이지 이동)을 막습니다.
+
+            $.ajax({
+                type: "POST",
+                url: "/insertInsu",
+                success: function(response) {
+                    console.log("전송 성공");
+                    alert("보험 가입이 완료되었습니다.");
+
+                    window.location.href = "/";
+                },
+                error: function() {
+                    console.error("전송 실패");
+                    // 요청이 실패했을 때 실행할 코드
+                }
+            });
+        });
+    });
+</script>
 <script>
     function loginFormFunc() {
         console.log("꿀");
@@ -329,7 +348,6 @@
             }
         });
     }
-
 </script>
 <script>
     const modal = document.querySelector('.modal');
@@ -438,7 +456,6 @@
             ddElement.style.display = 'none';
         }
     }
-
     // 각 dl 요소에 클릭 이벤트 리스너를 추가합니다.
     const dlElements = document.querySelectorAll('dl');
     dlElements.forEach(dlElement => {
