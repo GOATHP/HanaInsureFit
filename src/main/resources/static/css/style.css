@@ -143,6 +143,8 @@ nav {
     display: block !important;
 }
 
+
+
 nav ul {
     list-style: none;
     margin: 0;
@@ -152,8 +154,11 @@ nav ul {
     justify-content: center;
     font-weight: 300;
     white-space: nowrap;
+}
 
-
+.welcomeMent {
+    margin-right: 20px;
+    font-size: 14px;
 }
 
 .joinTable{
@@ -219,7 +224,7 @@ div.logo img {
     line-height: inherit;
     padding-left: 0px;
     padding-bottom: 20px;
-    font-size: 12px;
+    font-size: 14px;
     color: #4d4d4d;
 }
 
@@ -238,7 +243,7 @@ div.logo img {
 .item {
     background-color: transparent;
 
-    font-size: 12px;
+    font-size: 14px;
     color: #4d4d4d;
     border: none;
     padding: 8px 16px;
@@ -373,8 +378,14 @@ footer {
     display:flex;
     margin: 30px auto;
 }
-
-
+.btn.acrobat_btn {
+    color: #555;
+    border: 1px solid #d6d6d6;
+    padding: 3px 9px 4px;
+    background: #fff;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
 
 /* main 레이아웃 재조정 */
 main {
@@ -382,7 +393,7 @@ main {
     flex-direction: column;
     align-items: center;
     margin: 20px auto;
-    margin-top:50px;
+    /*margin-top:50px;*/
     margin-right: auto;
 }
 
@@ -429,6 +440,9 @@ dl:hover {
 }
 
 .middleCon3 {
+    border-radius: 10px;
+    padding-top : 20px;
+    padding-bottom : 20px;
     display: flex;
     background-color: #ecf0f1;
     width: 100%;
@@ -702,6 +716,7 @@ footer {
     align-items: center;
     padding: 20px;
     width:1000px;
+    margin: 0 auto;
 
 }
 
@@ -716,7 +731,7 @@ footer {
 .image-column {
     text-align: center;
     padding: 10px;
-    margin: 0 80px;
+
 }
 
 .image-column img {
@@ -978,11 +993,15 @@ button {
     cursor: pointer;
     border-radius: 4px;
     display: inline-block;
-
     width: 200px;
     border-radius: 15px;
     border: 2px solid rgb(219, 36, 100);
 
+}
+
+.input__check{
+    background-color: #00857E;
+    color:white;
 }
 
 #foodInput {
@@ -1000,9 +1019,12 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .search-result{
+    display: none;
     width: 200px;
     height: 200px;
     padding: 20px;
@@ -1547,8 +1569,13 @@ fieldset {
     font-size: 12px;
     width: 100%;
     height: 130px; /* 스크롤 가능한 최대 높이를 설정하세요. */
+    padding: 10px;
 }
 
+.scrollable-content{
+    padding:10px;
+    line-height: 20px;
+}
 
 .rightArea4{
     display: block;
@@ -1557,15 +1584,25 @@ fieldset {
     height: 100%;
     padding:30px;
     text-align: center;
-
     border-radius: 25px;
     box-shadow:
             1px 1px 12px 0px rgb(0 0 0 /20%);
+}
 
+.rightArea7{
+    display: block;
+    color:#000000;
+    height: 100%;
+    padding:30px;
+    text-align: center;
+    border-radius: 25px;
+    box-shadow:
+            1px 1px 12px 0px rgb(0 0 0 /20%);
 }
 
 .rightArea5{
     display: flex;
+    flex-direction: column;
     color:#000000;
     width: 900px;
     height: 100%;
@@ -1577,12 +1614,17 @@ fieldset {
 
 }
 
+#insertInsuButton{
+    margin : 0 auto;
+    margin-top : 20px;
+}
 .rightArea6{
     display: flex;
     color:#000000;
     width: 900px;
     height: 100%;
     padding:30px;
+    padding-top:5px;
     text-align: center;
     border-radius: 25px;
     box-shadow:
@@ -1659,9 +1701,9 @@ fieldset {
 .centerAlign{
     font-size:30px;
     color:#000000;
-    margin-bottom: 40px;
+    /*margin-bottom: 40px;*/
     font-family: "NanumSquareRoundEB", sans-serif;
-
+    margin-bottom: 10px;
     padding-bottom: 20px;
     border-bottom : 1px solid #00857E;
 }
@@ -1679,7 +1721,7 @@ fieldset {
 }
 
 .insuInfo2{
-    text-align: left;
+    text-align: center;
     padding-top:20px;
     width:500px;
     font-size: 50px;
@@ -1690,9 +1732,9 @@ fieldset {
 .insuInfo3{
     margin: 0 auto;
     text-align: center;
-    padding-top:20px;
+
     width:500px;
-    font-size: 50px;
+    font-size: 30px;
     color: #000000;
     line-height: 60px;
 }
@@ -1712,10 +1754,22 @@ fieldset {
     font-weight: bold;
     font-size: 30px;
     margin: 0;
-
     margin-right: 180px;
     width: 300px;
     min-width: 300px;
+}
+
+.insuMoongoo{
+    line-height: 5px;
+    text-align: left !important;
+    color: rgba(60, 57, 57, 0.692);
+    font-weight: bold;
+    font-size: 30px;
+    margin: 0;
+    margin-right: 180px;
+    width: 300px;
+    min-width: 300px;
+    padding-left : 20px;
 }
 
 .explainInsu{
@@ -1766,6 +1820,7 @@ img.QRCode {
 }
 
 .graph-4{
+    font-size:14px;
     margin: 0 auto;
     height : 200px;
     width: 100%;
@@ -1785,7 +1840,7 @@ img.QRCode {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    padding-inline-start: 40px;
+    padding:0px;
 }
 
 .modal {
@@ -1885,3 +1940,119 @@ img.QRCode {
     margin: 0 auto;
 }
 
+.foodAdd{
+    display: flex;
+    justify-content: center;
+}
+
+.collapsible {
+    border-radius: 0px;
+    background-color: #00857E;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+}
+.active,
+.collapsible:hover {
+    background-color: #005753;
+}
+.content {
+    padding: 0 18px;
+    max-height: 0;
+    width: 980px;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+.active:after {
+
+}
+
+.text_wrap li {
+
+    margin-top: 5px;
+}
+
+.txt_dot {
+    list-style: none;
+    background: url(https://www.abllife.co.kr/resources/images/common/dot_black_2x2.png) no-repeat 0 10px;
+    padding-left: 10px;
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.tablewrap table{
+    border-top: 1px solid #cfcfcf;
+    border-right: 1px solid #cfcfcf;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.insuTable{
+    border-collapse : collapse;
+    width: 100%;
+    text-align: center;
+
+}
+
+.insuTable th{
+    border: 1px solid #001e1f;
+    border-collapse : collapse;
+    padding: 10px 5px;
+}
+
+.left{
+    border: 1px solid #001e1f;
+    border-collapse : collapse;
+    padding: 10px 5px;
+    font-size: 12px;
+}
+
+
+.insuTable td{
+    border: 1px solid #001e1f;
+    border-collapse : collapse;
+    padding: 10px 5px;
+    font-size: 12px;
+}
+
+.insuTable th{
+    background-color: #009490;
+    color:white;
+}
+
+.content ul{
+    padding-left:10px;
+}
+
+.maincontent ul{
+    padding-left:10px;
+    text-align: left;
+}
+
+.basis {
+    color: #ee3124;
+    font-size: 13px;
+    float: right;
+    text-align: right;
+    margin:10px;
+}
+
+.gradeInsurance{
+    display: flex;
+    margin : 0 auto;
+    margin : 20px;
+}

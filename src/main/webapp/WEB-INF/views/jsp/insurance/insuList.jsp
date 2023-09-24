@@ -56,7 +56,7 @@
     // 보험 정보를 테이블에 추가하는 함수
     function appendInsuranceDataToTable(insuranceData) {
         // 테이블의 tbody 요소를 가져옵니다. 여기에 데이터를 추가할 것입니다.
-        var tbody = $("#insuranceTable tbody");
+        var tbody = $("#insuTable tbody");
 
 
         var headerRow = $("<tr class='insuHeader'>");
@@ -76,13 +76,13 @@
             var newRow = $("<tr class='insuContent'>");
 
             // 보험 정보를 새로운 셀(td)에 추가합니다.
-            newRow.append("<td><a href='/insuJoin?insuranceProductNumber=" + insurance.insuranceProductNumber + "'>" + insurance.insuranceProductNumber + "</a></td>");
-            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceCompanyName + "</a></td>");
-            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceProductName + "</a></td>");
-            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuContent + "</a></td>");
-            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.minAgeAtRegistration + "세 ~ " +
+            newRow.append("<td><a href='/insuAgreement?insuranceProductNumber=" + insurance.insuranceProductNumber + "'>" + insurance.insuranceProductNumber + "</a></td>");
+            newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceCompanyName + "</a></td>");
+            newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceProductName + "</a></td>");
+            newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuContent + "</a></td>");
+            newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.minAgeAtRegistration + "세 ~ " +
                 insurance.maxAgeAtRegistration + "세</a></td>");
-            newRow.append("<td><a href='/insuJoin' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceFee + "원(월)</a></td>");
+            newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceFee + "원(월)</a></td>");
             tbody.append(newRow);
         }
     }
@@ -156,10 +156,9 @@
                 </div>
                 <ul>
                     <li><a href="/introduce">하나Insure Fit이란?</a></li>
-                    <li><a href="/recommendInsu" class="clicked">건강등급보험추천</a></li>
-                    <li><a href="/weightManage">내 건강관리</a></li>
-                    <li><a href="/recommendFood">식당추천</a></li>
-                    <li><a href="/discount">보험할인액 조회</a></li>
+                    <li><a href="/recommendInsu"  class="clicked">Grade보험</a></li>
+                    <li><a href="/weightManage">건강관리</a></li>
+                    <li><a href="/myPage">마이페이지</a></li>
                 </ul>
             </nav>
         </div>
@@ -168,29 +167,29 @@
 <div class="mainSideContainer">
     <div class="sideBar">
         <div class="sideBarName">
-            보험추천
+            Grade보험
         </div>
         <div class="sideBarContents">
             <a href="/recommendInsu" class="sideBarTab">
-                건강등급산출
+                건강등급
             </a>
-            <a href="/insuGradeSubmit" class="sideBarTab">
-                건강등급등록
-            </a>
+<%--            <a href="/insuGradeSubmit" class="sideBarTab">--%>
+<%--                건강등급등록--%>
+<%--            </a>--%>
             <a href="/insuList" class="sideBarTabClicked">
-                건강등급보험목록
+                Grade보험목록
             </a>
-            <a href="/insuJoin" class="sideBarTab">
-                건강등급보험가입
-            </a>
-            <a href="/insuRead" class="sideBarTab">
-                내 건강등급보험 조회
-            </a>
+<%--            <a href="/insuJoin" class="sideBarTab">--%>
+<%--                Grade보험가입--%>
+<%--            </a>--%>
+<%--            <a href="/insuRead" class="sideBarTab">--%>
+<%--                내 건강등급보험 조회--%>
+<%--            </a>--%>
         </div>
     </div>
     <div id="main">
         <main>
-            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbsp보험추천&nbsp&nbsp > &nbsp&nbsp건강등급보험목록</div>
+            <div class="navInfo">Main &nbsp&nbsp > &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp</div>
             <div class="insuMoongoo"><br>
                 <div class="insuInfo">
                     <span class="colorText">건강등급</span> 확인하고<br> <span class="colorText">보험료 할인</span>받으세요!
@@ -207,9 +206,11 @@
                 <div class="rightArea3">
                     <div class="centerAlign">
                         건강등급 보험 목록
+
                     </div>
+                    <span class="basis">상품 내용을 클릭하시면 가입 페이지로 이동합니다.</span>
                     <div id="gradeCalculation">
-                        <table id="insuranceTable">
+                        <table id="insuTable" class="insuTable">
                             <tbody>
 
                             </tbody>

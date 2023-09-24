@@ -13,6 +13,7 @@ import ac.kr.kopo.HanaInsureFit.member.service.MemberService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,6 +21,15 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @PostMapping("/getAllMember")
+    public ResponseEntity<List<Member>> getAllMember(){
+        List<Member> memberList = memberService.getAllMember();
+        for (Member i : memberList) {
+            System.out.println(i);
+        }
+        return ResponseEntity.ok(memberList);
+    }
 
     @PostMapping("/loginMember")
     public ResponseEntity<String> loginMember(@RequestBody HashMap<String, String> loginData, HttpServletRequest request) {

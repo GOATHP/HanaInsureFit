@@ -88,7 +88,22 @@ public class WebController {
 
     @GetMapping ("/calendar")
     public String calendar() throws Exception {
-
         return "jsp/calendar";
     }
+
+    @GetMapping ("/dashboardAdmin")
+    public String dashboardAdmin() throws Exception {
+        return "jsp/dashboardAdmin";
+    }
+
+    @GetMapping ("/manageMember")
+    public String manageMember() throws Exception {
+        return "jsp/manageMember";
+    }
+
+    @GetMapping ("/dashboardMypage")
+    public String dashboardMypage() throws Exception {
+        return "jsp/dashboardMypage";
+    }
+
 }

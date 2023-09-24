@@ -97,10 +97,9 @@
                 </div>
                 <ul>
                     <li><a href="/introduce">하나Insure Fit이란?</a></li>
-                    <li><a href="/recommendInsu" class="clicked">건강등급보험추천</a></li>
-                    <li><a href="/weightManage">내 건강관리</a></li>
-                    <li><a href="/recommendFood">식당추천</a></li>
-                    <li><a href="/discount">보험할인액 조회</a></li>
+                    <li><a href="/recommendInsu" class="clicked">Grade보험</a></li>
+                    <li><a href="/weightManage">건강관리</a></li>
+                    <li><a href="/myPage">마이페이지</a></li>
                     <!-- 다른 메뉴 항목 추가 -->
                 </ul>
             </nav>
@@ -110,29 +109,29 @@
 <div class="mainSideContainer">
     <div class="sideBar">
         <div class="sideBarName">
-            보험추천
+            Grade보험
         </div>
         <div class="sideBarContents">
             <a href="/recommendInsu" class="sideBarTab">
-                건강등급산출
+                건강등급
             </a>
-            <a href="/insuGradeSubmit" class="sideBarTab">
-                건강등급등록
+            <%--            <a href="/insuGradeSubmit" class="sideBarTab">--%>
+            <%--                건강등급등록--%>
+            <%--            </a>--%>
+            <a href="/insuList" class="sideBarTabClicked">
+                Grade보험목록
             </a>
-            <a href="/insuList" class="sideBarTab">
-                건강등급보험목록
-            </a>
-            <a href="/insuJoin" class="sideBarTabClicked">
-                건강등급보험가입
-            </a>
-            <a href="/insuRead" class="sideBarTab">
-                내 건강등급보험 조회
-            </a>
+<%--            <a href="/insuJoin" class="sideBarTabClicked">--%>
+<%--                Grade보험가입--%>
+<%--            </a>--%>
+            <%--            <a href="/insuRead" class="sideBarTab">--%>
+            <%--                내 건강등급보험 조회--%>
+            <%--            </a>--%>
         </div>
     </div>
     <div id="main">
         <main>
-            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbsp건강등급보험추천&nbsp&nbsp > &nbsp&nbsp건강등급보험가입</div>
+            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp > &nbsp&nbspGrade보험가입 </div>
 
 
             <div class="areaContainer">

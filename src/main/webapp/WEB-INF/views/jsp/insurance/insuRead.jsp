@@ -151,10 +151,9 @@
                 </div>
                 <ul>
                     <li><a href="/introduce">하나Insure Fit이란?</a></li>
-                    <li><a href="/recommendInsu" class="clicked">건강등급보험추천</a></li>
-                    <li><a href="/weightManage">내 건강관리</a></li>
-                    <li><a href="/recommendFood">식당추천</a></li>
-                    <li><a href="/discount">보험할인액 조회</a></li>
+                    <li><a href="/recommendInsu" class="clicked">Grade보험</a></li>
+                    <li><a href="/weightManage">건강관리</a></li>
+                    <li><a href="/myPage">마이페이지</a></li>
                     <!-- 다른 메뉴 항목 추가 -->
                 </ul>
             </nav>
@@ -168,35 +167,29 @@
         </div>
         <div class="sideBarContents">
             <a href="/recommendInsu" class="sideBarTab">
-                건강등급산출
+                건강등급
             </a>
-            <a href="/insuGradeSubmit" class="sideBarTab">
-                건강등급등록
+            <%--            <a href="/insuGradeSubmit" class="sideBarTab">--%>
+            <%--                건강등급등록--%>
+            <%--            </a>--%>
+            <a href="/insuList" class="sideBarTabClicked">
+                Grade보험목록
             </a>
-            <a href="/insuList" class="sideBarTab">
-                건강등급보험목록
-            </a>
-            <a href="/insuJoin" class="sideBarTab">
-                건강등급보험가입
-            </a>
-            <a href="/insuRead" class="sideBarTabClicked">
-                내 건강등급보험 조회
-            </a>
+            <%--            <a href="/insuJoin" class="sideBarTabClicked">--%>
+            <%--                Grade보험가입--%>
+            <%--            </a>--%>
+            <%--            <a href="/insuRead" class="sideBarTab">--%>
+            <%--                내 건강등급보험 조회--%>
+            <%--            </a>--%>
         </div>
     </div>
     <div id="main">
         <main>
-            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbsp건강등급보험추천&nbsp&nbsp > &nbsp&nbsp내 건강보험조회</div>
+            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp > &nbsp&nbspGrade보험가입</div>
 
             <div class="insuMoongoo"><br>
                 <div class="insuInfo">
-                    <span class="colorText">건강등급</span> 확인하고<br> <span class="colorText">보험료 할인</span>받으세요!
-                    <div class="explainInsu">
-                        에너지 효율이 높은 등급의 전기제품을 구입하여<br>
-                        전기료를 절약하고 계신가요?<br>
-                        이젠 보험도 건강 등급이 높으면 보험료를 할인하여<br>
-                        드립니다.
-                    </div>
+                    <span class="colorText">보험 가입 완료 !</span> <br>하나 InsureFit과 함께<br> <span class="colorText">보험료 할인</span>받으세요!
                 </div>
             </div>
             <div class="areaContainer">
@@ -206,7 +199,7 @@
 
 
                     </div>
-                    <table id="insuranceTable">
+                    <table id="insuranceTable" class="insuTable">
                         <tbody>
 
                         </tbody>

@@ -77,11 +77,12 @@
                     </a>
                 </div>
                 <ul>
-                    <li><a href="/introduce">하나Insure Fit이란?</a></li>
-                    <li><a href="/recommendInsu">건강등급보험추천</a></li>
-                    <li><a href="/weightManage">내 건강관리</a></li>
-                    <li><a href="/recommendFood">식당추천</a></li>
-                    <li><a href="/discount">보험할인액 조회</a></li>
+                    <ul>
+                        <li><a href="/introduce">하나Insure Fit이란?</a></li>
+                        <li><a href="/recommendInsu">Grade보험</a></li>
+                        <li><a href="/weightManage">건강관리</a></li>
+                        <li><a href="/dashboardMypage">마이페이지</a></li>
+                    </ul>
                 </ul>
             </nav>
         </div>
@@ -100,10 +101,10 @@
                     </a>
                 </div>
                 <div class="boxes">
-                    <div class="box" style="background-color: #323850;"><a href="weightManage">체중관리</a></div>
-                    <div class="box"><a href="recommendFood">식당추천</a></div>
-                    <div class="box"><a href="recommendInsu">보험추천</a></div>
-                    <div class="box" style="background-color: #323850;"><a href="weightManage">환급금조회</a></div>
+                    <div class="box" style="background-color: #323850;"><a href="/weightManage">체중관리</a></div>
+                    <div class="box"><a href="/recommendFood">식당추천</a></div>
+                    <div class="box"><a href="/recommendInsu">보험추천</a></div>
+                    <div class="box" style="background-color: #323850;"><a href="/dashboardMypage">마이페이지</a></div>
                 </div>
             </div>
         </div>
@@ -229,9 +230,16 @@
             success: function (response) {
                 if (response === "로그인 성공") {
                     alert("로그인 성공");
-                    var link = document.createElement("a");
-                    link.href = "/";
-                    link.click();
+                    if (customerID === "admin") {
+                        // If customerID is 'admin', redirect to the admin dashboard
+                        window.location.href = "/dashboardAdmin";
+                    } else {
+                        // If customerID is not 'admin', redirect to the default page "/"
+                        window.location.href = "/";
+                    }
+                    // var link = document.createElement("a");
+                    // link.href = "/";
+                    // link.click();
                 } else {
                     console.error("로그인 실패");
                 }

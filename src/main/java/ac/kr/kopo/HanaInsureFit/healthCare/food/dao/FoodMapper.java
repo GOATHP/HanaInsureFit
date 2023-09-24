@@ -1,10 +1,7 @@
 package ac.kr.kopo.HanaInsureFit.healthCare.food.dao;
 
 
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.Food;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.TargetIngre;
+import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.lang.annotation.Target;
@@ -21,11 +18,15 @@ public interface FoodMapper {
 
     void insertCustomerDiet(Map<String, Object> paramMap);
 
-    List<FoodIngredients> getIngredients();
+    List<FoodIngredients> getIngredients(String customerID);
 
     List<FoodNames> getFoodNames();
 
     long getDietID();
 
     TargetIngre getTargetIngre(String customerID);
+
+    List<WeekCalories> getWeekCalories();
+
+    List<MenuCalories> getMenuCalories(String menu);
 }

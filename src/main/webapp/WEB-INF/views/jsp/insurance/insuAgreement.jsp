@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+x``<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +9,23 @@
     <title>하나 InsureFit</title>
     <link href="resources/static/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        function collapse(element) {
+            var before = document.getElementsByClassName("active")[0]               // 기존에 활성화된 버튼
+            if (before && document.getElementsByClassName("active")[0] != element) {  // 자신 이외에 이미 활성화된 버튼이 있으면
+                before.nextElementSibling.style.maxHeight = null;   // 기존에 펼쳐진 내용 접고
+                before.classList.remove("active");                  // 버튼 비활성화
+            }
+            element.classList.toggle("active");         // 활성화 여부 toggle
+
+            var content = element.nextElementSibling;
+            if (content.style.maxHeight != 0) {         // 버튼 다음 요소가 펼쳐져 있으면
+                content.style.maxHeight = null;         // 접기
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";  // 접혀있는 경우 펼치기
+            }
+        }
+    </script>
 </head>
 <script>
     function showGradeCalculation() {
@@ -70,10 +87,9 @@
                 </div>
                 <ul>
                     <li><a href="/introduce">하나Insure Fit이란?</a></li>
-                    <li><a href="/recommendInsu" class="clicked">건강등급보험추천</a></li>
-                    <li><a href="/weightManage">내 건강관리</a></li>
-                    <li><a href="/recommendFood">식당추천</a></li>
-                    <li><a href="/discount">보험할인액 조회</a></li>
+                    <li><a href="/recommendInsu" class="clicked">Grade보험</a></li>
+                    <li><a href="/weightManage">건강관리</a></li>
+                    <li><a href="/myPage">마이페이지</a></li>
                     <!-- 다른 메뉴 항목 추가 -->
                 </ul>
             </nav>
@@ -83,73 +99,83 @@
 <div class="mainSideContainer">
     <div class="sideBar">
         <div class="sideBarName">
-            보험추천
+            Grade보험
         </div>
         <div class="sideBarContents">
             <a href="/recommendInsu" class="sideBarTab">
-                건강등급산출
+                건강등급
             </a>
-            <a href="/insuGradeSubmit" class="sideBarTab">
-                건강등급등록
+            <%--            <a href="/insuGradeSubmit" class="sideBarTab">--%>
+            <%--                건강등급등록--%>
+            <%--            </a>--%>
+            <a href="/insuList" class="sideBarTabClicked">
+                Grade보험목록
             </a>
-            <a href="/insuList" class="sideBarTab">
-                건강등급보험목록
-            </a>
-            <a href="/insuJoin" class="sideBarTabClicked">
-                건강등급보험가입
-            </a>
-            <a href="/insuRead" class="sideBarTab">
-                내 건강등급보험 조회
-            </a>
+            <%--            <a href="/insuJoin" class="sideBarTabClicked">--%>
+            <%--                Grade보험가입--%>
+            <%--            </a>--%>
+            <%--            <a href="/insuRead" class="sideBarTab">--%>
+            <%--                내 건강등급보험 조회--%>
+            <%--            </a>--%>
         </div>
     </div>
     <div id="main">
         <main>
-            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbsp건강등급보험추천&nbsp&nbsp > &nbsp&nbsp건강등급보험가입</div>
-
-
+            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp > &nbsp&nbspGrade보험가입</div>
             <div class="areaContainer">
 
-                <div class="rightArea4">
+                <div class="rightArea7">
                     <div class="centerAlign">
-                        건강등급 약관동의
+                        보험가입 약관동의
                     </div>
                         <div class="gradeInsurance">
-                            하나InsureFit<br>
-                            무배당 하나 Grade 건강보험(다이렉트)<br>
-
-                            <a href="/insuJoinContent" class="joinButton">
-                                보험 가입하기
-                            </a>
-                        </div>
-                    <div class="mainContent">
-                        <dl>주요특징</dl>
-                        <dd class="toggle-content">
-
-                            다이렉트로 간편하게, 보장은 다양하게
-                            판매수수료 없는 다이렉트로 쉽고, 빠르고, 저렴하게 가입
-                            질병 및 상해의 진단비, 입원·통원비, 수술비, 후유장해까지 보장
-                            최대 100세까지 보장
-                            해당 특약 가입시<br>
-                            건강할수록 더 낮은 보험료 적용
-                            건강등급별로 보험료를 산출하여 Grade1, 2 경우 저렴한 보험료로 가입 가능
-                            매2년 마다 무사고* 또는 건강등급 개선시(최대 10년) 건강등급 상향 조정
-                            ※ Grade4 → Grade3 → Grade2 → Grade1
-                            *무사고: 건강등급재산정시까지 해당상품 보험금 지급사유 미발생인 경우에 한하며, 계약 배서 이후 사고 발견시 건강등급 원복(보험료 재정산)
                             <br>
-                            보험료 부담은 경감
-                            하나손해보험 자동차보험 가입자는 보험료 5% 할인
-                            5대 사유 발생 시 보험료 납입면제
-                            해약환급금미지급형Ⅱ(2종) 가입시 보험료 추가 절약 가능</dd>
+                            <div class="insuMoongoo2"><br>
+                                <div class="insuInfo">
+                                    <span class="colorText">건강등급</span> 확인하고<br> <span class="colorText">보험료 할인</span>받으세요!
+                                    <div class="explainInsu">
+                                        에너지 효율이 높은 등급의 전기제품을 구입하여<br>
+                                        전기료를 절약하고 계신가요?<br>
+                                        이젠 보험도 건강 등급이 높으면 보험료를 할인하여<br>
+                                        드립니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="https://www.abllife.co.kr/cms/prdt/wlifeFprd/__icsFiles/afieldfile/2020/12/07/hlth_the_wlife_info_01.png" style="width : 414px;">
+                        </div>
+                    <a href="/resources/static/보험약관.pdf" target="_blank" class="btn btn_icon btn_arrow acrobat_btn fr" role="button">아크로뱃 다운로드</a>
+                    <div class="mainContent">
+
+                        <button type="button" class="collapsible" onclick="collapse(this);">보험상세내용</button>
+                        <div class="content">
+                            <p>
+
+                            <ul>
+                                <li class="txt_dot">다이렉트로 간편하게, 보장은 다양하게
+                                    판매수수료 없는 다이렉트로 쉽고, 빠르고, 저렴하게 가입</li>
+                                <li class="txt_dot">특약별 보험기간, 보험료 납입기간, 피보험자 가입나이는 주계약과 상이하므로 보험약관 및 상품설명서를 확인하시기 바랍니다.</li>
+                                <li class="txt_dot">다이렉트로 간편하게, 보장은 다양하게
+                            판매수수료 없는 다이렉트로 쉽고, 빠르고, 저렴하게 가입</li>
+                                <li class="txt_dot">질병 및 상해의 진단비, 입원·통원비, 수술비, 후유장해까지 보장 최대 100세까지 보장</li>
+                                <li class="txt_dot">해당 특약 가입시 건강할수록 더 낮은 보험료 적용 건강등급별로 보험료를 산출하여 Grade1, 2 경우 저렴한 보험료로 가입 가능</li>
+                                <li class="txt_dot">매2년 마다 무사고* 또는 건강등급 개선시(최대 10년) 건강등급 상향 조정</li>
+                                <span class="basis">※ Grade4 → Grade3 → Grade2 → Grade1</span>
+                                <li class="txt_dot">*무사고: 건강등급재산정시까지 해당상품 보험금 지급사유 미발생인 경우에 한하며, 계약 배서 이후 사고 발견시 건강등급 원복(보험료 재정산)</li>
+                                <li class="txt_dot">보험료 부담은 경감 하나손해보험 자동차보험 가입자는 보험료 5% 할인 5대 사유 발생 시 보험료 납입면제 해약환급금미지급형Ⅱ(2종) 가입시 보험료 추가 절약 가능</li>
+                            </ul>
+
+                            </p>
+                    </div>
                     </div>
                     <div class="insuContent">
+                        <button type="button" class="collapsible" onclick="collapse(this);">알아두실 사항</button>
 
-                        <dl>보장내용</dl>
-                        <dd class="toggle-content">
-                        <table>
+                        <div class="content">
+                            <br>
+                        <table class="insuTable">
                         <th class="tal row" scope="row">보험종류</th>
                         <td class="tal">
-                            <table class="fl base_tb sel_tb product_tb small_tb">
+                            <table class="insuTable">
                                 <colgroup>
                                     <col width="12%">
                                     <col width="8%">
@@ -209,251 +235,123 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="tal row" scope="row">납입주기</th>
-                                <td class="tal">월납</td>
+                                <th scope="row">납입주기</th>
+                                <td>월납</td>
                             </tr>
                             </tr>
                             </tr>
                         </table>
-                        </dd>
+                            <p>
+                                <ul>
+                                    <li class="txt_dot">회사가 정하는 기준(가입나이 및 건강상태, 직무 등)에 따라 보험가입금액이 제한되거나 가입이 불가능할 수 있습니다.</li>
+                            <li class="txt_dot">각 특별약관은 보험기간, 납입기간에 따라 가입나이가 상이할 수 있습니다. (가입조건상세 다운로드 참조)</li>
+                            <li class="txt_dot">해약환급금미지급형Ⅱ(2종)은 보험료 납입기간 중 계약이 해지될 경우 해약환급금을 지급하지 않는 대신 일반형(1종)보다 일반적으로 저렴하게 보험을 가입할 수 있도록 한 상품입니다.</li>
+                            <li class="txt_dot">다만, 보험료 납입기간이 완료된 이후 계약이 해지되는 경우에는 일반형(1종) 해약환급금의 50%를 지급합니다.</li>
+                            <li class="txt_dot">회사는 해약환급금미지급형Ⅱ(2종) 가입시 일반형(1종)의 보험료 및 해약환급금(환급률 포함) 수준을 비교·안내하여 드립니다.</li>
+                                </ul>
+                            </p>
                     </div>
-                    <div class="mustPromise">
-                        알아두실 사항<br>
-                        해약환급금미지급형Ⅱ(2종)은 보험료 납입기간 중 계약이 해지될 경우 해약환급금을 지급하지 않는 대신 일반형(1종)보다 일반적으로 저렴하게 보험을 가입할 수 있도록 한 상품입니다. 다만, 보험료 납입기간이 완료된 이후 계약이 해지되는 경우에는 일반형(1종) 해약환급금의 50%를 지급합니다. 회사는 해약환급금미지급형Ⅱ(2종) 가입시 일반형(1종)의 보험료 및 해약환급금(환급률 포함) 수준을 비교·안내하여 드립니다.
-
                     </div>
                     <div class="acc_group product_accordion">
-                        <dl>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link" class="on">
-                                    <strong class="on">해약환급금 미지급형에 관한 사항</strong>
-                                </a>
-                            </dt>
-                            <dd style="display: block;">
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        해약환급금미지급형Ⅱ(2종)은 보험료 납입기간 중 계약이 해지될 경우 해약환급금을 지급하지 않는 대신 일반형(1종)보다 일반적으로 저렴하게 보험을 가입할 수 있도록 한 상품입니다. 다만, 보험료 납입기간이 완료된 이후 계약이 해지되는 경우에는 일반형(1종) 해약환급금의 50%를 지급합니다. 회사는 해약환급금미지급형Ⅱ(2종) 가입시 일반형(1종)의 보험료 및 해약환급금(환급률 포함) 수준을 비교·안내하여 드립니다.
-                                    </li>
-                                </ol>
-                            </dd>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link" class="on">
-                                    <strong class="on">보험계약 체결 전 유의사항</strong>
-                                </a>
-                            </dt>
-                            <dd style="display: block;">
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        보험계약 청약시 보험상품명, 보험기간, 보험료납입기간, 피보험자 등을 반드시 확인하시고, 보험약관을 반드시 수령, 설명 받으시기 바랍니다.
-                                    </li>
-                                    <li>
-                                        <span>02</span>
-                                        하나손해보험은 해당 상품에 대해 충분히 설명할 의무가 있으며, 가입자는 가입에 앞서 이에 대한 충분한 설명을 받으시기 바랍니다.
-                                    </li>
-                                    <li>
-                                        <span>03</span>
-                                        보험계약 체결 전에 상품설명서와 약관을 반드시 읽어보시기 바랍니다. 중대한 고지사항에 대해 사실대로 알리지 않거나 다르게 알린 경우 보험가입이 거절될 수 있으며, 회사는 보험약관(계약의 해지)에 따라 이 보험계약을 해지할 수 있고, 이미 보험사고가 발생하였더라도 보험약관에 따라 보험금 지급을 거절하는 등 보장이 제한될 수 있습니다.
-                                    </li>
-                                    <li>
-                                        <span>04</span>
-                                        기존 보험계약을 해지하고 새로운 보험계약을 체결하는 경우 보험 인수가 거절되거나, 보험료가 인상될 수 있으며, 보장내용이 달라질 수 있으니 유의하시기 바랍니다.
-                                    </li>
-                                </ol>
-                            </dd>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link" class="on">
-                                    <strong class="on">피보험자의 동의, 무배당보험</strong>
-                                </a>
-                            </dt>
-                            <dd style="display: block;">
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        피보험자 동의
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">피보험자 동의를 받아야 합니다.</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">가족을 포함하여 본인이 아닌 다른 사람을 피보험자로 하여 보험계약을 청약 하고자 하는 경우에는 청약시 반드시 그 피보험자의 서면에 의한 동의 (청약서상에 자필서명)를 받으셔야만 보험계약상의 보장을 받으실 수 있습니다.
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <span>02</span>
-                                        무배당보험
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">본 상품은 무배당상품으로서, 배당을 하지 않기 때문에 배당상품보다 상대적으로 보험료가 저렴합니다.</p>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </dd>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link" class="on">
-                                    <strong class="on">품질보증제도 및 청약철회제도</strong>
-                                </a>
-                            </dt>
-                            <dd style="display: block;">
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        품질보증제도
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">보험가입 시 약관 및 청약서 부본을 계약자에게 전달하지 않았거나, 약관의 중요 내용을 설명하지 않았을 때, 청약서에 계약자가 자필서명(날인(도장찍음) 및 전자서명법 제2조 제2호에 따른 전자서명을 포함합니다)을 하지 아니한 때 계약성립일로부터 3개월 이내에 회사에 보험계약의 취소를 요구할 수 있습니다. 이 경우 납입한 보험료와 함께 보험계약대출이율을 연단위 복리로 계산한 금액을 더하여 지급합니다.</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <span>02</span>
-                                        청약철회 청구제도
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">계약자는 보험증권을 받은 날부터 15일 이내(다만, 청약을 한 날로부터 30일(만65세 이상의 계약자가 통신수단 중 전화를 이용하여 체결한 계약은 45일)을 한도로 합니다)에 그 청약을 철회할 수 있습니다. 다만, 진단계약, 단체(취급)계약 또는 보험기간이 90일 미만인 계약은 청약을 철회할 수 없습니다.</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">계약자가 청약을 철회한 때에는 회사는 청약의 철회를 접수한 날부터 3일 이내에 이미 납입한 보험료를 계약자에게 돌려드리며, 그 반환기일의 다음날부터 반환일까지의 기간에 대하여 이 계약의 보험계약대출이율을 연단위 복리로 계산한 금액을 더하여 지급합니다. 다만, 계약자가 제1회 보험료를 신용카드로 납입한 계약의 청약을 철회하는 경우에 회사는 신용카드의 매출을 취소하며 이자를 더하여 지급하지 않습니다.</p>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </dd>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link" class="on">
-                                    <strong class="on">계약 전 알릴 의무, 보험료의 납입연체 및 계약해지</strong>
-                                </a>
-                            </dt>
-                            <dd style="display: block;">
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        계약 전 알릴 의무
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">계약자 또는 피보험자는 청약할 때 청약서(질문서를 포함합니다)에서 질문한 사항에 대하여 알고 있는 사실을 반드시 사실대로 알려야 합니다. 약관에 따라 알릴 의무 위반 시 계약이 해지되거나 보장이 제한될 수 있습니다.</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <span>02</span>
-                                        보험료의 납입연체 및 계약해지
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">계약자께서 제2회 이후의 보험료를 납입기일까지 납입하지 아니하여 연체중인 경우에는 14일 이상(보험기간이 1년 미만인 계약은 7일)의 기간에 대해 보험료 납입을 최고(독촉)하고 납입최고(독촉)기간이 끝나는 다음날 보험계약이 해지됨을 서면(등기우편 등), 전화(음성녹음) 또는 전자문서 등으로 알려드립니다.</p>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </dd>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link" class="on">
-                                    <strong class="on">계약 후 알릴 의무</strong>
-                                </a>
-                            </dt>
-                            <dd style="display: block;">
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        계약을 맺은 후 보험의 목적에 아래와 같은 사실이 생긴 경우에는 계약자나 피보험자는 지체없이 서면으로 회사에 알리고 보험증권에 확인을 받아야 합니다.
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">청약서의 기재사항을 변경하고자 할 때 또는 변경이 생겼음을 알았을 때</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">이 계약에서 보장하는 위험과 동일한 위험을 보장하는 계약을 다른 보험자와 체결하고자 할 때 또는 이와 같은 계약이 있음을 알았을 때</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">위험이 뚜렷이 변경되거나 변경되었음을 알았을 때</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <span>02</span>
-                                        회사는 제1항에 따라 위험이 감소된 경우에는 그 차액보험료를 돌려드리며, 위험이 증가된 경우에는 통지를 받은 날부터 1개월 이내에 보험료의 증액을 청구하거나 계약을 해지할 수 있습니다.
-                                    </li>
-                                    <li>
-                                        <span>03</span>
-                                        계약자 또는 피보험자는 주소 또는 연락처가 변경된 경우에는 지체없이 이를 회사에 알려야 합니다. 다만, 계약자 또는 피보험자가 알리지 않은 경우 회사가 알고 있는 최종의 주소 또는 연락처로 등기우편 등 우편물에 대한 기록이 남는 방법으로 회사가 알린 사항은 일반적으로 도달에 필요한 기간이 지난 때에는 계약자 또는 피보험자에게 도달한 것으로 봅니다.
-                                    </li>
-                                </ol>
-                            </dd>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link" class="on">
-                                    <strong class="on">갱신형보장</strong>
-                                </a>
-                            </dt>
-                            <dd style="display: block;">
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        갱신형보장
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">회사는 갱신형보장의 보험기간이 끝나기 15일 전까지 계약자가 납입하여야 하는 갱신 될 계약의 보험료 및 계약의 연장여부를 묻는 통지를 계약자에게 서면, 전화(음성녹음) 또는 전자문서 등으로 안내하여 드립니다.</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">해당 보장의 보험기간 종료일의 전일까지 별도의 의사표시가 없을 때에는 해당 보장은 자동으로 갱신됩니다.</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">회사는 갱신계약에 대하여 갱신일 현재의 보험요율에 관한 제도를 반영하여 계산된 보험료를 적용하며, 그 보험료는 나이의 증가, 보험료산출에 관한 기초율의 변동 등의 사유로 인하여 인상될 수 있습니다.</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">갱신형보장의 약관은 최초 계약시의 약관을 계속하여 적용합니다. 다만, 법령의 제ㆍ개정, 금융위원회의 명령, 금융감독원장이 정한 시행세칙의 개정 등 제도적인 변경에 따라 약관이 변경된 경우 갱신일 현재의 변경된 약관을 적용합니다.</p>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </dd>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link">
-                                    <strong>해약환급금이 납입보험료보다 적은 이유</strong>
-                                </a>
-                            </dt>
-                            <dd>
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        보험은 은행의 저축과 달리 위험보장과 함께 저축을 겸하는 제도로 보험계약자가 납부한 보험료의 일부는 위험보장에 사용되며, 일부는 회사운영에 관련한 비용으로 사용됩니다. 따라서 보험계약을 중도에 해약할 경우 지급되는 해약환급금은 납입한 보험료보다 적거나 또는 없을 수 있습니다.
-                                    </li>
-                                </ol>
-                            </dd>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link">
-                                    <strong>장애인전환특약에 관한 사항</strong>
-                                </a>
-                            </dt>
-                            <dd>
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        소득세법에 따라 보장성보험 계약 중 피보험자(또는 수익자)가 세법상 장애인에 해당하는 계약인 경우 장애인전환특약을 통해 장애인전용보장성보험으로 전환되어 연말정산 시 세제혜택이 가능합니다.
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">
-                                                장애인 범위 : 장애인 등록자 외에도 국가유공자법상 상이자, 항시치료가 필요한 중증환자 등 세법상 인적공제 대상 장애인은 모두 포함
-                                            </p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">
-                                                필요서류(증빙자료) : 장애인등록증 등 장애인임을 확인할 수 있는 자료
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </dd>
-                            <dt>
-                                <a href="javascript:void(0);" alt="" role="link">
-                                    <strong>예금자보호 및 상담/분쟁/신고 안내</strong>
-                                </a>
-                            </dt>
-                            <dd>
-                                <ol role="list">
-                                    <li>
-                                        <span>01</span>
-                                        예금자보호안내
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">이 보험계약은 예금자보호법에 따라 예금보험공사가 보호하되, 보호 한도는 본 보험회사에 있는 귀하의 모든 예금보호 대상 금융상품의 해약환급금(또는 만기시 보험금이나 사고보험금)에 기타지급금을 합하여 1인당 "최고 5천만원"이며, 5천만원을 초과하는 나머지 금액은 보호하지 않습니다. 다만, 보험계약자 및 보험료 납부자가 법인인 보험계약은 예금자보호법에 따라 예금보험공사가 보호하지 않습니다.</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <span>02</span>
-                                        보험상담 및 분쟁해결 안내
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">보험에 관한 불만상담 및 분쟁이 있을 때에는 먼저 당사로 연락하시고, 처리결과에 이의가 있으시면 민원 또는 분쟁조정 등을 신청하실 수 있습니다.</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">하나손해보험 : 1566-3000, www.hanainsure.co.kr</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">금융감독원 민원상담전화 : (국번없이)1332, www.fss.or.kr</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <span>03</span>
-                                        모집질서 확립 및 신고센터 안내
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">보험계약과 관련한 보험모집질서 위반행위는 보험업법에 의해 처벌받을 수 있습니다.</p>
-                                            <p class="tcb_p2 tcb_icon1 mt0">금융감독원 민원상담전화 : (국번없이)1332, www.fss.or.kr</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <span>04</span>
-                                        금융감독원 보험 범죄 신고센터 안내
-                                        <div class="text_cont_box mt0">
-                                            <p class="tcb_p2 tcb_icon1 mt0">금융감독원 민원상담전화 : (국번없이)1332, www.fss.or.kr - 인터넷보험범죄신고.</p>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </dd>
-                        </dl>
+
+
+                        <button type="button" class="collapsible" onclick="collapse(this);">해약환급금 미지급형에 관한 사항</button>
+                        <div class="content">
+                            <p><ul>
+                            <li class="txt_dot">해약환급금미지급형Ⅱ(2종)은 보험료 납입기간 중 계약이 해지될 경우 해약환급금을 지급하지 않는 대신 일반형(1종)보다 일반적으로 저렴하게 보험을 가입할 수 있도록 한 상품입니다.</li>
+                            <li class="txt_dot">다만, 보험료 납입기간이 완료된 이후 계약이 해지되는 경우에는 일반형(1종) 해약환급금의 50%를 지급합니다.</li>
+                            <li class="txt_dot">회사는 해약환급금미지급형Ⅱ(2종) 가입시 일반형(1종)의 보험료 및 해약환급금(환급률 포함) 수준을 비교·안내하여 드립니다.</li>
+                            </ul>
+                            </p>
+                        </div>
+                        <button type="button" class="collapsible" onclick="collapse(this);">보험계약 체결 전 유의사항</button>
+                        <div class="content">
+                            <p><ul>
+                            <li class="txt_dot">
+                            보험계약 청약시 보험상품명, 보험기간, 보험료납입기간, 피보험자 등을 반드시 확인하시고, 보험약관을 반드시 수령, 설명 받으시기 바랍니다.
+                            </li>
+                            <li class="txt_dot">
+                            하나손해보험은 해당 상품에 대해 충분히 설명할 의무가 있으며, 가입자는 가입에 앞서 이에 대한 충분한 설명을 받으시기 바랍니다.
+                            </li>
+                            <li class="txt_dot">
+                            보험계약 체결 전에 상품설명서와 약관을 반드시 읽어보시기 바랍니다. 중대한 고지사항에 대해 사실대로 알리지 않거나 다르게 알린 경우 보험가입이 거절될 수 있으며, 회사는 보험약관(계약의 해지)에 따라 이 보험계약을 해지할 수 있고, 이미 보험사고가 발생하였더라도 보험약관에 따라 보험금 지급을 거절하는 등 보장이 제한될 수 있습니다.
+                            </li>
+                            <li class="txt_dot">
+                            기존 보험계약을 해지하고 새로운 보험계약을 체결하는 경우 보험 인수가 거절되거나, 보험료가 인상될 수 있으며, 보장내용이 달라질 수 있으니 유의하시기 바랍니다.
+                            </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="collapsible" onclick="collapse(this);">피보험자의 동의, 무배당보험</button>
+                        <div class="content">
+                            <p><ul>
+                            <li class="txt_dot">피보험자 동의를 받아야 합니다.</li>
+                            <li class="txt_dot">족을 포함하여 본인이 아닌 다른 사람을 피보험자로 하여 보험계약을 청약 하고자 하는 경우에는 청약시 반드시 그 피보험자의 서면에 의한 동의 (청약서상에 자필서명)를 받으셔야만 보험계약상의 보장을 받으실 수 있습니다.</li>
+                            <li class="txt_dot">본 상품은 무배당상품으로서, 배당을 하지 않기 때문에 배당상품보다 상대적으로 보험료가 저렴합니다.</li>
+                            <li class="txt_dot">보험가입 시 약관 및 청약서 부본을 계약자에게 전달하지 않았거나, 약관의 중요 내용을 설명하지 않았을 때, 청약서에 계약자가 자필서명(날인(도장찍음) 및 전자서명법 제2조 제2호에 따른 전자서명을 포함합니다)을 하지 아니한 때 계약성립일로부터 3개월 이내에 회사에 보험계약의 취소를 요구할 수 있습니다. 이 경우 납입한 보험료와 함께 보험계약대출이율을 연단위 복리로 계산한 금액을 더하여 지급합니다.</li>
+                            <li class="txt_dot">계약자는 보험증권을 받은 날부터 15일 이내(다만, 청약을 한 날로부터 30일(만65세 이상의 계약자가 통신수단 중 전화를 이용하여 체결한 계약은 45일)을 한도로 합니다)에 그 청약을 철회할 수 있습니다. 다만, 진단계약, 단체(취급)계약 또는 보험기간이 90일 미만인 계약은 청약을 철회할 수 없습니다.</li>
+                            <li class="txt_dot">계약자가 청약을 철회한 때에는 회사는 청약의 철회를 접수한 날부터 3일 이내에 이미 납입한 보험료를 계약자에게 돌려드리며, 그 반환기일의 다음날부터 반환일까지의 기간에 대하여 이 계약의 보험계약대출이율을 연단위 복리로 계산한 금액을 더하여 지급합니다. 다만, 계약자가 제1회 보험료를 신용카드로 납입한 계약의 청약을 철회하는 경우에 회사는 신용카드의 매출을 취소하며 이자를 더하여 지급하지 않습니다.</li>
+                            <li class="txt_dot">계약자 또는 피보험자는 청약할 때 청약서(질문서를 포함합니다)에서 질문한 사항에 대하여 알고 있는 사실을 반드시 사실대로 알려야 합니다. 약관에 따라 알릴 의무 위반 시 계약이 해지되거나 보장이 제한될 수 있습니다.
+                            <li class="txt_dot">계약자께서 제2회 이후의 보험료를 납입기일까지 납입하지 아니하여 연체중인 경우에는 14일 이상(보험기간이 1년 미만인 계약은 7일)의 기간에 대해 보험료 납입을 최고(독촉)하고 납입최고(독촉)기간이 끝나는 다음날 보험계약이 해지됨을 서면(등기우편 등), 전화(음성녹음) 또는 전자문서 등으로 알려드립니다.</li>
+                        </ul>
+                            </p>
+                        </div>
+                            <button type="button" class="collapsible" onclick="collapse(this);">계약 후 알릴 의무</button>
+                            <div class="content">
+                        <p>
+                        <ul>
+                                <li class="txt_dot">계약을 맺은 후 보험의 목적에 아래와 같은 사실이 생긴 경우에는 계약자나 피보험자는 지체없이 서면으로 회사에 알리고 보험증권에 확인을 받아야 합니다.</li>
+                                <li class="txt_dot">청약서의 기재사항을 변경하고자 할 때 또는 변경이 생겼음을 알았을 때</li>
+                                <li class="txt_dot">이 계약에서 보장하는 위험과 동일한 위험을 보장하는 계약을 다른 보험자와 체결하고자 할 때 또는 이와 같은 계약이 있음을 알았을 때</li>
+                                <li class="txt_dot">위험이 뚜렷이 변경되거나 변경되었음을 알았을 때</li>
+                                <li class="txt_dot">회사는 제1항에 따라 위험이 감소된 경우에는 그 차액보험료를 돌려드리며, 위험이 증가된 경우에는 통지를 받은 날부터 1개월 이내에 보험료의 증액을 청구하거나 계약을 해지할 수 있습니다.</li>
+                                <li class="txt_dot">계약자 또는 피보험자는 주소 또는 연락처가 변경된 경우에는 지체없이 이를 회사에 알려야 합니다. 다만, 계약자 또는 피보험자가 알리지 않은 경우 회사가 알고 있는 최종의 주소 또는 연락처로 등기우편 등 우편물에 대한 기록이 남는 방법으로 회사가 알린 사항은 일반적으로 도달에 필요한 기간이 지난 때에는 계약자 또는 피보험자에게 도달한 것으로 봅니다.</li>
+                                </ul>
+                            </p>
+                    </div>
+
+                        <button type="button" class="collapsible" onclick="collapse(this);">갱신형보장</button>
+                        <div class="content">
+                            <p>
+                            <ul>
+                            <li class="txt_dot">회사는 갱신형보장의 보험기간이 끝나기 15일 전까지 계약자가 납입하여야 하는 갱신 될 계약의 보험료 및 계약의 연장여부를 묻는 통지를 계약자에게 서면, 전화(음성녹음) 또는 전자문서 등으로 안내하여 드립니다.</li>
+                            <li class="txt_dot">해당 보장의 보험기간 종료일의 전일까지 별도의 의사표시가 없을 때에는 해당 보장은 자동으로 갱신됩니다.</li>
+                            <li class="txt_dot">회사는 갱신계약에 대하여 갱신일 현재의 보험요율에 관한 제도를 반영하여 계산된 보험료를 적용하며, 그 보험료는 나이의 증가, 보험료산출에 관한 기초율의 변동 등의 사유로 인하여 인상될 수 있습니다.</li>
+                            <li class="txt_dot">갱신형보장의 약관은 최초 계약시의 약관을 계속하여 적용합니다. 다만, 법령의 제ㆍ개정, 금융위원회의 명령, 금융감독원장이 정한 시행세칙의 개정 등 제도적인 변경에 따라 약관이 변경된 경우 갱신일 현재의 변경된 약관을 적용합니다.</li>
+                            </ul>
+                            </p>
+                        </div>
+                        <button type="button" class="collapsible" onclick="collapse(this);">해약환급금이 납입보험료보다 적은 이유</button>
+                        <div class="content">
+                            <p>
+                            <ul>
+                            <li class="txt_dot">보험은 은행의 저축과 달리 위험보장과 함께 저축을 겸하는 제도로 보험계약자가 납부한 보험료의 일부는 위험보장에 사용되며, 일부는 회사운영에 관련한 비용으로 사용됩니다. 따라서 보험계약을 중도에 해약할 경우 지급되는 해약환급금은 납입한 보험료보다 적거나 또는 없을 수 있습니다.</li>
+                            </ul>
+                            </p>
+                        </div>
+                        <button type="button" class="collapsible" onclick="collapse(this);">장애인전환특약에 관한 사항</button>
+                        <div class="content">
+                            <p>
+                            <ul>
+                            <li class="txt_dot">소득세법에 따라 보장성보험 계약 중 피보험자(또는 수익자)가 세법상 장애인에 해당하는 계약인 경우 장애인전환특약을 통해 장애인전용보장성보험으로 전환되어 연말정산 시 세제혜택이 가능합니다.</li>
+                            <li class="txt_dot">장애인 범위 : 장애인 등록자 외에도 국가유공자법상 상이자, 항시치료가 필요한 중증환자 등 세법상 인적공제 대상 장애인은 모두 포함</li>
+                            <li class="txt_dot">필요서류(증빙자료) : 장애인등록증 등 장애인임을 확인할 수 있는 자료</li>
+                            </p>
+                            </ul>
+                            </div>
+
+                        <button type="button" class="collapsible" onclick="collapse(this);">예금자보호 및 상담/분쟁/신고 안내</button>
+                        <div class="content">
+                            <p>
+                            <ul>
+                                <li class="txt_dot">이 보험계약은 예금자보호법에 따라 예금보험공사가 보호하되, 보호 한도는 본 보험회사에 있는 귀하의 모든 예금보호 대상 금융상품의 해약환급금(또는 만기시 보험금이나 사고보험금)에 기타지급금을 합하여 1인당 "최고 5천만원"이며, 5천만원을 초과하는 나머지 금액은 보호하지 않습니다. 다만, 보험계약자 및 보험료 납부자가 법인인 보험계약은 예금자보호법에 따라 예금보험공사가 보호하지 않습니다.</li>
+                                <li class="txt_dot">보험에 관한 불만상담 및 분쟁이 있을 때에는 먼저 당사로 연락하시고, 처리결과에 이의가 있으시면 민원 또는 분쟁조정 등을 신청하실 수 있습니다.</p>
+                                <li class="txt_dot">하나손해보험 : 1566-3000, www.hanainsure.co.kr</li>
+                                <li class="txt_dot">금융감독원 민원상담전화 : (국번없이)1332, www.fss.or.kr</li>
+                                <li class="txt_dot">보험계약과 관련한 보험모집질서 위반행위는 보험업법에 의해 처벌받을 수 있습니다.</li>
+                                <li class="txt_dot">금융감독원 민원상담전화 : (국번없이)1332, www.fss.or.kr</li>
+                                <li class="txt_dot">금융감독원 민원상담전화 : (국번없이)1332, www.fss.or.kr - 인터넷보험범죄신고.</li>
+                        </ul>
+                        </p>
                     </div>
 <%--                    <div class="checkbox_group">--%>
 
@@ -470,10 +368,6 @@
 <%--                        <label for="check_3">마케팅 수신 동의</label>--%>
 
 <%--                    </div>--%>
-                    <div class="wrap">
-                        <div class="logo">
-                            <h1>JUN</h1>
-                        </div>
                         <div class="contents">
                             <form action="/insuJoinInput" method="get" id="form__wrap">
                                 <div class="terms__check__all">
@@ -614,7 +508,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <button type="submit" class="next-button" id="nextBtn"disabled>다음</button>
+                                <button type="submit" class="next-button" id="nextBtn">다음</button>
                             </form>
                         </div>
                     </div>
@@ -684,9 +578,7 @@
 </script>
 </body>
 <script>
-
     'use strict';
-
     // const form = document.querySelector('#form__wrap');
     const checkAll = document.querySelector('.terms__check__all input');
     const checkBoxes = document.querySelectorAll('.input__check input');
@@ -727,7 +619,6 @@
             submitButton.disabled = true;
         }
     }
-
     checkAll.addEventListener('click', (e) => {
         const { checked } = e.target;
         if (checked) {
@@ -764,25 +655,6 @@
         $("#check_all").prop("checked", is_checked);
     });
 
-    function toggleContent(dlElement) {
-        // 현재 클릭한 dl 요소에서 dd 요소 찾기
-        const ddElement = dlElement.nextElementSibling;
-
-        // dd 요소 토글
-        if (ddElement.style.display === 'none' || ddElement.style.display === '') {
-            ddElement.style.display = 'block';
-        } else {
-            ddElement.style.display = 'none';
-        }
-    }
-
-    // 각 dl 요소에 클릭 이벤트 리스너를 추가합니다.
-    const dlElements = document.querySelectorAll('dl');
-    dlElements.forEach(dlElement => {
-        dlElement.addEventListener('click', () => {
-            toggleContent(dlElement);
-        });
-    });
 </script>
 
 

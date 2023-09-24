@@ -39,14 +39,15 @@
         <selectKey keyProperty="mappingID" resultType="long" order="BEFORE">
             SELECT mapping_id_sequence.NEXTVAL FROM dual
         </selectKey>
-        INSERT INTO foodDietMapping (mappingID, foodID, MEALCODE, recordDate, calories, protein, fat, carbs, weightInput)
-        VALUES (#{mappingID}, #{foodID}, #{mealCode}, TO_CHAR(SYSDATE, 'yy/MM/dd'), #{calories}, #{protein}, #{fat}, #{carbs}, #{weightInput})
+        INSERT INTO foodDietMapping (mappingID, foodID, MEALCODE, recordDate, calories, protein, fat, carbs, weightInput, customerID)
+        VALUES (#{mappingID}, #{foodID}, #{mealCode}, TO_CHAR(SYSDATE, 'yy/MM/dd'), #{calories}, #{protein}, #{fat}, #{carbs}, #{weightInput}, #{customerID})
     </insert>
     <select id="getFoodNames" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames">
         SELECT f.foodName, fdm.mealCode
         FROM food f
         INNER JOIN foodDietMapping fdm ON f.foodID = fdm.foodID
         WHERE fdm.foodID = f.foodID and recorddate = TO_CHAR(SYSDATE, 'yy/MM/dd')
+        ORDER BY mappingID
     </select>
     <select id="getIngredients" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients">
         SELECT
@@ -60,9 +61,12 @@
             foodDietMapping fdm
         WHERE
             fdm.recordDate = TO_CHAR(SYSDATE, 'yy/MM/dd')
+            AND fdm.customerID = #{customerID}
         GROUP BY
             fdm.mealCode,
             fdm.recordDate
+        ORDER BY
+            fdm.mealCode
     </select>
 
     <select id="getTargetIngre" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.TargetIngre">
@@ -70,4 +74,22 @@
     </select>
 
 
+    <select id="getWeekCalories" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.WeekCalories">
+        <![CDATA[
+        SELECT *
+        FROM (
+        SELECT recorddate, SUM(calories) AS total_calories
+        FROM foodDietMapping
+        GROUP BY recorddate
+        ORDER BY recorddate DESC
+        )
+        WHERE ROWNUM <= 7
+        ]]>
+    </select>
+
+    <select id="getMenuCalories" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.MenuCalories">
+        SELECT *
+        FROM food
+        WHERE foodName LIKE '%' || #{menu} || '%'
+    </select>
 </mapper>

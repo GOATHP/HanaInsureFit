@@ -25,14 +25,8 @@ public class WeightManageController {
         System.out.println("Controller 여까지옴"  + customerID);
         WeightManage weightManage = WeightManageService.getInfo(customerID);
         System.out.println("=> 객체 이름" + weightManage.getName());
-
-
-
         // json으로 변환
-//        HttpSession session = request.getSession();
-
+        // HttpSession session = request.getSession();
         return ResponseEntity.ok(weightManage);
     }
-
-
 }

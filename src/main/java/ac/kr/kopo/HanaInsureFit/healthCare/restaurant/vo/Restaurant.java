@@ -21,16 +21,16 @@ public class Restaurant {
     private Long stars;
     private Long phone;
     private String imgUrl;
-    private String storeIntroduction;
+    private String store_introduction;
     private String classification;
     private String classification2;
     private String takeOrNot;
     private String linqurOrNot;
     private String homepage;
-    private String operationHours;
+    private String operation_hours;
     private String menu;
     private String address;
-    private String phoneNumber;
+    private String phone_number;
     public Restaurant() {
     }
 }

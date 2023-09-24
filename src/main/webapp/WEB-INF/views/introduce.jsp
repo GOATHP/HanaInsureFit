@@ -64,11 +64,9 @@
                 </div>
                 <ul>
                     <li><a href="/introduce" class="clicked">하나Insure Fit이란?</a></li>
-                    <li><a href="/recommendInsu">건강등급보험추천</a></li>
-                    <li><a href="/weightManage">내 건강관리</a></li>
-                    <li><a href="/recommendFood">식당추천</a></li>
-                    <li><a href="/discount">보험할인액 조회</a></li>
-                    <!-- 다른 메뉴 항목 추가 -->
+                    <li><a href="/recommendInsu">Grade보험</a></li>
+                    <li><a href="/weightManage">건강관리</a></li>
+                    <li><a href="/myPage">마이페이지</a></li>
                 </ul>
             </nav>
         </div>

@@ -102,10 +102,9 @@
                 </div>
                 <ul>
                     <li><a href="/introduce">하나Insure Fit이란?</a></li>
-                    <li><a href="/recommendInsu" class="clicked">건강등급보험추천</a></li>
-                    <li><a href="/weightManage">내 건강관리</a></li>
-                    <li><a href="/recommendFood">식당추천</a></li>
-                    <li><a href="/discount">보험할인액 조회</a></li>
+                    <li><a href="/recommendInsu" class="clicked">Grade보험</a></li>
+                    <li><a href="/weightManage">건강관리</a></li>
+                    <li><a href="/myPage">마이페이지</a></li>
                     <!-- 다른 메뉴 항목 추가 -->
                 </ul>
             </nav>
@@ -120,122 +119,59 @@
         </div>
         <div class="sideBarContents">
             <a href="/recommendInsu" class="sideBarTab">
-                건강등급산출
+                건강등급
             </a>
-            <a href="/insuGradeSubmit" class="sideBarTab">
-                건강등급등록
+            <%--            <a href="/insuGradeSubmit" class="sideBarTab">--%>
+            <%--                건강등급등록--%>
+            <%--            </a>--%>
+            <a href="/insuList" class="sideBarTabClicked">
+                Grade보험목록
             </a>
-            <a href="/insuList" class="sideBarTab">
-                건강등급보험목록
-            </a>
-            <a href="/insuJoin" class="sideBarTabClicked">
-                건강등급보험가입
-            </a>
-            <a href="/insuRead" class="sideBarTab">
-                내 건강등급보험 조회
-            </a>
+            <%--            <a href="/insuJoin" class="sideBarTabClicked">--%>
+            <%--                Grade보험가입--%>
+            <%--            </a>--%>
+            <%--            <a href="/insuRead" class="sideBarTab">--%>
+            <%--                내 건강등급보험 조회--%>
+            <%--            </a>--%>
         </div>
     </div>
     <div id="main">
 
         <main>
-            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbsp건강등급보험추천&nbsp&nbsp > &nbsp&nbsp건강등급보험가입</div>
+            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp > &nbsp&nbspGrade보험가입</div>
             <div class="insuInfo2">
             보험 가입 신청서
             </div>
             <div class="areaContainer">
                 <div class="rightArea5">
                     <div class="tableContainer">
-                    <table>
-                        <tr>
-                            가입자 정보
-                        </tr>
-                        <tr>
-                            <th>
-                                이름
-                            </th>
-                            <td>
-                                <%= name %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                나이/성별
-                            </th>
-                            <td>
-                                28세(남자)
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                건강등급
-                            </th>
-                            <td>
-                                <%
-                                    String healthGradeText = ""; // 결과를 저장할 변수
-                                    // 등급 계산
-                                    if (healthGrade >= 1 && healthGrade <= 2) {
-                                        healthGradeText = "Grade1";
-                                    } else if (healthGrade >= 3 && healthGrade <= 4) {
-                                        healthGradeText = "Grade2";
-                                    } else if (healthGrade >= 5 && healthGrade <= 6) {
-                                        healthGradeText = "Grade3";
-                                    } else if (healthGrade >= 7 && healthGrade <= 9) {
-                                        healthGradeText = "Grade4";
-                                    } else {
-                                        // 다른 경우에 대한 처리
-                                        healthGradeText = "알 수 없음"; // 예를 들어, 범위를 벗어나는 값인 경우
-                                    }
-                                %>
-                                <%=healthGrade%>등급(<%=healthGradeText%>)
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                주민등록번호
-                            </th>
-                            <td>
-                                <%= identifyNum %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                자택주소
-                            </th>
-                            <td>
-                                서울시 강서구 화곡로 11번지
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                전화번호
-                            </th>
-                            <td>
-                                010-3333-2222
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>
-                    <div class="tableContainer">
-                        <table>
+                        <table class="insuTable">
+                            <thead>
                             <tr>
-                                보험 정보
+                                <th colspan="2" class="col">고객 정보</th>
+                                <th colspan="2" class="col">보험 정보</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>이름</th>
+                                <td><%= name %></td>
+                                <th>보험명</th>
+                                <td>무배당 Grade 건강 보험</td>
                             </tr>
                             <tr>
-                                <th>
-                                    보험명
-                                </th>
-                                <td>
-                                    무배당 Grade 건강 보험
-                                </td>
+                                <th>나이/성별</th>
+                                <td>28세(남자)</td>
+                                <th>보험료</th>
+                                <td>78,900원</td>
                             </tr>
                             <tr>
+                                <th>주민등록번호</th>
+                                <td><%= identifyNum %></td>
                                 <th>
-                                    보험료
+                                    포인트
                                 </th>
                                 <td>
-                                    78,900원
                                     <div class="modal">
                                         <div class="modal_body">건강등급 구간별 보험료
                                             <button class="btn-close-popup">X</button>
@@ -245,14 +181,29 @@
                                 </td>
                             </tr>
                             <tr>
+
                                 <th>
-                                    포인트
+                                    건강등급
                                 </th>
                                 <td>
-                                    <input>
+                                    <%
+                                        String healthGradeText = ""; // 결과를 저장할 변수
+                                        // 등급 계산
+                                        if (healthGrade >= 1 && healthGrade <= 2) {
+                                            healthGradeText = "Grade1";
+                                        } else if (healthGrade >= 3 && healthGrade <= 4) {
+                                            healthGradeText = "Grade2";
+                                        } else if (healthGrade >= 5 && healthGrade <= 6) {
+                                            healthGradeText = "Grade3";
+                                        } else if (healthGrade >= 7 && healthGrade <= 9) {
+                                            healthGradeText = "Grade4";
+                                        } else {
+                                            // 다른 경우에 대한 처리
+                                            healthGradeText = "알 수 없음"; // 예를 들어, 범위를 벗어나는 값인 경우
+                                        }
+                                    %>
+                                    <%=healthGrade%>등급(<%=healthGradeText%>)
                                 </td>
-                            </tr>
-                            <tr>
                                 <th>
                                     최종 가입료
                                 </th>
@@ -260,7 +211,10 @@
                                     78,900원
                                 </td>
 
+                            </tr>
+                            </tbody>
                         </table>
+                    </div>
                         <button id="insertInsuButton">보험 가입하기</button>
 
                     </div>
@@ -286,7 +240,7 @@
                     console.log("전송 성공");
                     alert("보험 가입이 완료되었습니다.");
 
-                    window.location.href = "/";
+                    window.location.href = "/insuRead";
                 },
                 error: function() {
                     console.error("전송 실패");

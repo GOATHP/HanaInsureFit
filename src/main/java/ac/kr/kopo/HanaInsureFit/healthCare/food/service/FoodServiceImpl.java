@@ -1,10 +1,7 @@
 package ac.kr.kopo.HanaInsureFit.healthCare.food.service;
 
 import ac.kr.kopo.HanaInsureFit.healthCare.food.dao.FoodMapper;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.Food;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames;
-import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.TargetIngre;
+import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -108,8 +105,8 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.getDietID();
     }
 
-    public List<FoodIngredients> getIngredients(){
-        return foodMapper.getIngredients();
+    public List<FoodIngredients> getIngredients(String customerID){
+        return foodMapper.getIngredients(customerID);
     }
 
     @Override
@@ -133,6 +130,10 @@ public class FoodServiceImpl implements FoodService {
             System.out.println("중복 데이터가 이미 존재합니다.");
             foodMapper.insertFoodDietMapping(paramMap);
         }
+    }
+
+    public List<WeekCalories> getWeekCalories() {
+        return foodMapper.getWeekCalories();
     }
 }
 

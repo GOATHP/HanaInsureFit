@@ -10,4 +10,8 @@ import java.util.List;
 @Mapper
 public interface RestaurantMapper {
     List<Restaurant> getRestaurant(String guDong);
+    Restaurant getSelectedRestaurant(String restaurantName);
+
+    Integer getRestaurantCalories(String classification2);
+
 }

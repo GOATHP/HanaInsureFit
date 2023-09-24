@@ -11,5 +11,18 @@
     </select>
 
 
+    <select id="getSelectedRestaurant" resultType="ac.kr.kopo.HanaInsureFit.healthCare.restaurant.vo.Restaurant">
+        SELECT *
+        FROM restaurant
+        WHERE name = #{restaurantName}
+    </select>
+
+    <select id="getRestaurantCalories" resultType="java.lang.Integer">
+        SELECT average_calories
+        FROM caloriesCode
+        WHERE classification2 = #{classification2}
+    </select>
+
+
 </mapper>
 
