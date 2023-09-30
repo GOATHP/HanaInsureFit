@@ -1,5 +1,6 @@
 package ac.kr.kopo.HanaInsureFit.healthCare.restaurant.vo;
 
+import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.MenuCalories;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class Restaurant {
+public class Restaurant2 {
     private Long id; // 데이터베이스에서 자동 생성되는 고유 식별자
 
     private String name;
@@ -31,10 +32,7 @@ public class Restaurant {
     private String menu;
     private String address;
     private String phone_number;
-    private int calories;
-    private int protein;
-    private int fat;
-    private int carbs;
-    public Restaurant() {
+    private MenuCalories restaurantInfo;
+    public Restaurant2() {
     }
 }

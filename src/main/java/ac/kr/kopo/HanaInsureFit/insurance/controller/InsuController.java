@@ -50,10 +50,8 @@ public class InsuController {
 
     @ResponseBody
     @PostMapping("/Insusearching")
-    public ResponseEntity<Insurance> getOneInsu(@RequestParam("input") String insuranceProductNumber, HttpSession session) {
+    public String getOneInsu(@RequestParam("input") String insuranceProductNumber, HttpSession session) {
         System.out.println("여까지옴ㅁ밈");
-
-
         Insurance insu = insuService.getOneInsu(Integer.parseInt(insuranceProductNumber));
         System.out.println(insu.getInsuranceCompanyCode());
         Map<String, Object> response = new HashMap<>();
@@ -65,10 +63,11 @@ public class InsuController {
         session.setAttribute("insuContent", insu.getInsuContent());
         session.setAttribute("minAgeAtRegistration", insu.getMinAgeAtRegistration());
         session.setAttribute("maxAgeAtRegistration", insu.getMaxAgeAtRegistration());
+
         if (insu != null) {
-            return ResponseEntity.ok((Insurance) response);
+            return "성공";
         } else {
-            return ResponseEntity.notFound().build();
+            return "실패";
         }
     }
 
@@ -110,7 +109,7 @@ public class InsuController {
 
         for (insuNum num : insuProductNumbers) {
             System.out.println(num); // 또는 num.toString()을 사용하여 출력
-            insuByCustID result = insuService.insuByCustIDList(num.getInsuranceProductNumber());
+            insuByCustID result = insuService.insuByCustIDList(num.getInsuranceProductNumber(), customerID);
             System.out.println(result);
             if (result != null) {
                 resultList.add(result);
@@ -123,7 +122,6 @@ public class InsuController {
 //                resultList.add(result);
 //            }
 //        }
-
         if (!resultList.isEmpty()) {
             return ResponseEntity.ok(resultList);
         } else {

@@ -3,6 +3,7 @@ package ac.kr.kopo.HanaInsureFit.insurance.service;
 import ac.kr.kopo.HanaInsureFit.insurance.vo.Insurance;
 import ac.kr.kopo.HanaInsureFit.insurance.vo.insuByCustID;
 import ac.kr.kopo.HanaInsureFit.insurance.vo.insuNum;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,6 @@ public interface InsuService {
 
     List<insuNum> insuByCustID(String customerID);
 
-    insuByCustID insuByCustIDList(int insuranceProductNumber);
+    insuByCustID insuByCustIDList(@Param("insuranceProductNumber") int insuranceProductNumber, @Param("customerId") String customerId);
 
 }

@@ -39,9 +39,9 @@ public class InsuServiceImpl implements InsuService {
         return insuMapper.insuByCustID(customerID);
     }
     @Override
-    public insuByCustID insuByCustIDList(int insuranceProductNumber) {
+    public insuByCustID insuByCustIDList(int insuranceProductNumber, String customerID) {
 
-        return insuMapper.insuByCustIDList(insuranceProductNumber);
+        return insuMapper.insuByCustIDList(insuranceProductNumber, customerID);
     }
 }
 

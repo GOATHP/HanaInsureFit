@@ -1,5 +1,7 @@
 package ac.kr.kopo.HanaInsureFit.member.controller;
 
+import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInfo;
+import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInsu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,31 @@ public class MemberController {
             System.out.println(i);
         }
         return ResponseEntity.ok(memberList);
+    }
+    @ResponseBody
+    @PostMapping(value = "/getMyPageInfo")
+    public MyPageInfo getMyPageInfo(@RequestParam("customerID") String customerID) {
+        System.out.println("Controller  getMyPageInfo  여까지옴" + customerID);
+        MyPageInfo myPageInfo = memberService.getMyPageInfo(customerID);
+        System.out.println("토탈팻" + myPageInfo.getBmi());
+        if (myPageInfo != null) {
+            return myPageInfo;
+        } else {
+            return null;
+        }
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/getMyPageInsu")
+    public MyPageInsu getMyPageInsu(@RequestParam("customerID") String customerID) {
+        System.out.println("Controller  getMyPageInfo  여까지옴" + customerID);
+        MyPageInsu myPageInsu = memberService.getMyPageInsu(customerID);
+        System.out.println("토탈팻" + myPageInsu.getInsuranceProductName());
+        if (myPageInsu != null) {
+            return myPageInsu;
+        } else {
+            return null;
+        }
     }
 
     @PostMapping("/loginMember")

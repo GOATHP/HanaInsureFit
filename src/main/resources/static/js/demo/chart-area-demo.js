@@ -2,6 +2,9 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
+var customerID = document.getElementById("customerID").getAttribute("data-customerID");
+src="https://code.jquery.com/jquery-3.4.1.min.js"
+
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
   // *     return: '1 234,56'
@@ -26,27 +29,66 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   }
   return s.join(dec);
 }
+var labels = [];
+var dataValues = [];
+function fetchDataAndUpdateChart() {
 
+  $.ajax({
+    url: 'getChartData',
+    method: 'POST',
+    dataType: 'json',
+    data: {
+      'customerID': customerID
+    },
+    success: function (response) {
+      console.log("Data Check : " + response);
+      for (var i = response.length - 1; i >= 0; i--) {
+        labels.push(response[i].recorddate);
+        dataValues.push(response[i].total_calories);
+
+      }
+      drawLineChart();
+    },
+    //   // 차트 데이터 업데이트
+    //   myBarChart.data.labels = labels;
+    //   myBarChart.data.datasets[0].data = dataValues;
+    //
+    //   // 차트 업데이트
+    //   myBarChart.update();
+    // },
+    error: function (error) {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    },
+  });
+}
+window.addEventListener('load', fetchDataAndUpdateChart);
+// drawLineChart();
+// fetchDataAndUpdateChart();
 // Area Chart Example
+function drawLineChart(){
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels : labels,
+    // labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+      // , "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
-      label: "Earnings",
+      // label: "Kcal : ",
       lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0.05)",
-      borderColor: "rgba(78, 115, 223, 1)",
+      // backgroundColor: "#005753",
+      borderColor: "#00857E",
       pointRadius: 3,
-      pointBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointBorderColor: "rgba(78, 115, 223, 1)",
+      pointBackgroundColor: "#005753",
+      pointBorderColor: "#00857E",
       pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHoverBackgroundColor: "#005753",
+      pointHoverBorderColor: "#00857E",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data : dataValues,
+      // data: [0, 10000, 5000, 15000, 10000]
+        // , 20000, 15000, 25000, 20000, 30000, 25000, 40000],
     }],
   },
   options: {
@@ -78,7 +120,7 @@ var myLineChart = new Chart(ctx, {
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return '$' + number_format(value);
+            return number_format(value);
           }
         },
         gridLines: {
@@ -110,9 +152,10 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + number_format(tooltipItem.yLabel) + 'kcal';
         }
       }
     }
   }
 });
+}

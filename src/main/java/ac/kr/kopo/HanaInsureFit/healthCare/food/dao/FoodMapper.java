@@ -12,21 +12,20 @@ import java.util.Optional;
 public interface FoodMapper {
     Optional<Food> findByName(String foodName);
     List<Food> foodListFindByName(String foodName);
-
     int checkDuplicate(Map<String, Object> paramMap);
     void insertFoodDietMapping(Map<String, Object> paramMap);
-
     void insertCustomerDiet(Map<String, Object> paramMap);
-
     List<FoodIngredients> getIngredients(String customerID);
-
+    List<FoodIngredients> getSelectedIngredients(String customerID);
     List<FoodNames> getFoodNames();
-
+    List<FoodNames> getSelectedFoodNames(String customerID);
     long getDietID();
-
     TargetIngre getTargetIngre(String customerID);
-
-    List<WeekCalories> getWeekCalories();
-
+    List<WeekCalories> getWeekCalories(String customerID);
     List<MenuCalories> getMenuCalories(String menu);
+    AvgIngredients getAvgIngre(String customerID);
+    void insertSelectedMenu(Map<String, Object> paramMap);
+
+
+
 }

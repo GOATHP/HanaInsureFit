@@ -23,6 +23,15 @@
         WHERE classification2 = #{classification2}
     </select>
 
-
+    <update id="updateNutritionBatch" parameterType="hashMap">
+        UPDATE restaurant
+        SET
+            calories = #{menuCaloriesMap.calories},
+            fat = #{menuCaloriesMap.fat},
+            carbs = #{menuCaloriesMap.carbs},
+            protein = #{menuCaloriesMap.protein}
+        WHERE
+            name = #{restaurantName}
+    </update>
 </mapper>
 

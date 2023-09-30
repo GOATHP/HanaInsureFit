@@ -6,13 +6,13 @@
 
     <select id="foodListFindByName"  resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.Food">
         <![CDATA[
-        select *
+        select distinct *
         from (select * from food where foodName like CONCAT(#{foodName}, '%') ORDER BY foodName ASC)
-        where ROWNUM <= 5
+        where ROWNUM <= 50
         ]]>
     </select>
     <select id="findByName" parameterType="String" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.Food">
-        select * from food where foodName = #{foodName}
+        <![CDATA[select distinct * from food where foodName = #{foodName} and ROWNUM <= 1]]>
     </select>
 
     <select id="checkDuplicate" resultType="int">
@@ -42,6 +42,22 @@
         INSERT INTO foodDietMapping (mappingID, foodID, MEALCODE, recordDate, calories, protein, fat, carbs, weightInput, customerID)
         VALUES (#{mappingID}, #{foodID}, #{mealCode}, TO_CHAR(SYSDATE, 'yy/MM/dd'), #{calories}, #{protein}, #{fat}, #{carbs}, #{weightInput}, #{customerID})
     </insert>
+
+
+    <insert id="insertSelectedMenu" parameterType="java.util.HashMap">
+        <selectKey keyProperty="ID" resultType="long" order="BEFORE">
+            SELECT selectedMenu_seq.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO selectedMenu(ID, foodName, MEALCODE, recordDate, calories, protein, fat, carbs, amountPerOnce, customerID)
+        VALUES (#{ID}, #{foodName}, #{mealCode}, TO_CHAR(SYSDATE, 'yy/MM/dd'), #{calories}, #{protein}, #{fat}, #{carbs}, #{amountPerOnce}, #{customerID})
+    </insert>
+
+    <select id="getSelectedFoodNames" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames">
+        SELECT foodName, mealCode
+        FROM selectedMenu
+        WHERE recorddate = TO_CHAR(SYSDATE, 'yy/MM/dd') and customerID = #{customerID}
+     </select>
+
     <select id="getFoodNames" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames">
         SELECT f.foodName, fdm.mealCode
         FROM food f
@@ -69,27 +85,89 @@
             fdm.mealCode
     </select>
 
+    <select id="getSelectedIngredients" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients">
+        SELECT
+            mealCode,
+            recordDate,
+            SUM(calories) AS total_calories,
+            SUM(carbs) AS total_carbs,
+            SUM(protein) AS total_protein,
+            SUM(fat) AS total_fat
+        FROM
+            selectedMenu
+        WHERE
+            recordDate = TO_CHAR(SYSDATE, 'yy/MM/dd')
+          AND customerID =  'CUST0001'
+        GROUP BY
+            mealCode,
+            recordDate
+        ORDER BY
+            mealCode
+    </select>
+
+    <select id="getAvgIngre" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.AvgIngredients">
+        SELECT
+            ROUND(SUM(calories) / COUNT(*), 2) AS avg_calories,
+            ROUND(SUM(carbs) / COUNT(*), 2) AS avg_carbs,
+            ROUND(SUM(fat) / COUNT(*), 2) AS avg_fat,
+            ROUND(SUM(protein) / COUNT(*), 2) AS avg_protein
+        FROM foodDietMapping
+        WHERE CUSTOMERID = #{customerID}
+    </select>
     <select id="getTargetIngre" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.TargetIngre">
         select calories, protein, fat, carbohydrates from CustomerTargetDiet where customerid = #{customerID}
     </select>
 
-
+<!--    &#45;&#45;         SELECT *-->
+<!--    &#45;&#45;         FROM (-->
+<!--    &#45;&#45;         SELECT recorddate, SUM(calories) AS total_calories-->
+<!--    &#45;&#45;         FROM foodDietMapping where customerid = #{customerID}-->
+<!--    &#45;&#45;         GROUP BY recorddate-->
+<!--    &#45;&#45;         ORDER BY recorddate DESC-->
+<!--    &#45;&#45;         )-->
+<!--    &#45;&#45;         WHERE ROWNUM <= 7-->
     <select id="getWeekCalories" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.WeekCalories">
         <![CDATA[
-        SELECT *
-        FROM (
-        SELECT recorddate, SUM(calories) AS total_calories
-        FROM foodDietMapping
-        GROUP BY recorddate
-        ORDER BY recorddate DESC
-        )
-        WHERE ROWNUM <= 7
+            SELECT
+                COALESCE(fm.recorddate, sm.RECORDDATE) AS recorddate,
+                COALESCE(fm.customerID, sm.CUSTOMERID) AS customerID,
+                COALESCE(fm.total_calories_in_foodDietMapping, 0) + COALESCE(sm.total_calories_in_selectedMenu, 0) AS total_calories
+            FROM
+                (
+                    SELECT
+                        recorddate,
+                        customerID,
+                        SUM(CALORIES) AS total_calories_in_foodDietMapping
+                    FROM
+                        foodDietMapping
+                    WHERE
+                        customerID = #{customerID}
+                    GROUP BY
+                        recorddate, customerID
+                ) fm
+                    FULL OUTER JOIN
+                (
+                    SELECT
+                        RECORDDATE,
+                        CUSTOMERID,
+                        SUM(CALORIES) AS total_calories_in_selectedMenu
+                    FROM
+                        selectedMenu
+                    WHERE
+                        CUSTOMERID = #{customerID}
+                    GROUP BY
+                        RECORDDATE, CUSTOMERID
+                ) sm
+                ON
+                    fm.recorddate = sm.RECORDDATE
+            WHERE ROWNUM <= 7
         ]]>
     </select>
-
     <select id="getMenuCalories" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.MenuCalories">
+        <![CDATA[
         SELECT *
         FROM food
-        WHERE foodName LIKE '%' || #{menu} || '%'
+        WHERE foodName LIKE '%' || #{menu} || '%' and ROWNUM <= 30
+          ]]>
     </select>
 </mapper>

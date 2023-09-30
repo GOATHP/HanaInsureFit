@@ -7,6 +7,10 @@ import java.util.List;
 
 
 import ac.kr.kopo.HanaInsureFit.member.dao.MemberMapper;
+import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInfo;
+import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInsu;
+import ac.kr.kopo.HanaInsureFit.member.vo.UserGrade;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +39,19 @@ public class MemberServiceImpl implements MemberService {
 
     public int getGrade(String customerID) {
         return memberMapper.getGrade(customerID);
+    }
+    public MyPageInfo getMyPageInfo(String customerID) {
+        return memberMapper.getMyPageInfo(customerID);
+    }
+    public MyPageInsu getMyPageInsu(String customerID) {
+        return memberMapper.getMyPageInsu(customerID);
+    }
+
+    public UserGrade getUserGrade(String customerID){
+        return memberMapper.getUserGrade(customerID);
+    };
+
+    public void regiGrade(@Param("customerID") String customerID, @Param("healthGrade") int healthGrade) {
+        memberMapper.regiGrade(customerID, healthGrade);
     }
 }

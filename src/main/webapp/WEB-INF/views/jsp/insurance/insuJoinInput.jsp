@@ -9,6 +9,10 @@
     <title>하나 InsureFit</title>
     <link href="resources/static/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <%
+        String insuranceProductNumber = request.getParameter("insuranceProductNumber");
+    %>
+
     <style>
         /* 팝업 스타일 */
         .popup {
@@ -40,6 +44,8 @@
     </style>
 </head>
 <script>
+    var insuranceProductNumber = '<%= insuranceProductNumber %>';
+    console.log(insuranceProductNumber);
     function showGradeCalculation() {
         document.getElementById('gradeCalculation').style.display = 'block';
         document.getElementById('gradeRegistration').style.display = 'none';
@@ -437,6 +443,27 @@
         modal.classList.remove('visible');
     }
 </script>
+<%--<script>--%>
+<%--    // 페이지 로드 시 실행되는 함수--%>
+<%--    window.onload = function () {--%>
+<%--        // insuranceProductNumber 변수 값을 JavaScript로 가져옵니다.--%>
+<%--        var insuranceProductNumber = '<%= request.getParameter("insuranceProductNumber") %>';--%>
+<%--        console.log(insuranceProductNumber)--%>
+<%--        // Ajax 요청을 사용하여 컨트롤러로 변수를 전달합니다.--%>
+<%--        $.ajax({--%>
+<%--            type: "POST", // 또는 "POST" 요청을 사용하실 수도 있습니다.--%>
+<%--            url: "/Insusearching", // 컨트롤러의 엔드포인트 URL--%>
+<%--            data: {--%>
+<%--                input: insuranceProductNumber--%>
+<%--            },--%>
+<%--            success: function (data) {--%>
+<%--            },--%>
+<%--            error: function () {--%>
+<%--                // Ajax 요청이 실패한 경우 처리할 코드를 작성합니다.--%>
+<%--            }--%>
+<%--        });--%>
+<%--    };--%>
+<%--</script>--%>
 
 
 </div>

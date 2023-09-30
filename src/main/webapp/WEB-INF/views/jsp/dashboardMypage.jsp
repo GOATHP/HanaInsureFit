@@ -15,10 +15,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>관리자 페이지 - Dashboard</title>
+    <title>마이 페이지 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="resources/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -27,13 +27,77 @@
     @keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
     <script src="resources/static/js/sb-admin-2.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+
+    </script>
     <style>
-        .navAll{
+        .insuTable{
+            border-collapse : collapse;
             width: 100%;
+            text-align: center;
+
+        }
+
+        .insuTable th{
+            border: 1px solid #001e1f;
+            border-collapse : collapse;
+            padding: 10px 10px;
+            font-size: 16px;
+            width: 100px;
         }
 
 
+        .insuTable td{
+            border: 1px solid #001e1f;
+            border-collapse : collapse;
+            padding: 10px 10px;
+            font-size: 16px;
+            text-align: left;
+        }
 
+        .insuTable th{
+            background-color: #009490;
+            color:white;
+        }
+
+        .sideBar{
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            width: 20%;
+            min-width: 20%;
+            flex-direction: column;
+        }
+
+        .sideBarTab{
+            padding:10px;
+            font-weight: normal;
+            color:#7e7b7b;
+        }
+        .sideBarTabClicked{
+            padding:10px;
+            font-weight: normal;
+            color:#00857E;
+        }
+
+        .sideBarName{
+            background-color: #00857E;
+            padding: 20px;
+            color:white;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .sideBarContents{
+            display: flex;
+            flex-direction: column;
+            font-size: 25px;
+        }
+
+
+        .navAll{
+            width: 100%;
+        }
         .upper {
             display: flex;
             justify-content: space-between;
@@ -145,7 +209,7 @@
         }
     </style>
 
-<body id="page-top">
+<body id="page-top" style="width:1500px; margin:0 auto"; >
 <header>
     <div class="navAll">
         <div class="upper">
@@ -173,7 +237,7 @@
                     String customerID = (String) session.getAttribute("customerID");
                     if (name != null) {
                 %>
-                <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
+                <li><div class="welcomeMent" id="customerID" data-customerID="<%=customerID%>"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
                 <li><a class="headerLink" href="javascript:void(0);" onclick="logout();">로그아웃</a></li>
                 <%
                 } else {
@@ -198,7 +262,7 @@
                         <li><a href="/introduce">하나Insure Fit이란?</a></li>
                         <li><a href="/recommendInsu">Grade보험</a></li>
                         <li><a href="/weightManage">건강관리</a></li>
-                        <li><a href="/dashboardMypage">마이페이지</a></li>
+                        <li><a href="/dashboardMypage" style="color:#00857E">마이페이지</a></li>
                     </ul>
                 </ul>
             </nav>
@@ -206,78 +270,108 @@
     </div>
 </header>
 <!-- Page Wrapper -->
-<div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-        <!-- Sidebar - Brand -->
-<%--        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">--%>
-<%--&lt;%&ndash;            <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고" style= "width:110%">&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <div class="sidebar-brand-icon rotate-n-15">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <i class="fas fa-laugh-wink"></i>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            </div>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <div class="sidebar-brand-text mx-3">하나 InsureFit</div>&ndash;%&gt;--%>
-<%--        </a>--%>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-
-        <!-- Divider -->
-<%--        <hr class="sidebar-divider">--%>
-
-        <!-- Heading -->
-<%--        <div class="sidebar-heading">--%>
-<%--            Interface--%>
-<%--        </div>--%>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>대시보드</span></a>
-        </li>
-        <hr class="sidebar-divider d-none d-md-block">
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>상품관리</span></a>
-        </li>
-        <hr class="sidebar-divider d-none d-md-block">
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="/manageMember">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>회원관리</span></a>
-        </li>
-        <hr class="sidebar-divider d-none d-md-block">
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>메일송부</span></a>
-        </li>
-
-        <hr class="sidebar-divider d-none d-md-block">
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>설정</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-
-        <!-- Sidebar Message -->
+<div id="wrapper" style="margin: 30px auto";>
+    <div class="sideBar">
+        <div class="sideBarName">
+            마이페이지
+        </div>
+        <div class="sideBarContents">
+            <a href="/dashboardMypage" class="sideBarTabClicked">
+                대시보드
+            </a>
+            <%--            <a href="/insuGradeSubmit" class="sideBarTab">--%>
+            <%--                건강등급등록--%>
+            <%--            </a>--%>
+            <a href="/weightManage" class="sideBarTab">
+                식단 관리
+            </a>
+            <a href="/weightManage" class="sideBarTab">
+                체중정보 갱신
+            </a>
+            <a href="/weightManage" class="sideBarTab">
+                건강정보 갱신
+            </a>
+            <a href="/weightManage" class="sideBarTab">
+                회원정보수정
+            </a>
 
 
-    </ul>
-    <!-- End of Sidebar -->
+            <%--            <a href="/insuJoin" class="sideBarTab">--%>
+            <%--                Grade보험가입--%>
+            <%--            </a>--%>
+
+        </div>
+    </div>
+<%--    <!-- Sidebar -->--%>
+<%--    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">--%>
+
+<%--        <!-- Sidebar - Brand -->--%>
+<%--&lt;%&ndash;        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;            <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고" style= "width:110%">&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;            <div class="sidebar-brand-icon rotate-n-15">&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;                <i class="fas fa-laugh-wink"></i>&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;            </div>&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;            <div class="sidebar-brand-text mx-3">하나 InsureFit</div>&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;        </a>&ndash;%&gt;--%>
+
+<%--        <!-- Divider -->--%>
+<%--        <hr class="sidebar-divider my-0">--%>
+
+<%--        <!-- Nav Item - Dashboard -->--%>
+
+<%--        <!-- Divider -->--%>
+<%--&lt;%&ndash;        <hr class="sidebar-divider">&ndash;%&gt;--%>
+
+<%--        <!-- Heading -->--%>
+<%--&lt;%&ndash;        <div class="sidebar-heading">&ndash;%&gt;--%>
+<%--&lt;%&ndash;            Interface&ndash;%&gt;--%>
+<%--&lt;%&ndash;        </div>&ndash;%&gt;--%>
+
+<%--        <!-- Nav Item - Pages Collapse Menu -->--%>
+
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="charts.html">--%>
+<%--                <i class="fas fa-fw fa-chart-area"></i>--%>
+<%--                <span>대시보드</span></a>--%>
+<%--        </li>--%>
+<%--        <hr class="sidebar-divider d-none d-md-block">--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="charts.html">--%>
+<%--                <i class="fas fa-fw fa-chart-area"></i>--%>
+<%--                <span>식단 관리</span></a>--%>
+<%--        </li>--%>
+<%--        <hr class="sidebar-divider d-none d-md-block">--%>
+<%--        <!-- Nav Item - Charts -->--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="/manageMember">--%>
+<%--                <i class="fas fa-fw fa-chart-area"></i>--%>
+<%--                <span>건강등급 갱신</span></a>--%>
+<%--        </li>--%>
+<%--        <hr class="sidebar-divider d-none d-md-block">--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="charts.html">--%>
+<%--                <i class="fas fa-fw fa-chart-area"></i>--%>
+<%--                <span>체중정보 갱신</span></a>--%>
+<%--        </li>--%>
+
+<%--        <hr class="sidebar-divider d-none d-md-block">--%>
+<%--        <!-- Nav Item - Tables -->--%>
+<%--        <li class="nav-item">--%>
+<%--            <a class="nav-link" href="tables.html">--%>
+<%--                <i class="fas fa-fw fa-table"></i>--%>
+<%--                <span>개인정보 변경</span></a>--%>
+<%--        </li>--%>
+
+<%--        <!-- Divider -->--%>
+<%--        <hr class="sidebar-divider d-none d-md-block">--%>
+
+<%--        <!-- Sidebar Toggler (Sidebar) -->--%>
+
+<%--        <!-- Sidebar Message -->--%>
+
+
+<%--    </ul>--%>
+<%--    <!-- End of Sidebar -->--%>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -286,7 +380,8 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" style="
+    height: 86px;">
 
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -329,7 +424,7 @@
                     </li>
 
                     <!-- Nav Item - Alerts -->
-                    <li class="nav-item dropdown no-arrow mx-1">
+                    <li class="nav-item dropdown no-arrow mx-1" style="padding-right: 0px;">
                         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-bell fa-fw"></i>
                             <!-- Counter - Alerts -->
@@ -481,90 +576,90 @@
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
 
-                <!-- Content Row -->
-                <div class="row">
+<%--                <!-- Content Row -->--%>
+<%--                <div class="row">--%>
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            회원 수</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">4000명</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<%--                    <!-- Earnings (Monthly) Card Example -->--%>
+<%--                    <div class="col-xl-3 col-md-6 mb-4">--%>
+<%--                        <div class="card border-left-primary shadow h-100 py-2">--%>
+<%--                            <div class="card-body">--%>
+<%--                                <div class="row no-gutters align-items-center">--%>
+<%--                                    <div class="col mr-2">--%>
+<%--                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">--%>
+<%--                                            회원 수</div>--%>
+<%--                                        <div class="h5 mb-0 font-weight-bold text-gray-800">4000명</div>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="col-auto">--%>
+<%--                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            보험 가입자 수</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">2,000명</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<%--                    <!-- Earnings (Monthly) Card Example -->--%>
+<%--                    <div class="col-xl-3 col-md-6 mb-4">--%>
+<%--                        <div class="card border-left-success shadow h-100 py-2">--%>
+<%--                            <div class="card-body">--%>
+<%--                                <div class="row no-gutters align-items-center">--%>
+<%--                                    <div class="col mr-2">--%>
+<%--                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">--%>
+<%--                                            보험 가입자 수</div>--%>
+<%--                                        <div class="h5 mb-0 font-weight-bold text-gray-800">2,000명</div>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="col-auto">--%>
+<%--                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">목표회원 달성률
-                                        </div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="progress progress-sm mr-2">
-                                                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<%--                    <!-- Earnings (Monthly) Card Example -->--%>
+<%--                    <div class="col-xl-3 col-md-6 mb-4">--%>
+<%--                        <div class="card border-left-info shadow h-100 py-2">--%>
+<%--                            <div class="card-body">--%>
+<%--                                <div class="row no-gutters align-items-center">--%>
+<%--                                    <div class="col mr-2">--%>
+<%--                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">목표회원 달성률--%>
+<%--                                        </div>--%>
+<%--                                        <div class="row no-gutters align-items-center">--%>
+<%--                                            <div class="col-auto">--%>
+<%--                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>--%>
+<%--                                            </div>--%>
+<%--                                            <div class="col">--%>
+<%--                                                <div class="progress progress-sm mr-2">--%>
+<%--                                                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="col-auto">--%>
+<%--                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
 
-                    <!-- Pending Requests Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            보험 수</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<%--                    <!-- Pending Requests Card Example -->--%>
+<%--                    <div class="col-xl-3 col-md-6 mb-4">--%>
+<%--                        <div class="card border-left-warning shadow h-100 py-2">--%>
+<%--                            <div class="card-body">--%>
+<%--                                <div class="row no-gutters align-items-center">--%>
+<%--                                    <div class="col mr-2">--%>
+<%--                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">--%>
+<%--                                            보험 수</div>--%>
+<%--                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="col-auto">--%>
+<%--                                        <i class="fas fa-comments fa-2x text-gray-300"></i>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
 
                 <!-- Content Row -->
 
@@ -575,7 +670,7 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">칼로리 추이</h6>
+                                <h6 class="m-0 font-weight-bold text-light" style="font-size: 20px;">칼로리 추이</h6>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -591,8 +686,8 @@
                             </div>
                             <!-- Card Body -->
                             <div class="card-body">
-                                <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                    <canvas id="myAreaChart" style="display: block; width: 817px; height: 320px;" width="817" height="320" class="chartjs-render-monitor"></canvas>
+                                <div class="chart-area" style="margin:0 auto";><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                    <canvas id="myAreaChart" style="display: block; width: 715px; height: 320px;" width="715" height="320" class="chartjs-render-monitor"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -603,7 +698,7 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                <h6 class="m-0 font-weight-bold text-light" style="font-size: 20px;">영양성분 비율</h6>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -617,20 +712,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Card Body -->
+<%--                            <!-- Card Body -->height: 245px;--%>
                             <div class="card-body">
                                 <div class="chart-pie pt-4 pb-2"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                    <canvas id="myPieChart" width="376" height="245" style="display: block; width: 376px; height: 245px;" class="chartjs-render-monitor"></canvas>
+                                    <canvas id="myPieChart" width="376" height="245" style="display: block; width: 330px; " class="chartjs-render-monitor"></canvas>
                                 </div>
                                 <div class="mt-4 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
+                                            <i class="fas fa-circle text-primary"></i> carbs
                                         </span>
                                     <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
+                                            <i class="fas fa-circle text-success"></i> fat
                                         </span>
                                     <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
+                                            <i class="fas fa-circle text-info"></i> protein
                                         </span>
                                 </div>
                             </div>
@@ -640,36 +735,119 @@
 
                 <!-- Content Row -->
                 <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <!-- Illustrations -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-light" style="font-size: 20px";>나의 건강정보</h6>
+                            </div>
+                            <div class="card-body" style="display: flex;height: 330px;";>
+                                <div class="centerAlign" style="font-size: 30px";>
+                                    건강등급
+                                    <img id="gradeImg" style="padding-top: 10px; padding-bottom: 10px;" alt="프로젝트">
+                                    <div id="gradeRecordDate" style="text-align: center;padding-bottom: 30px;font-size: 14px; color:#4d4d4d";>
+                                </div>
 
+                                <br>
+                                </div>
+                                <div style="padding-top: 50px;padding-left: 40px;">
+                                <table style="margin: 0 auto;color:#5a5c69;padding-top: 10px;font-size: 20px;;" class="insuTable">
+                                    <tr>
+                                        <th>키</th>
+                                        <td id="heightCell"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>몸무게</th>
+                                        <td id="weightCell"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>BMI</th>
+                                        <td id="bmiCell"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>기초대사량</th>
+                                        <td id="bmrCell"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>칼로리목표</th>
+                                        <td id="caloriesCell"></td>
+                                    </tr>
+                                </table>
+                                <div style="color:#5a5c69;padding-top: 20px;text-align: center;margin:0 auto;font-size: 20px;display: flex;">
+                                    다음 등급까지 남은 체중 : <div class="weightLeft" style="color:#009490; white-space: nowrap;">5</div>kg
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Approach -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+                            </div>
+                            <div class="card-body">
+                                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
+                                    CSS bloat and poor page performance. Custom CSS classes are used to create
+                                    custom components and custom utility classes.</p>
+                                <p class="mb-0">Before working with this theme, you should become familiar with the
+                                    Bootstrap framework, especially the utility classes.</p>
+                            </div>
+                        </div>
+
+                    </div>
                     <!-- Content Column -->
                     <div class="col-lg-6 mb-4">
 
                         <!-- Project Card Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                <h6 class="m-0 font-weight-bold text-light" style="font-size: 20px">나의 보험정보</h6>
+
+
                             </div>
                             <div class="card-body">
-                                <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                <table style="margin: 0 auto;color:#5a5c69;padding-top: 10px;font-size: 20px;;" class="insuTable">
+                                    <tr>
+                                        <th>보험명</th>
+                                        <td id="insuNameCell"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>보험료</th>
+                                        <td id="insuFeeCell"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>가입일자</th>
+                                        <td id="startDate"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>만기일자</th>
+                                        <td id="endDate"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>보장내용</th>
+                                        <td id="insuContent"></td>
+                                    </tr>
+                                </table>
+<%--                                <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>--%>
+<%--                                <div class="progress mb-4">--%>
+<%--                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>--%>
+<%--                                <div class="progress mb-4">--%>
+<%--                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>--%>
+<%--                                <div class="progress mb-4">--%>
+<%--                                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>--%>
+<%--                                <div class="progress mb-4">--%>
+<%--                                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>--%>
+<%--                                <div class="progress">--%>
+<%--                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
                             </div>
                         </div>
 
@@ -740,52 +918,10 @@
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="col-lg-6 mb-4">
-
-                        <!-- Illustrations -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="resources/static/img/undraw_posting_photo.svg" alt="...">
-                                </div>
-                                <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                    constantly updated collection of beautiful svg images that you can use
-                                    completely free and without attribution!</p>
-                                <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                    unDraw →</a>
-                            </div>
-                        </div>
-
-                        <!-- Approach -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                            </div>
-                            <div class="card-body">
-                                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                    CSS bloat and poor page performance. Custom CSS classes are used to create
-                                    custom components and custom utility classes.</p>
-                                <p class="mb-0">Before working with this theme, you should become familiar with the
-                                    Bootstrap framework, especially the utility classes.</p>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
-
             </div>
-            <!-- /.container-fluid -->
-
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
@@ -841,7 +977,7 @@
 <!-- Page level custom scripts -->
 <script src="resources/static/js/demo/chart-area-demo.js"></script>
 <script src="resources/static/js/demo/chart-pie-demo.js"></script>
-
-
+<script src="resources/static/js/demo/myPageInfo.js"></script>
+<script src="resources/static/js/demo/myPageInsu.js"></script>
 
 </body></html>

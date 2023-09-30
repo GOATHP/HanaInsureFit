@@ -1,8 +1,11 @@
-x``<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="ac.kr.kopo.HanaInsureFit.insurance.vo.Insurance" %>
 <!DOCTYPE html>
 <html lang="en">
-
+<%
+    String insuranceProductNumber = request.getParameter("insuranceProductNumber");
+%>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +13,29 @@ x``<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <link href="resources/static/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
+        window.onload = function () {
+            // insuranceProductNumber 변수 값을 JavaScript로 가져옵니다.
+            var insuranceProductNumber = '<%= request.getParameter("insuranceProductNumber") %>';
+            console.log(insuranceProductNumber)
+            // Ajax 요청을 사용하여 컨트롤러로 변수를 전달합니다.
+            $.ajax({
+                type: "POST", // 또는 "POST" 요청을 사용하실 수도 있습니다.
+                url: "/Insusearching", // 컨트롤러의 엔드포인트 URL
+                data: {
+                    input: insuranceProductNumber
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function () {
+                    // Ajax 요청이 실패한 경우 처리할 코드를 작성합니다.
+                }
+            });
+        };
+    </script>
+    <script>
+
+
         function collapse(element) {
             var before = document.getElementsByClassName("active")[0]               // 기존에 활성화된 버튼
             if (before && document.getElementsByClassName("active")[0] != element) {  // 자신 이외에 이미 활성화된 버튼이 있으면
@@ -141,9 +167,13 @@ x``<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                     </div>
                                 </div>
                             </div>
-                            <img src="https://www.abllife.co.kr/cms/prdt/wlifeFprd/__icsFiles/afieldfile/2020/12/07/hlth_the_wlife_info_01.png" style="width : 414px;">
+                            <img src="resources/static/image/Grades.png" style="width: 400px;height: 200px;margin-top: 50px;">
                         </div>
-                    <a href="/resources/static/보험약관.pdf" target="_blank" class="btn btn_icon btn_arrow acrobat_btn fr" role="button">아크로뱃 다운로드</a>
+                    <a href="/resources/static/보험약관.pdf" target="_blank" class="btn btn_icon btn_arrow acrobat_btn fr" role="button"style="
+    border-radius: 5px;
+    padding: 5px;
+    /* margin-bottom: 30px; */
+">아크로뱃 다운로드</a>
                     <div class="mainContent">
 
                         <button type="button" class="collapsible" onclick="collapse(this);">보험상세내용</button>
@@ -368,8 +398,9 @@ x``<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--                        <label for="check_3">마케팅 수신 동의</label>--%>
 
 <%--                    </div>--%>
+
                         <div class="contents">
-                            <form action="/insuJoinInput" method="get" id="form__wrap">
+                            <form action="/insuJoinInput" method="get" id="form__wrap" style="margin-top: 30px;">
                                 <div class="terms__check__all">
                                     <input type="checkbox" name="checkAll" id="checkAll" />
                                     <label for="checkAll"

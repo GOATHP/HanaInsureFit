@@ -51,6 +51,7 @@
     JOIN
     customerInusMapping b
     ON
-    a.INSURANCEPRODUCTNUMBER = #{insuranceProductNumber}
+    a.INSURANCEPRODUCTNUMBER = #{insuranceProductNumber} AND
+    b.CUSTOMERID = #{customerId}
 </select>
 </mapper>

@@ -25,4 +25,47 @@
     <select id="getGrade" resultType="int">
         select healthgrade from healthgrade where customerID = #{customerID}
     </select>
+
+    <select id="getMyPageInfo" resultType="ac.kr.kopo.HanaInsureFit.member.vo.MyPageInfo">
+        SELECT *
+        FROM HealthCheckInfo h
+                 INNER JOIN healthgrade g ON h.CUSTOMERID = g.CUSTOMERID
+                 INNER JOIN CustomerTargetDiet d ON h.CUSTOMERID = d.CUSTOMERID
+        WHERE h.CUSTOMERID = #{customerID}
+    </select>
+
+
+    <select id="getMyPageInsu" resultType="ac.kr.kopo.HanaInsureFit.member.vo.MyPageInsu">
+        SELECT
+            C.CUSTOMERID,
+            C.INSURANCESTARTDATE,
+            C.INSURANCEENDDATE,
+            C.INSURANCEPRODUCTNUMBER,
+            I.INSURANCECOMPANYCODE,
+            I.INSURANCEPRODUCTNAME,
+            I.INSURANCEFEE,
+            I.INSURANCECOMPANYNAME,
+            I.INSUCONTENT,
+            I.MINAGEATREGISTRATION,
+            I.MAXAGEATREGISTRATION
+        FROM customerInusMapping C
+                 INNER JOIN gradeinsurance I ON C.INSURANCEPRODUCTNUMBER = I.INSURANCEPRODUCTNUMBER
+        WHERE C.CUSTOMERID = #{customerID}
+    </select>
+
+    <select id="getUserGrade" resultType="ac.kr.kopo.HanaInsureFit.member.vo.UserGrade">
+        select * from healthgrade where customerID=#{customerID}
+    </select>
+
+    <update id="regiGrade">
+            MERGE INTO healthgrade hg
+                USING dual d
+                ON (hg.CUSTOMERID = #{customerID})
+                WHEN MATCHED THEN
+                    UPDATE SET hg.HEALTHGRADE = #{healthGrade}, hg.REGISTRATIONDATE = TO_DATE(SYSDATE, 'YY/MM/DD')
+                WHEN NOT MATCHED THEN
+                    INSERT (GRADEID, CUSTOMERID, HEALTHGRADE, REGISTRATIONDATE)
+                        VALUES (health_grade_sequence.NEXTVAL, #{customerID}, #{healthGrade}, TO_DATE(SYSDATE, 'YY/MM/DD'))
+    </update>
+
 </mapper>

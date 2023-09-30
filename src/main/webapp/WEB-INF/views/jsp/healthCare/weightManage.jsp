@@ -19,6 +19,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.min.js"></script>
+
     <script>
          <%
          String name = (String) session.getAttribute("name");
@@ -29,6 +31,12 @@
          var dailyCal;
     </script>
     <script>
+        var myChart1;
+        var myChart2;
+        var myChart3;
+        var myChart4;
+        var myChart;
+
 
         document.addEventListener("DOMContentLoaded", function () {
 
@@ -73,8 +81,8 @@
                     // foodNames 출력
                     console.log('foodNames:');
                     for (var i = 0; i < foodNames.length; i++) {
-                        console.log('Food Name: ' + foodNames[i].foodName);
-                        console.log('Meal Code: ' + foodNames[i].mealCode);
+                        // console.log('Food Name: ' + foodNames[i].foodName);
+                        // console.log('Meal Code: ' + foodNames[i].mealCode);
                         var foodInfo = foodNames[i];
                         var foodEntry = foodInfo.foodName;
                         if (foodInfo.mealCode === 0) {
@@ -116,10 +124,57 @@
                     console.log("칼로리퍼센트" + caloriesPercentage);
                     setHeartClass(caloriesPercentage);
                     // 추가적인 로직 또는 UI 업데이트를 여기에 추가할 수 있습니다.const ctx = document.getElementById('myChart').getContext('2d');
+                    const ctx13 = document.getElementById('combined-bar-chart').getContext('2d');
+
+                    myChart = new Chart(ctx13, {
+                        type: 'bar',
+                        data: {
+                            labels: ['탄수화물 총합', '단백질 총합', '지방 총합'],
+                            datasets: [
+                                {
+                                    label: ['탄수화물', '단백질', '지방'],
+                                    data: [total_carbs, total_protein, total_fat],
+                                    backgroundColor: [
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(75, 192, 192, 1)'
+                                    ],
+                                    borderWidth: 0.1
+                                }
+                            ]
+                        },
+                        options: {
+                            barThickness:30,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false, // 범례 표시 여부
+                                position: 'top', // 범례 위치 (top, bottom, left, right)
+                                labels: {
+                                    font: {
+                                        size: 12 // 범례 레이블의 글꼴 크기
+                                    },
+                                    align: 'start'
+                                }
+                            }
+                        }
+                    });
+
+
                     const ctx = document.getElementById('bar-chart-calories').getContext('2d');
 
 
-                    const myChart = new Chart(ctx, {
+                    myChart1 = new Chart(ctx, {
                         type: 'bar',
                         data: {
                             labels: ['Kcal'],
@@ -142,10 +197,11 @@
                                     // 'rgba(153, 102, 255, 1)',
                                     // 'rgba(255, 159, 64, 1)'
                                 ],
-                                borderWidth: 0.2
+                                borderWidth: 0.1
                             }]
                         },
                         options: {
+                            barThickness:30,
                             scales: {
                                 y: {
                                     beginAtZero: true
@@ -153,111 +209,111 @@
                             }
                         }
                     });
-                    const ctx2 = document.getElementById('bar-chart-carbs').getContext('2d');
-                    const myChart2 = new Chart(ctx2, {
-                        type: 'bar',
-                        data: {
-                            labels: ['g'],
-                            datasets: [{
-                                label: '탄수화물 총합',
-                                data: [total_carbs],
-                                backgroundColor: [
-                                    // 'rgba(255, 99, 132, 0.2)
-                                    // 'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)'
-                                    // 'rgba(75, 192, 192, 0.2)',
-                                    // 'rgba(153, 102, 255, 0.2)',
-                                    // 'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    // 'rgba(255, 99, 132, 1)'
-                                    // 'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)'
-                                    // 'rgba(75, 192, 192, 1)',
-                                    // 'rgba(153, 102, 255, 1)',
-                                    // 'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 0.2
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                    const ctx3 = document.getElementById('bar-chart-protein').getContext('2d');
-                    const myChart3 = new Chart(ctx3, {
-                        type: 'bar',
-                        data: {
-                            labels: ['g'],
-                            datasets: [{
-                                label: '단백질 총합',
-                                data: [total_protein],
-                                backgroundColor: [
-                                    // 'rgba(255, 99, 132, 0.2)'
-                                    // 'rgba(54, 162, 235, 0.2)',
-                                    // 'rgba(255, 206, 86, 0.2)',
-                                    // 'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)'
-                                    // 'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    // 'rgba(255, 99, 132, 1)'
-                                    // 'rgba(54, 162, 235, 1)',
-                                    // 'rgba(255, 206, 86, 1)',
-                                    // 'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)'
-                                    // 'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 0.2
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                    const ctx4 = document.getElementById('bar-chart-fat').getContext('2d');
-                    const myChart4 = new Chart(ctx4, {
-                        type: 'bar',
-                        data: {
-                            labels: ['g'],
-                            datasets: [{
-                                label: '지방 총합',
-                                data: [total_fat],
-                                backgroundColor: [
-                                    // 'rgba(255, 99, 132, 0.2)'
-                                    // 'rgba(54, 162, 235, 0.2)',
-                                    // 'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)'
-                                    // 'rgba(153, 102, 255, 0.2)',
-                                    // 'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    // 'rgba(255, 99, 132, 1)'
-                                    // 'rgba(54, 162, 235, 1)',
-                                    // 'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)'
-                                    // 'rgba(153, 102, 255, 1)',
-                                    // 'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 0.2
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
+                    // const ctx2 = document.getElementById('bar-chart-carbs').getContext('2d');
+                    // myChart2 = new Chart(ctx2, {
+                    //     type: 'bar',
+                    //     data: {
+                    //         labels: ['g'],
+                    //         datasets: [{
+                    //             label: '탄수화물 총합',
+                    //             data: [total_carbs],
+                    //             backgroundColor: [
+                    //                 // 'rgba(255, 99, 132, 0.2)
+                    //                 // 'rgba(54, 162, 235, 0.2)',
+                    //                 'rgba(255, 206, 86, 0.2)'
+                    //                 // 'rgba(75, 192, 192, 0.2)',
+                    //                 // 'rgba(153, 102, 255, 0.2)',
+                    //                 // 'rgba(255, 159, 64, 0.2)'
+                    //             ],
+                    //             borderColor: [
+                    //                 // 'rgba(255, 99, 132, 1)'
+                    //                 // 'rgba(54, 162, 235, 1)',
+                    //                 'rgba(255, 206, 86, 1)'
+                    //                 // 'rgba(75, 192, 192, 1)',
+                    //                 // 'rgba(153, 102, 255, 1)',
+                    //                 // 'rgba(255, 159, 64, 1)'
+                    //             ],
+                    //             borderWidth: 0.2
+                    //         }]
+                    //     },
+                    //     options: {
+                    //         scales: {
+                    //             y: {
+                    //                 beginAtZero: true
+                    //             }
+                    //         }
+                    //     }
+                    // });
+                    // const ctx3 = document.getElementById('bar-chart-protein').getContext('2d');
+                    // myChart3 = new Chart(ctx3, {
+                    //     type: 'bar',
+                    //     data: {
+                    //         labels: ['g'],
+                    //         datasets: [{
+                    //             label: '단백질 총합',
+                    //             data: [total_protein],
+                    //             backgroundColor: [
+                    //                 // 'rgba(255, 99, 132, 0.2)'
+                    //                 // 'rgba(54, 162, 235, 0.2)',
+                    //                 // 'rgba(255, 206, 86, 0.2)',
+                    //                 // 'rgba(75, 192, 192, 0.2)',
+                    //                 'rgba(153, 102, 255, 0.2)'
+                    //                 // 'rgba(255, 159, 64, 0.2)'
+                    //             ],
+                    //             borderColor: [
+                    //                 // 'rgba(255, 99, 132, 1)'
+                    //                 // 'rgba(54, 162, 235, 1)',
+                    //                 // 'rgba(255, 206, 86, 1)',
+                    //                 // 'rgba(75, 192, 192, 1)',
+                    //                 'rgba(153, 102, 255, 1)'
+                    //                 // 'rgba(255, 159, 64, 1)'
+                    //             ],
+                    //             borderWidth: 0.2
+                    //         }]
+                    //     },
+                    //     options: {
+                    //         scales: {
+                    //             y: {
+                    //                 beginAtZero: true
+                    //             }
+                    //         }
+                    //     }
+                    // });
+                    // const ctx4 = document.getElementById('bar-chart-fat').getContext('2d');
+                    // myChart4 = new Chart(ctx4, {
+                    //     type: 'bar',
+                    //     data: {
+                    //         labels: ['g'],
+                    //         datasets: [{
+                    //             label: '지방 총합',
+                    //             data: [total_fat],
+                    //             backgroundColor: [
+                    //                 // 'rgba(255, 99, 132, 0.2)'
+                    //                 // 'rgba(54, 162, 235, 0.2)',
+                    //                 // 'rgba(255, 206, 86, 0.2)',
+                    //                 'rgba(75, 192, 192, 0.2)'
+                    //                 // 'rgba(153, 102, 255, 0.2)',
+                    //                 // 'rgba(255, 159, 64, 0.2)'
+                    //             ],
+                    //             borderColor: [
+                    //                 // 'rgba(255, 99, 132, 1)'
+                    //                 // 'rgba(54, 162, 235, 1)',
+                    //                 // 'rgba(255, 206, 86, 1)',
+                    //                 'rgba(75, 192, 192, 1)'
+                    //                 // 'rgba(153, 102, 255, 1)',
+                    //                 // 'rgba(255, 159, 64, 1)'
+                    //             ],
+                    //             borderWidth: 0.2
+                    //         }]
+                    //     },
+                    //     options: {
+                    //         scales: {
+                    //             y: {
+                    //                 beginAtZero: true
+                    //             }
+                    //         }
+                    //     }
+                    // });
                     sendAddressInfoToServer(customerID);
                     // fetchDataAndUpdateChart();
                 },
@@ -339,21 +395,21 @@
                     }
 
                     var table = document.createElement("table");
-
+                    table.className = "foodTable";
                     var rows = [
-                        { label: "식품명 : ", value: foodData.foodName },
-                        { label: "탄수화물 : ", value: foodData.carbs },
-                        { label: "지방 : ", value: foodData.fat },
-                        { label: "단백질 : ", value: foodData.protein },
-                        { label: "칼로리 : ", value: foodData.calories },
-                        { label: "1회 제공량 : ", value: foodData.amountPerOnce }
+                        { label: "식품명", value: foodData.foodName },
+                        { label: "탄수화물", value: foodData.carbs },
+                        { label: "지방", value: foodData.fat },
+                        { label: "단백질", value: foodData.protein },
+                        { label: "칼로리", value: foodData.calories },
+                        { label: "1회 제공량", value: foodData.amountPerOnce }
                     ];
 
                     // 테이블 데이터 동적 생성 및 추가
                     for (var i = 0; i < rows.length; i++) {
                         var row = document.createElement("tr");
 
-                        var labelCell = document.createElement("td");
+                        var labelCell = document.createElement("th");
                         labelCell.textContent = rows[i].label;
 
                         var valueCell = document.createElement("td");
@@ -568,11 +624,12 @@
                     // foodNames 출력
                     console.log('foodNames:' + foodNames.length);
 
-                    // for (var i = 0; i < foodNames.length; i++) {
+                    for (var i = 0; i < foodNames.length; i++) {
                     //     foodNames[foodNames.length - 1].foodName
-                        console.log('Food Name: ' + foodNames[i].foodName);
-                        console.log('Meal Code: ' + foodNames[i].mealCode);
-                        var foodInfo = foodNames[foodNames.length - 1];
+                    //     console.log('Food Name: ' + foodNames[i].foodName);
+                    //     console.log('Meal Code: ' + foodNames[i].mealCode);
+                        var foodInfo = foodNames[i];
+                        console.log(foodInfo);
                         var foodEntry = foodInfo.foodName;
                         if (foodInfo.mealCode === 0) {
                             morningSection = document.querySelector('.section:nth-child(1) .ateFood');
@@ -608,7 +665,7 @@
                             dinnerCircle.innerHTML = ingredients.find(ingredient => ingredient.mealCode === foodInfo.mealCode)?.total_calories;
                         }
 
-                    // }
+                    }
 
                     // ingredients 출력
                     console.log("총지방 => " + total_fat);
@@ -621,13 +678,21 @@
                     fetchDataAndUpdateChart();
                     console.log("칼로리퍼센트" + caloriesPercentage);
                     setHeartClass(caloriesPercentage);
-                    myChart.destroy();
-                    // 추가적인 로직 또는 UI 업데이트를 여기에 추가할 수 있습니다.const ctx = document.getElementById('myChart').getContext('2d');
-                    const ctx1 = document.getElementById('bar-chart-calories').getContext('2d');
-                    let myChart = null;
 
+                    // 추가적인 로직 또는 UI 업데이트를 여기에 추가할 수 있습니다.const ctx = document.getElementById('myChart').getContext('2d');
+
+
+
+
+                    createOrUpdateChart();
                     function createOrUpdateChart() {
-                        const myChart = new Chart(ctx1, {
+                        myChart.destroy();
+                        myChart1.destroy();
+                        // myChart2.destroy();
+                        // myChart3.destroy();
+                        // myChart4.destroy();
+                        const ctx1 = document.getElementById('bar-chart-calories').getContext('2d');
+                        myChart1 = new Chart(ctx1, {
                             type: 'bar',
                             data: {
                                 labels: ['Kcal'],
@@ -654,6 +719,7 @@
                                 }]
                             },
                             options: {
+                                barThickness:30,
                                 scales: {
                                     y: {
                                         beginAtZero: true
@@ -661,104 +727,31 @@
                                 }
                             }
                         });
-                        const ctx2 = document.getElementById('bar-chart-carbs').getContext('2d');
-                        const myChart2 = new Chart(ctx2, {
+                        const ctx2 = document.getElementById('combined-bar-chart').getContext('2d');
+                        myChart = new Chart(ctx2, {
                             type: 'bar',
                             data: {
-                                labels: ['g'],
-                                datasets: [{
-                                    label: '탄수화물 총합',
-                                    data: [total_carbs],
-                                    backgroundColor: [
-                                        // 'rgba(255, 99, 132, 0.2)
-                                        // 'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)'
-                                        // 'rgba(75, 192, 192, 0.2)',
-                                        // 'rgba(153, 102, 255, 0.2)',
-                                        // 'rgba(255, 159, 64, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        // 'rgba(255, 99, 132, 1)'
-                                        // 'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)'
-                                        // 'rgba(75, 192, 192, 1)',
-                                        // 'rgba(153, 102, 255, 1)',
-                                        // 'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 0.2
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
+                                labels: ['탄수화물 총합', '단백질 총합', '지방 총합'],
+                                datasets: [
+                                    {
+                                        label: 'g',
+                                        data: [total_carbs, total_protein, total_fat],
+                                        backgroundColor: [
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(75, 192, 192, 1)'
+                                        ],
+                                        borderWidth: 0.2
                                     }
-                                }
-                            }
-                        });
-                        const ctx3 = document.getElementById('bar-chart-protein').getContext('2d');
-                        const myChart3 = new Chart(ctx3, {
-                            type: 'bar',
-                            data: {
-                                labels: ['g'],
-                                datasets: [{
-                                    label: '단백질 총합',
-                                    data: [total_protein],
-                                    backgroundColor: [
-                                        // 'rgba(255, 99, 132, 0.2)'
-                                        // 'rgba(54, 162, 235, 0.2)',
-                                        // 'rgba(255, 206, 86, 0.2)',
-                                        // 'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)'
-                                        // 'rgba(255, 159, 64, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        // 'rgba(255, 99, 132, 1)'
-                                        // 'rgba(54, 162, 235, 1)',
-                                        // 'rgba(255, 206, 86, 1)',
-                                        // 'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                        // 'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 0.2
-                                }]
+                                ]
                             },
                             options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                        });
-                        const ctx4 = document.getElementById('bar-chart-fat').getContext('2d');
-                        const myChart4 = new Chart(ctx4, {
-                            type: 'bar',
-                            data: {
-                                labels: ['g'],
-                                datasets: [{
-                                    label: '지방 총합',
-                                    data: [total_fat],
-                                    backgroundColor: [
-                                        // 'rgba(255, 99, 132, 0.2)'
-                                        // 'rgba(54, 162, 235, 0.2)',
-                                        // 'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)'
-                                        // 'rgba(153, 102, 255, 0.2)',
-                                        // 'rgba(255, 159, 64, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        // 'rgba(255, 99, 132, 1)'
-                                        // 'rgba(54, 162, 235, 1)',
-                                        // 'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)'
-                                        // 'rgba(153, 102, 255, 1)',
-                                        // 'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 0.2
-                                }]
-                            },
-                            options: {
+                                barThickness:30,
                                 scales: {
                                     y: {
                                         beginAtZero: true
@@ -774,14 +767,10 @@
                     console.error('식사 정보 등록 중 오류가 발생했습니다.');
                     console.error(error);
                     // 오류 메시지를 사용자에게 표시하거나 다른 처리를 수행할 수 있습니다.
-
                 },
-
             });
             drawChart();
         }
-
-
         function selectFood(food) {
             var foodInput = document.getElementById('search-box');
             foodInput.value = food;
@@ -924,7 +913,7 @@
                     <li><a href="/introduce">하나Insure Fit이란?</a></li>
                     <li><a href="/recommendInsu">Grade보험</a></li>
                     <li><a href="/weightManage" class="clicked">건강관리</a></li>
-                    <li><a href="/myPage">마이페이지</a></li>
+                    <li><a href="/dashboardMypage">마이페이지</a></li>
                 </ul>
             </nav>
         </div>
@@ -950,10 +939,10 @@
             <div class="calManageMoongoo">내 칼로리 관리</div>
             <div class="image-row">
                 <div class="image-column">
-                    <img class="heart" src="resources/static/image/heart_zero.png" alt="Heart Image">
+                    <img class="heart" style="width: 200px;height: 200px;" src="resources/static/image/heart_zero.png" alt="Heart Image">
 
                     <br>
-                    <p class="imageWord1">
+                    <p class="imageWord1" style="font-size: 20px;">
 
                         <%=name%>님 칼로리하트
                     </p>
@@ -968,10 +957,10 @@
                     <canvas id="caloriesChart" width="400" height="300"></canvas>
                     <br>
                     <br>
-                    <p class="imageWord2">
+                    <p class="imageWord2" style="font-size: 20px;">
                         일주일간 맞춤 칼로리 달성횟수 :
-                    <p class="successCount">5</p>
-                    <p class="imageWord2">/ 7
+                    <p class="successCount" id="successCOunt" style="font-size: 20px;">5</p>
+                    <p class="imageWord2" style="font-size: 20px;">/ 7
                     <p>
                     </p>
                 </div>
@@ -982,9 +971,17 @@
                     <span>식사 입력</span>
                     <div class="dot"></div>
                 </div>
-                <div class="form-container">
+                <div class="modal">
+                    <div class="modal_body">
+                        <div class="closeDiv">
+                        <button class="btn-close-popup">닫기</button>
+                        </div>
+                    <div class="form-container">
                     <h2>식사 입력 폼</h2>
-                    <label for="mealType">식사 시간대:</label>
+                    <table class="foodTable">
+                        <tr>
+                    <th><label for="mealType">식사 시간대</label></th>
+                    <td>
                     <div class="meal-buttons">
                         <input type="radio" id="morning" name="mealType" value="morning">
                         <label for="morning">아침</label>
@@ -993,31 +990,50 @@
                         <input type="radio" id="dinner" name="mealType" value="dinner">
                         <label for="dinner">저녁</label>
                     </div>
-                    <div class="foodAdd">
-                    <div class = "search-food">
-                        <div class="foodColName">
-                            <label for="foodInput">음식 검색:</label>
-                        </div>
-                    <input class="search-box" type="text" placeholder="🔍 SEARCH">
+                    </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="foodColName">
+                                    <label for="foodInput">음식 검색</label>
+                                </div>
+                            </th>
 
-                    <button class="search-button" onclick="handleSearch()">추가</button>
-                        <div class="search-result"></div>
-                        <div class="foodInfo" id="foodInfo">
+
+                        <td>
+                    <div class="foodAdd">
+                        <div class = "search-food">
+                            <input class="search-box" type="text" placeholder="🔍 SEARCH">
                         </div>
+                        <div class="search-result" style="height: auto"></div>
+                        <div class="foodInfo" id="foodInfo">
+                    </div>
 
                     </div>
+                    <button class="search-button" onclick="handleSearch()">추가</button>
                     <ul class="food-list"></ul>
                     <div class = "search-food">
                     <div class="foodColName">
+                        </td>
+                        </tr>
+                        <th>
                         <label for="weightInput">중량 (g):</label>
+                        </th>
                     </div>
+                        <td>
                     <input type="number" id="weightInput" name="weightInput" placeholder="중량을 입력하세요">
+                        </td>
+                    </tr>
+                    </div>
+                    </div>
+                    </table>
                     <div class="addBtn">
                         <button id="addMeal" onclick="addMeal()">등록</button>
                     </div>
                 </div>
                     </div>
                 </div>
+
             </div>
             <div class="middleCon3">
                 <div class="section">
@@ -1066,21 +1082,22 @@
             <div class="graphContainer">
                 <div class="graph-container-4">
                     <div class="graph-4" id="calories">칼로리
-                    <div class="graphContenet">그래프<canvas class="graphFood" id="bar-chart-calories" width="400" height="400"></canvas></div>
+                    <div class="graphContenet">그래프<canvas class="graphFood" id="bar-chart-calories" width="400" height="300"></canvas></div>
                     </div>
-                    <div class="graph-4" id="carbs">탄수화물
-                        <div class="graphContenet">그래프<canvas class="graphFood" id="bar-chart-carbs" width="400" height="400"></canvas></div>
+                    <div class="graph-4" id="carbs">영양성분
+                        <div class="graphContenet">그래프<canvas class="graphFood" id="combined-bar-chart" width="400" height="300"></canvas></div>
                     </div>
+<%--                    <div class="graph-4" id="carbs">탄수화물--%>
+<%--                        <div class="graphContenet">그래프<canvas class="graphFood" id="bar-chart-carbs" width="400" height="400"></canvas></div>--%>
+<%--                    </div>--%>
 
-                    <div class="graph-4" id="protein">단백질
-                        <div class="graphContenet">그래프 <canvas class="graphFood" id="bar-chart-protein" width="400" height="400"></canvas></div>
-                    </div>
-                    <div class="graph-4" id="fat">지방
-                        <div class="graphContenet">그래프 <canvas class="graphFood" id="bar-chart-fat" width="400" height="400"></canvas></div>
-                    </div>
+<%--                    <div class="graph-4" id="protein">단백질--%>
+<%--                        <div class="graphContenet">그래프 <canvas class="graphFood" id="bar-chart-protein" width="400" height="400"></canvas></div>--%>
+<%--                    </div>--%>
+<%--                    <div class="graph-4" id="fat">지방--%>
+<%--                        <div class="graphContenet">그래프 <canvas class="graphFood" id="bar-chart-fat" width="400" height="400"></canvas></div>--%>
+<%--                    </div>--%>
                 </div>
-
-
             </div>
     </div>
     </main>
@@ -1093,9 +1110,23 @@
 </footer>
 
 <script>
+    var caloriesCount = 0;
     var myBarChart;
-
     function drawChart(dailyRecommendedCalories) {
+
+
+        const annotation = {
+            type: 'line',
+            mode: 'horizontal',
+            scaleID: 'y',
+            value: 1800, // 원하는 값을 설정하세요 (예: 1800)
+            borderColor: '#ff0000',
+            borderWidth: 2,
+            label: {
+                enabled: true,
+                content: '1800'
+            }
+        }
         var currentDate = new Date();
         var labels = [];
         var dataValues = [];
@@ -1109,15 +1140,15 @@
                     backgroundColor: '#00857E',
                     barThickness: 20,
                 },
-                {
-                    label: '칼로리 기준선',
-                    data: [dailyRecommendedCalories, dailyRecommendedCalories, dailyCal, dailyCal, dailyCal, 2000, 2000],
-                    borderColor: 'rgb(75, 192, 192)',
-                    borderWidth: 2,
-                    backgroundColor: '#ff0000',
-                    fill: false,
-                    type: 'line',
-                },
+                // {
+                //     label: '칼로리 기준선',
+                //     data: [dailyRecommendedCalories, dailyRecommendedCalories, dailyCal, dailyCal, dailyCal, 2000, 2000],
+                //     borderColor: 'rgb(75, 192, 192)',
+                //     borderWidth: 2,
+                //     backgroundColor: '#ff0000',
+                //     fill: false,
+                //     type: 'line',
+                // },
             ],
         };
 
@@ -1128,24 +1159,26 @@
                     max: 3000,
                     stepSize: 500,
                 },
+                y: {
+                    type: 'linear', // y축의 유형을 linear로 설정
+                    min: 0, // y축 최소값
+                    max: 2000, // y축 최대값
+                    stepSize: 500,
+                },
             },
             plugins: {
                 annotation: {
-                    annotations: {
-                        line1: {
-                            type: 'line',
-                            yMin: 2000,
-                            yMax: 2000,
-                            borderColor: 'rgb(255, 99, 132)',
-                            borderWidth: 2,
-                            value: 2000,
-                        },
-                    },
+                    annotations: [annotation]
                 },
             },
         };
 
+
+
         var ctx = document.getElementById('caloriesChart').getContext('2d');
+        if (myBarChart) {
+            myBarChart.destroy();
+        }
         myBarChart = new Chart(ctx, {
             type: 'bar',
             data: data,
@@ -1164,11 +1197,16 @@
             url: 'getChartData',
             method: 'POST',
             dataType: 'json',
+            data: {
+                'customerID': customerID
+            },
             success: function(response) {
                 for (var i = 0; i < response.length; i++) {
                     labels.push(response[i].recorddate);
                     dataValues.push(response[i].total_calories);
+                    console.log("dataValues"+dataValues);
                 }
+
 
                 // 차트 데이터 업데이트
                 myBarChart.data.labels = labels;
@@ -1176,33 +1214,36 @@
 
                 // 차트 업데이트
                 myBarChart.update();
+
+                var caloriesElement = document.getElementById("goalCalories");
+                var caloriesText = caloriesElement.textContent; // "1800kcal"
+
+// 숫자 부분을 추출 (정규 표현식 사용)
+                var caloriesNumber = parseFloat(caloriesText.match(/\d+/)[0]);
+                console.log("칼로리넘버" + caloriesNumber);
+// 추출된 숫자를 출력
+                for (var i = 0; i < dataValues.length; i++) {
+                    if ( dataValues[i] < caloriesNumber) {
+                        caloriesCount += 1;
+                    }
+                }
+                console.log("칼로리카운트" + caloriesCount);
+                // document.getElementById("successCount").textContent = caloriesCount;
+
             },
             error: function(error) {
                 console.error('데이터를 가져오는 중 오류 발생: ', error);
             },
         });
     }
-
     // 초기 호출
     drawChart(dailyRecommendedCalories); // 초기 차트 생성
 
 
-    // totalCalories 값이 변경되었을 때 차트 데이터 업데이트 및 재렌더링
     function updateChart() {
-        // console.log("데이터 확인" + barChartCalories);
-        //
-        // data.datasets[0].data[4] = barChartCalories;
         myBarChart.update();
     }
-
-    // var canvas = document.getElementById('heartCanvas');
-    // var ctx = canvas.getContext('2d');
-
     var currentCalories = 0;
-    // var dailyRecommendedCalories = weightManageArray[0].calories;
-
-    // Update currentCalories value (you need to get this value from your existing logic)
-    // For demonstration purposes, let's set it to a random value between 0 and dailyRecommendedCalories
     currentCalories = Math.floor(Math.random() * dailyRecommendedCalories);
 </script>
 <script>
@@ -1256,7 +1297,25 @@
             }
         });
     }
+</script>
+<script>
+    const modal = document.querySelector('.modal');
+    const modal_body = document.querySelector('.modal_body');
+    const form_container = document.querySelector('.form-container');
+    const btnOpenPopup = document.querySelector('.btn');
 
+    btnOpenPopup.addEventListener('click', () => {
+        modal.style.display = 'block';
+        form_container.style.display = 'block';
+    });
+
+    function closeModal() {
+        var modal = document.querySelector(".modal");
+        modal.style.display = "none"; // 모달을 숨기도록 설정
+    }
+    var closePopupButton = document.querySelector(".btn-close-popup");
+    closePopupButton.addEventListener("click", closeModal);
 </script>
 </body>
+
 </html>

@@ -89,7 +89,7 @@
     function redirectToInsuJoin(insuranceProductNumber) {
         // You can perform any desired actions here before redirecting
         // Redirect to the '/insuJoin' page with the insurance product number as a query parameter
-        window.location.href = '/insuJoin?productNumber=' + insurance.insuranceProductNumber;
+        window.location.href = '/insuAgreement?productNumber=' + insurance.insuranceProductNumber;
     }
 </script>
 <script>
@@ -189,7 +189,7 @@
     </div>
     <div id="main">
         <main>
-            <div class="navInfo">Main &nbsp&nbsp > &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp</div>
+            <div class="navInfo">Main &nbsp&nbsp > &nbsp&nbspGrade보험&nbsp&nbsp > &nbsp&nbspGrade보험목록&nbsp&nbsp</div>
             <div class="insuMoongoo"><br>
                 <div class="insuInfo">
                     <span class="colorText">건강등급</span> 확인하고<br> <span class="colorText">보험료 할인</span>받으세요!

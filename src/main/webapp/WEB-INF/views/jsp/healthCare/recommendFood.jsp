@@ -31,19 +31,40 @@
     console.log(customerID);
 </script>
 <script>
+    var restaurantArrayDesc;
+    var restaurantArrayAsc;
     document.addEventListener("DOMContentLoaded", function () {
         var userConsumeCal;
         var weightManageArray = [];
         var customerID = "<%= (String) session.getAttribute("customerID") %>";
+        var today = new Date(); // 현재 날짜와 시간을 가져옵니다.
+        var year = today.getFullYear();
+        var month = today.toLocaleDateString('en-US', { month: '2-digit' });
+        var day = today.toLocaleDateString('en-US', { day: '2-digit' });
+
+// 연도를 맨 앞에 두고 월과 일을 그대로 두기
+        var formattedDate = year.toString().slice(-2) + '/' + month + '/' + day;
+        var recordDate;
+
+        console.log("날짜" + formattedDate);
 
         function fetchDataAndUpdateChart() {
             $.ajax({
                 url: 'getChartData', // 서버 엔드포인트를 지정
                 method: 'POST', // 또는 'POST'에 따라 요청 방식 선택
                 dataType: 'json', // 받아올 데이터 타입 (JSON 예상)
+                data: {
+                    'customerID': customerID
+                },
                 success: function (response) {
-                    userConsumeCal = response[0].total_calories; // 칼로리 데이터를 data 배열에 추가
+                    recordDate = response[0].recorddate;
+                    if (formattedDate === recordDate) {
+                        userConsumeCal = response[0].total_calories; // 칼로리 데이터를 data 배열에 추가
+                    } else {
+                        userConsumeCal = 0;
+                    }
                     sendAddressInfoToServer(customerID);
+                    console.log("두번째 날짜" + recordDate);
                 },
                 error: function (error) {
                     console.error('데이터를 가져오는 중 오류 발생: ', error);
@@ -56,10 +77,12 @@
                 type: "POST",
                 url: "/weightManage?customerID=" + customerID, // 'customerID'를 URL 파라미터로 보냄
                 success: function (response) {
+ // weightManageArray[0].recordDate를 날짜 객체로 변환합니다.;
                     console.log("Data received from server:", response);
                     weightManageArray.push(response);
                     var currentCaloriesElement = document.getElementById("currentCalories");
-                    if (weightManageArray[0].calories - userConsumeCal < 0) {
+                    if (weightManageArray[0].calories)
+                        if (weightManageArray[0].calories - userConsumeCal < 0) {
                         // 값이 음수인 경우, 스타일 변경
                         var dailyRecommendedCalories = weightManageArray[0].calories;
                         var warningTextElement = document.getElementById('currentCalories');
@@ -84,10 +107,7 @@
                 }
             });
         }
-
-        // fetchDataAndUpdateChart 함수 호출
         fetchDataAndUpdateChart();
-
     });
 </script>
 
@@ -233,7 +253,7 @@
         </div>
         <div id="main">
             <main>
-                <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbsp식당목록</div>
+                <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbsp 건강관리&nbsp&nbsp > &nbsp&nbsp칼로리 맞춤 식당</div>
                 <div class="calManageMoongoo">칼로리 맞춤 식당 추천<br>
                     <div class="weightInfo1">
                         현재까지 섭취 칼로리를 고려해 근처 식당을 추천드립니다.<br>
@@ -248,31 +268,17 @@
                 <br>
 
                 <div class="custom-hr2">
-                    <a>칼로리 낮은순</a>
-                    <a>칼로리 높은순</a>
-                    <a>가격순</a>
+                    <a id="ascKcal">칼로리 낮은순</a>
+                    <a id="descKcal">칼로리 높은순</a>
+                    <a id="priceKcal">가격순</a>
                 </div>
-<%--                <div class="foodMenu">--%>
-<%--                    <img src="resources/static/image/한식로고.png" alt="한식메뉴아이콘">--%>
-<%--                    <a>한식</a>--%>
-<%--                    <img src="resources/static/image/양식로고.jpg" alt="양식메뉴아이콘">--%>
-<%--                    <a>양식/레스토랑</a>--%>
-<%--                    <img src="resources/static/image/육류로고.jpg" alt="양식메뉴아이콘">--%>
-<%--                    <a>고기/구이류</a>--%>
-<%--                    <img src="resources/static/image/일식로고.png" alt="양식메뉴아이콘">--%>
-<%--                    <a>초밥</a>--%>
-<%--                    <img src="resources/static/image/면로고.jpg" alt="양식메뉴아이콘">--%>
-<%--                    <a>면</a>--%>
-<%--                </div>--%>
                 <div class="image-row2" id="restaurantContainer">
-                    <div id="warning2"></div>
+                    <div id="warning2" style="font-size: 30px;text-align: center;color: rgba(60, 57, 57, 0.692);"> </div>
                 </div>
-                <button id="loadMoreBtn">더보기</button>
+                <button id="loadMoreBtn" style="font-size: 22px;">더보기</button>
                 <script>
                     const initialItemsToShow = 3;
                     const itemsPerRow = 3;
-
-
                     var restaurantArray = [];
                     function sendAddressInfoToServer(addressInfoGudong) {
                         var xhr = new XMLHttpRequest();
@@ -281,18 +287,29 @@
 
                         var data = JSON.stringify(addressInfoGudong);
                         console.log(addressInfoGudong);
-
                         xhr.onreadystatechange = function () {
                             if (xhr.readyState === 4 && xhr.status === 200) {
                                 // 서버로부터 응답을 받았을 때 처리할 로직
                                 console.log("Data sent successfully!");
                                 var response = JSON.parse(xhr.responseText);
                                 console.log("Data received from server:", response);
+
+                                const currentCaloriesElement = document.getElementById('currentCalories');
+// currentCaloriesElement의 값을 가져오거나, 0으로 초기화합니다.
+                                const calorieValue = currentCaloriesElement ? parseFloat(currentCaloriesElement.textContent) : 0;
+
+
                                 for (var i = 0; i < response.length; i++) {
+                                    if (calorieValue >= response[i].calories * 3){
                                     var restaurant = response[i];
                                     restaurantArray.push(restaurant);
+                                    }
                                 }
                                 console.log(restaurantArray);
+
+                                restaurantArrayDesc = mergeSort(restaurantArray).reverse();
+
+                                restaurantArrayAsc = mergeSort(restaurantArray);
 
                                 showItems(0, initialItemsToShow - 1);
                             }
@@ -301,21 +318,20 @@
                     }
                     const container = document.getElementById("restaurantContainer");
                     const loadMoreBtn = document.getElementById("loadMoreBtn");
-
+                    const ascKcal = document.getElementById("descKcal");
+                    const descKcal = document.getElementById("ascKcal");
                     let visibleItems = initialItemsToShow;
 
                     function showItems(startIndex, endIndex) {
                         let currentRow;
                         const currentCaloriesElement = document.getElementById('currentCalories');
-
 // currentCaloriesElement의 값을 가져오거나, 0으로 초기화합니다.
                         const calorieValue = currentCaloriesElement ? parseFloat(currentCaloriesElement.textContent) : 0;
 
-                        if (calorieValue <= 0) {
+                        if (calorieValue < 0) {
                             // 칼로리가 0 이하인 경우 메시지를 표시합니다.
                             const messageElement = document.getElementById("warning2");
                             messageElement.textContent = "오늘 하루 칼로리를 모두 소비하셨습니다. 내일의 식당 추천을 기대해주세요.";
-
 
                         } else {
                             for (let i = startIndex; i <= endIndex && i < restaurantArray.length; i++) {
@@ -325,7 +341,14 @@
                                     currentRow.className = "row-container"; // 새로운 레이아웃 컨테이너
                                     container.appendChild(currentRow);
                                 }
-                                const restaurant = restaurantArray[i];
+                                let restaurant;
+                                // console.log("칼로리 현재 칼로리 !@@@@@@@ " + calorieValue + restaurantArray[i].calories * 2.5 );
+                                // if ( calorieValue >= (restaurantArray[i].calories * 2.5) ) {
+                                //     restaurant = restaurantArray[i];
+                                // } else {
+                                //     continue;
+                                // }
+                                restaurant = restaurantArray[i];
                                 const restaurantName = restaurant.name;
                                 const address = restaurant.address; // This variable will hold the restaurant's address
                                 const classification = restaurant.classification; // This variable will hold the restaurant's classification
@@ -345,6 +368,13 @@
                                 const storeIntroduction = restaurant.storeIntroduction; // This variable will hold the restaurant's introduction
                                 const takeOrNot = restaurant.takeOrNot; // This variable will hold whether the restaurant offers takeout
                                 const views = restaurant.views;
+                                const calValue = restaurant.calories;
+                                const proteinValue = restaurant.protein;
+                                const fatValue = restaurant.fat;
+                                const carbsValue = restaurant.carbs;
+
+
+
                                 const maxLength = 20; // 원하는 최대 길이 정의
                                 let truncatedDishes = dishes; // 원래 문자열을 변수에 할당
                                 if (!dishes || dishes.trim() === '') {
@@ -355,7 +385,6 @@
                                     truncatedDishes = dishes.substring(0, maxLength) + "..."; // 문자열을 자르고 "..."을 추가
                                 }
                                 console.log(restaurant.name);
-
                                 const restaurantElement =
                                     '<a href="/foodInfo?name=' + restaurantName + '&prices=' + menu + '&image=' + imgUrl + '&menu=' + truncatedDishes + '">' +
                                     '<div class="image-column2">' +
@@ -377,22 +406,21 @@
                                     '</li>' +
                                     '</ul>' +
                                     '<table class = "calTable">' +
-
                                     '<tr>' +
                                     '<td class="calTitle">칼로리</td>' +
-                                    '<td class="calValue">kcal</td>' +
+                                    '<td class="calValue">' + calValue * 3 + 'kcal</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                     '<td class="calTitle">단백질</td>' +
-                                    '<td class="calValue">g</td>' +
+                                    '<td class="proteinValue">' + proteinValue * 3+ 'g</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                     '<td class="calTitle">탄수화물</td>' +
-                                    '<td class="calValue">g</td>' +
+                                    '<td class="carbsValue">' +  carbsValue * 3 + 'g</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                     '<td class="calTitle">지방</td>' +
-                                    '<td class="calValue">100g</td>' +
+                                    '<td class="fatValue">' + fatValue * 3+ 'g</td>' +
                                     '</tr>' +
                                     '</table>' +
                                     '<div class="warning">평균적인 값으로 식사량이 많아지면 더욱 많아질 수 있습니다. 적정량을 섭취해주세요.</div>' +
@@ -417,8 +445,44 @@
                             }
                         }
                     });
-                    showItems(0, Math.min(initialItemsToShow - 1, restaurantArray.length - 1));
 
+
+                    ascKcal.addEventListener("click", ()=> {
+
+                        const newVisibleItems = visibleItems + initialItemsToShow;
+                        restaurantArray = restaurantArrayAsc;
+
+                        while (container.firstChild) {
+                            container.removeChild(container.firstChild);
+                        }
+                        showItems(0, Math.min(initialItemsToShow - 1, restaurantArray.length - 1));
+                        // showItems(0, Math.min(initialItemsToShow - 1, restaurantArray.length - 1));
+                        if (newVisibleItems <= restaurantArray.length) {
+                            showItems(visibleItems, newVisibleItems - 1);
+                            visibleItems = newVisibleItems;
+                            if (visibleItems >= restaurantArray.length) {
+                                ascKcal.style.display = "none";
+                            }
+                        }
+                    });
+
+                    descKcal.addEventListener("click", ()=> {
+                        const newVisibleItems = visibleItems + initialItemsToShow;
+                        restaurantArray = restaurantArrayDesc;
+                        while (container.firstChild) {
+                            container.removeChild(container.firstChild);
+                        }
+                        showItems(0, Math.min(initialItemsToShow - 1, restaurantArray.length - 1));
+                        // showItems(0, Math.min(initialItemsToShow - 1, restaurantArray.length - 1));
+                        if (newVisibleItems <= restaurantArray.length) {
+                            showItems(visibleItems, newVisibleItems - 1);
+                            visibleItems = newVisibleItems;
+                            if (visibleItems >= restaurantArray.length) {
+                                ascKcal.style.display = "none";
+                            }
+                        }
+                    });
+                    showItems(0, Math.min(initialItemsToShow - 1, restaurantArray.length - 1));
                 </script>
                 <!-- <div id="map" style="width:400px;height:400px;"></div> -->
 
@@ -489,8 +553,38 @@
             }
         });
     }
-
 </script>
 </body>
+<script>
+    function mergeSort(arr) {
+        if (arr.length <= 1) {
+            return arr;
+        }
+        const middle = Math.floor(arr.length / 2);
+        const left = arr.slice(0, middle);
 
+        const right = arr.slice(middle);
+
+        return merge(mergeSort(left), mergeSort(right));
+    }
+    function merge(left, right) {
+        let result = [];
+        let leftIndex = 0;
+        let rightIndex = 0;
+
+        while (leftIndex < left.length && rightIndex < right.length) {
+            if (left[leftIndex].calories > right[rightIndex].calories) {
+                result.push(left[leftIndex]);
+                leftIndex++;
+            } else {
+                result.push(right[rightIndex]);
+                rightIndex++;
+
+            }
+        }
+        return result.concat(left.slice(leftIndex), right.slice(rightIndex));
+    }
+    // restaurantArrayDesc = mergeSort(restaurantArray).reverse();
+    // restaurantArrayAsc = mergeSort(restaurantArray);
+</script>
 </html>

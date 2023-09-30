@@ -153,7 +153,7 @@
                     <li><a href="/introduce">하나Insure Fit이란?</a></li>
                     <li><a href="/recommendInsu" class="clicked">Grade보험</a></li>
                     <li><a href="/weightManage">건강관리</a></li>
-                    <li><a href="/myPage">마이페이지</a></li>
+                    <li><a href="/dashboardMypage">마이페이지</a></li>
                     <!-- 다른 메뉴 항목 추가 -->
                 </ul>
             </nav>

@@ -64,8 +64,6 @@ public class FoodServiceImpl implements FoodService {
         Optional<Food> foodOptional = null;
         try {
             foodOptional = foodMapper.findByName(foodName);
-
-
             // foodOptional.isPresent()를 확인하지 않고 바로 값을 꺼내도록 수정
             food = foodOptional.orElse(null);
             System.out.println(food.getFoodName());
@@ -131,9 +129,22 @@ public class FoodServiceImpl implements FoodService {
             foodMapper.insertFoodDietMapping(paramMap);
         }
     }
-
-    public List<WeekCalories> getWeekCalories() {
-        return foodMapper.getWeekCalories();
+    public AvgIngredients getAvgIngre(String customerID){
+        return foodMapper.getAvgIngre(customerID);
+    };
+    public List<WeekCalories> getWeekCalories(String customerID) {
+        return foodMapper.getWeekCalories(customerID);
     }
+    public void insertSelectedMenu(Map<String, Object> paramMap) {
+        foodMapper.insertSelectedMenu(paramMap);
+    };
+
+    public List<FoodNames> getSelectedFoodNames(String customerID){
+        return foodMapper.getSelectedFoodNames(customerID);
+    }
+    public List<FoodIngredients> getSelectedIngredients(String customerID){
+        return foodMapper.getSelectedIngredients(customerID);
+    }
+
 }
 

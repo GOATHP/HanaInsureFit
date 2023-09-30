@@ -1,0 +1,24 @@
+var customerID = document.getElementById("customerID").getAttribute("data-customerID");
+
+// 링크를 클릭할 때 AJAX 요청을 보내는 코드
+$(document).ready(function() {
+    $("#recommendInsuLink").on("click", function(e) {
+        e.preventDefault(); // 기본 링크 동작 방지
+
+        $.ajax({
+            url: '/sendAdmin',
+            type: 'POST',
+            dataType: "json",
+            data: {
+                'customerID': customerID
+            },
+            success: function (data) {
+                console.log(data);
+                // 요청이 성공하면 여기에서 추가 작업을 수행할 수 있습니다.
+            },
+            error: function (error) {
+                console.error('데이터를 가져오는 중 오류 발생: ', error);
+            },
+        });
+    });
+});

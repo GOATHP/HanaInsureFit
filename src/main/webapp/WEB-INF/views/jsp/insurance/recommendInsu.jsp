@@ -67,7 +67,7 @@
                     String customerID = (String) session.getAttribute("customerID");
                     if (name != null) {
                 %>
-                <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
+                <div class="welcomeMent" id="customerID" data-customerID="<%=customerID%>"><%= name %> (<%=customerID%>)님 환영합니다</div>
                 <li><a href="javascript:void(0);" onclick="logout();">로그아웃</a></li>
                 <%
                 } else {
@@ -91,7 +91,7 @@
                     <li><a href="/introduce">하나Insure Fit이란?</a></li>
                     <li><a href="/recommendInsu" class="clicked">Grade보험</a></li>
                     <li><a href="/weightManage">건강관리</a></li>
-                    <li><a href="/myPage">마이페이지</a></li>
+                    <li><a href="/dashboardMypage">마이페이지</a></li>
                 </ul>
             </nav>
         </div>
@@ -121,10 +121,12 @@
 
     <div id="main">
         <main>
-            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbsp건강등급&nbsp&nbsp</div>
+            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 &nbsp&nbsp> &nbsp&nbsp건강등급&nbsp&nbsp</div>
 
-            <div class="areaContainer">
-
+            <div class="areaContainer" style="flex-direction: column;
+                 align-items: center";>
+                <div style="display: flex">
+                    <img src="resources/static/image/Grades.png" style="width: 520px;height: 250px;margin-top: 20px;">
                 <div class="insuMoongoo"><br>
                     <div class="insuInfo">
                         <span class="colorText">건강등급</span> 확인하고<br> <span class="colorText">보험료 할인</span>받으세요!
@@ -136,38 +138,40 @@
                         </div>
                     </div>
                 </div>
-                <div class="rightArea">
-                    <div class="centerAlign">
-                        건강등급을 산출해주세요!
-                    </div>
-                    <div id="gradeCalculation">
-                        <table>
-                            <tr>
-                                <th><img class="insuComLogo1"
-                                         src="https://www.hanafn.com:8002/assets/img/ko/info/img-hana-symbol.png">
-
-                                    <!-- <img class="QRCode" src="images/하나손해보험QR.png"> -->
-                                </th>
-                                <td>하나손해보험에서 산출하기
-                                    <div class="qr-description">QR를 촬영하시면, 건강등급 산출 화면으로 이동합니다. <img class="QRCode" src="resources/static/image/하나손해보험QR.png"></div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th><img class="insuComLogo"
-                                         src="https://logo-resources.thevc.kr/products/200x200/3598ce6f965b2481fe26316c06b30950c46ac7f8e7229f104aa78f579997668d_1689313853784586.jpg">
-                                    <!-- <img class="QRCode" src="images/로그QR.png"> -->
-                                </th>
-                                <td>로그어플에서 산출하기
-
-                                    <div class="qr-description">QR를 촬영하시면, 건강등급 산출 화면으로 이동합니다. <img class="QRCode" src="resources/static/image/로그QR.png"></div>
-
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
                 </div>
-            </div>
+
+<%--                    <div id="gradeCalculation">--%>
+
+                <a href="#" id="recommendInsuLink">
+                    <div class="box" style="justify-content: center;align-items: center;color:#fff;margin: 0 auto; width: 160px; height: 80px">건강등급 산출</div>
+                </a>
+
+                <%--                        <table>--%>
+<%--                            <tr>--%>
+<%--                                <th><img class="insuComLogo1"--%>
+<%--                                         src="https://www.hanafn.com:8002/assets/img/ko/info/img-hana-symbol.png">--%>
+
+<%--                                    <!-- <img class="QRCode" src="images/하나손해보험QR.png"> -->--%>
+<%--                                </th>--%>
+<%--                                <td>하나손해보험에서 산출하기--%>
+<%--                                    <div class="qr-description">QR를 촬영하시면, 건강등급 산출 화면으로 이동합니다. <img class="QRCode" src="resources/static/image/하나손해보험QR.png"></div>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+
+<%--                            <tr>--%>
+<%--                                <th><img class="insuComLogo"--%>
+<%--                                         src="https://logo-resources.thevc.kr/products/200x200/3598ce6f965b2481fe26316c06b30950c46ac7f8e7229f104aa78f579997668d_1689313853784586.jpg">--%>
+<%--                                    <!-- <img class="QRCode" src="images/로그QR.png"> -->--%>
+<%--                                </th>--%>
+<%--                                <td>로그어플에서 산출하기--%>
+
+<%--                                    <div class="qr-description">QR를 촬영하시면, 건강등급 산출 화면으로 이동합니다. <img class="QRCode" src="resources/static/image/로그QR.png"></div>--%>
+
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                        </table>--%>
+                    </div>
+<%--                </div>--%>
             <br>
             <h2>보장내용</h2>
             <button type="button" class="collapsible" onclick="collapse(this);">건강등급이란?</button>
@@ -627,8 +631,8 @@
             }
         });
     }
-
 </script>
+<script src="resources/static/vendor/sendCustomerIDToAWS/sendCustomerID.js"></script>
 </body>
 
 </html>

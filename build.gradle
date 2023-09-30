@@ -23,6 +23,8 @@ repositories {
 }
 
 dependencies {
+	implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9' // 또는 라이브러리의 최신 버전으로 대체 가능
+
 	implementation 'commons-io:commons-io:2.11.0'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 
