@@ -4,6 +4,7 @@
 
 <mapper namespace="ac.kr.kopo.HanaInsureFit.healthCare.weightManage.dao.WeightManageMapper">
     <!-- 회원 전체 조회 -->
+
     <select id="getInfo" resultType="ac.kr.kopo.HanaInsureFit.healthCare.weightManage.vo.WeightManage">
         SELECT
             c.CUSTOMERID AS id,

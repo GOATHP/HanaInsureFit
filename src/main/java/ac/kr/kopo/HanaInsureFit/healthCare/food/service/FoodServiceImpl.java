@@ -2,8 +2,10 @@ package ac.kr.kopo.HanaInsureFit.healthCare.food.service;
 
 import ac.kr.kopo.HanaInsureFit.healthCare.food.dao.FoodMapper;
 import ac.kr.kopo.HanaInsureFit.healthCare.food.vo.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,6 +137,10 @@ public class FoodServiceImpl implements FoodService {
     public List<WeekCalories> getWeekCalories(String customerID) {
         return foodMapper.getWeekCalories(customerID);
     }
+
+    public List<WeekCalories> getWeekCalories2(String customerID) {
+        return foodMapper.getWeekCalories2(customerID);
+    }
     public void insertSelectedMenu(Map<String, Object> paramMap) {
         foodMapper.insertSelectedMenu(paramMap);
     };
@@ -146,5 +152,11 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.getSelectedIngredients(customerID);
     }
 
+    public List<FoodNames> getFoodNames2(@Param("recordDate") String recordDate, @Param("customerID") String customerID){
+        return foodMapper.getFoodNames2(recordDate, customerID);
+    }
+    public List<FoodIngredients> getIngredients2(@Param("recordDate") String recordDate, @Param("customerID") String customerID){
+        return foodMapper.getIngredients2(recordDate, customerID);
+    }
 }
 

@@ -105,5 +105,18 @@ public class WebController {
     public String dashboardMypage() throws Exception {
         return "jsp/dashboardMypage";
     }
+    @GetMapping ("/manageInsu")
+    public String manageInsu() throws Exception {
+        return "jsp/manageInsu";
+    }
 
+    @GetMapping ("/weightAuth")
+    public String weightAuth() throws Exception {
+        return "jsp/healthCare/weightAuth";
+    }
+
+    @GetMapping ("/openedAccount")
+    public String checkPhone() throws Exception {
+        return "jsp/openedAccount";
+    }
 }

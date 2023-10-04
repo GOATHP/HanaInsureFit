@@ -4,6 +4,29 @@
 
 <mapper namespace="ac.kr.kopo.HanaInsureFit.member.dao.MemberMapper">
     <!-- 회원 전체 조회 -->
+
+    <insert id="insertInbodyInfo">
+
+        INSERT INTO InbodyInfo (customerID, identifyNumber, height, weight, BMI, basalMetabolicRate, gender, checkDate)
+        VALUES (
+                   #{customerID},
+                   #{identifyNum},
+                   #{height},
+                   #{weight},
+                   #{bmi},
+                   #{bmr},
+                   #{gender},
+                   TO_DATE(#{record_date}, 'yy/MM/dd')
+               )
+    </insert>
+
+    <update id="updateInbodyInfo">
+        UPDATE CustomerTargetDiet
+        SET CALORIES = #{goalCalories}
+        WHERE CUSTOMERID = #{customerID}
+    </update>
+
+
     <select id="getAllMember" parameterType="ac.kr.kopo.HanaInsureFit.member.vo.Member"
             resultType="ac.kr.kopo.HanaInsureFit.member.vo.Member">
         SELECT *
@@ -27,14 +50,19 @@
     </select>
 
     <select id="getMyPageInfo" resultType="ac.kr.kopo.HanaInsureFit.member.vo.MyPageInfo">
+        <![CDATA[
         SELECT *
-        FROM HealthCheckInfo h
-                 INNER JOIN healthgrade g ON h.CUSTOMERID = g.CUSTOMERID
-                 INNER JOIN CustomerTargetDiet d ON h.CUSTOMERID = d.CUSTOMERID
+        FROM (
+        SELECT *
+        FROM inbodyinfo h
+        INNER JOIN healthgrade g ON h.CUSTOMERID = g.CUSTOMERID
+        INNER JOIN CustomerTargetDiet d ON h.CUSTOMERID = d.CUSTOMERID
         WHERE h.CUSTOMERID = #{customerID}
+        ORDER BY h.CHECKDATE ASC  -- 정렬 기준을 지정해주세요
+        )
+        WHERE ROWNUM <= 1
+        ]]>
     </select>
-
-
     <select id="getMyPageInsu" resultType="ac.kr.kopo.HanaInsureFit.member.vo.MyPageInsu">
         SELECT
             C.CUSTOMERID,

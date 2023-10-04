@@ -117,17 +117,17 @@
                     캘린더
                 </a>
                 <div class="subSection">
-                    변화를 기록해보세요!
-                </div>
-            </div>
-            <div class="section">
-                <a href="/pastMe">
-                    과거의 나
-                </a>
-                <div class="subSection">
                     변화를 확인해보세요!
                 </div>
             </div>
+<%--            <div class="section">--%>
+<%--                <a href="/pastMe">--%>
+<%--                    과거의 나--%>
+<%--                </a>--%>
+<%--                <div class="subSection">--%>
+<%--                    변화를 확인해보세요!--%>
+<%--                </div>--%>
+<%--            </div>--%>
             <div class="section">
                 <a href="/InsureFitWith">
                     InsureFitWith
@@ -146,6 +146,7 @@
             </div>
         </div>
     </main>
+    <a href="/openedAccount" class="submitBtn"></a>
 </div>
 <div class="modal">
     <div class="modal_body">
@@ -173,11 +174,12 @@
             <input type="button" class="login-button" value="로그인" onclick="loginFormFunc()">
 <%--        </form>--%>
     </div>
+
 </div>
-<footer id="footer">
-    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
-        Hana TI 2019. ALL RIGHT RESERVE</div>
-</footer>
+<%--<footer id="footer">--%>
+<%--    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©--%>
+<%--        Hana TI 2019. ALL RIGHT RESERVE</div>--%>
+<%--</footer>--%>
 <script>
     const modal = document.querySelector('.modal');
     const btnOpenPopup = document.querySelector(".loginButton");
@@ -265,7 +267,17 @@
             }
         });
     }
-
 </script>
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
+</footer>
+
 </body>
 </html>

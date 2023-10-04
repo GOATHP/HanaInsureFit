@@ -20,5 +20,11 @@ public interface MemberService {
 
     UserGrade getUserGrade(String customerID);
 
+    void insertInbodyInfo(HashMap<String, Object> paramMap);
+
+    void updateInbodyInfo(HashMap<String, Object> paramMap);
+
     void regiGrade(@Param("customerID") String customerID, @Param("healthGrade") int healthGrade);
+
+    String sendAuthenticationCode(String phone);
 }

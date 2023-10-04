@@ -98,6 +98,27 @@ public class FoodController {
 
     @SneakyThrows
     @ResponseBody
+    @PostMapping("/calandarData")
+    public ResponseEntity<String> calandarData(@RequestParam("recordDate") String recordDate, @RequestParam("customerID") String customerID) {
+        System.out.println("@@@@@@@" +  customerID + recordDate);
+        List<FoodNames> foodNames = foodService.getFoodNames2(recordDate, customerID);
+        List<FoodIngredients> ingredients = foodService.getIngredients2(recordDate, customerID);
+
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("foodNames", foodNames);
+        responseData.put("ingredients", ingredients);
+        System.out.println("foodNames: " + responseData.get("foodNames"));
+        System.out.println("ingredients: " + responseData.get("ingredients"));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(responseData);
+// ResponseEntity를 사용하여 JSON 형식으로 응답
+        return ResponseEntity.ok().body(json);
+
+    }
+
+        @SneakyThrows
+    @ResponseBody
     @PostMapping("/loadData")
     public ResponseEntity<String> loadData(@RequestParam("customerID") String customerID) {
         List<FoodNames> foodNames = foodService.getFoodNames();
@@ -234,6 +255,19 @@ public class FoodController {
         String json = objectMapper.writeValueAsString(weekCalories);
         return ResponseEntity.ok().body(json);
     }
-
+    @SneakyThrows
+    @ResponseBody
+    @PostMapping(value = "/getChartData2")
+    public ResponseEntity<String> getChartData2(@RequestParam("customerID") String customerID) {
+        System.out.println(customerID);
+        List<WeekCalories> weekCalories = foodService.getWeekCalories2(customerID);
+        for (WeekCalories w : weekCalories) {
+            System.out.println(w.getRecorddate());
+            System.out.println(w.getTotal_calories());
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(weekCalories);
+        return ResponseEntity.ok().body(json);
+    }
 
 }

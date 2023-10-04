@@ -22,13 +22,29 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <script>
+    function maskSensitiveInfo(info) {
+        // 주민번호 마스킹 (981223-1111111 -> 9812XX-XXXXXX)
+        var maskedIdentifyNum = info.identifyNum.replace(/(\d{6})-(\d{7})/, "$1-*******");
+
+        // 전화번호 마스킹 (01012345678 -> 010-XXXX-XXXX)
+        var maskedPhoneNum = info.phoneNum.replace(/(\d{3})(\d{4})(\d{4})/, "$1-****-$3");
+
+        // 패스워드 마스킹 (abc12345 -> ********)
+        var maskedPassword = "*".repeat(info.password.length);
+
+        return {
+            ...info,
+            identifyNum: maskedIdentifyNum,
+            phoneNum: maskedPhoneNum,
+            password: maskedPassword
+        };
+    }
+
     function populateTable(data) {
         var tbody = document.querySelector('tbody');
 
         // 데이터를 순회하면서 행을 추가
         data.forEach(function(item, index) { // 두 번째 매개변수로 인덱스를 받습니다.
-
-
 
             var row = document.createElement('tr');
 
@@ -40,8 +56,46 @@
 
             // 각 속성에 대한 데이터를 삽입
             for (var key in item) {
+
                 var cell = document.createElement('td');
-                cell.textContent = item[key];
+
+                // 민감한 정보일 경우 마스킹 처리
+                if (key === 'identifyNum' || key === 'phoneNum' || key === 'password') {
+                    console.log((item)[key]);
+                    // console.log(maskSensitiveInfo('981223-1111111'));
+                    console.log(maskSensitiveInfo(item)[key]);
+                    cell.textContent = maskSensitiveInfo(item)[key];
+
+                } else {
+                    cell.textContent = item[key];
+                }
+
+                if (Object.keys(item).indexOf(key) === 0) {
+                    cell.classList.add('sorting_1');
+                }
+
+
+                if (key === 'gender') {
+                    if (item.gender === 0) {
+                        cell.textContent = "여성";
+                    } else if (item.gender === 1) {
+                        cell.textContent = "남성";
+                    }
+                }
+
+                        if (key === 'weightGoal') {
+                    if (item.weightGoal === 0) {
+                        cell.textContent = "감량";
+                    } else if (item.weightGoal === 1) {
+                        cell.textContent = "증량";
+                    } else if (item.weightGoal === 2) {
+                        cell.textContent = "유지";
+                    } else {
+                        cell.textContent = "알 수 없음";
+                    }
+                }
+
+
                 if (item[key] === "admin") {
                     return;
                 }
@@ -49,8 +103,24 @@
                     cell.classList.add('sorting_1');
                 }
 
+
+                var mailCell = document.createElement('td');
+                mailCell.textContent = '메일 발송';
+
                 row.appendChild(cell);
+
             }
+            var mailCell = document.createElement('td');
+            var mailButton = document.createElement('button');
+            mailButton.classList.add('custom-button-class');
+
+            mailButton.textContent = '메일 보내기';
+            // mailButton.addEventListener('click', function() {
+            //     sendEmail(item.email); // 이메일 주소로 이메일을 보내는 함수 호출
+            // });
+            mailCell.appendChild(mailButton);
+            row.appendChild(mailCell);
+
             tbody.appendChild(row);
         });
     }
@@ -65,6 +135,10 @@
             success: function (response) {
                 console.log(response)
                 populateTable(response);
+
+
+                var tbody = document.querySelector('tbody');
+                tbody.removeChild(tbody.firstElementChild);
             },
             error: function (error) {
                 console.error('데이터를 가져오는 중 오류 발생: ', error);
@@ -82,7 +156,7 @@
 
         <!-- Sidebar - Brand -->
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
             <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고" style= "width:110%">
             <%--            <div class="sidebar-brand-icon rotate-n-15">--%>
             <%--                <i class="fas fa-laugh-wink"></i>--%>
@@ -94,19 +168,15 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="/dashboardMypage">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>대시보드</span></a>
         </li>
-
         <!-- Divider -->
         <hr class="sidebar-divider">
-
-
-
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="/manageInsu">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>상품관리</span></a>
         </li>
@@ -118,22 +188,7 @@
                 <span>회원관리</span></a>
         </li>
         <hr class="sidebar-divider d-none d-md-block">
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>메일송부</span></a>
-        </li>
-
-        <hr class="sidebar-divider d-none d-md-block">
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>설정</span></a>
-        </li>
-
         <!-- Divider -->
-        <hr class="sidebar-divider">
 
         <!-- Heading -->
 
@@ -353,28 +408,30 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">가입 고객 명단</h6>
+                        <h6 class="m-0 font-weight-bold text-primary" style="color: white !important;">가입 고객 명단</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="
+    border: 1px solid black;
+">
                                 <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>IdentifyNum</th>
-                                    <th>Gender</th>
-                                    <th>Age</th>
-                                    <th>email</th>
-                                    <th>phoneNum</th>
-                                    <th>password</th>
-                                    <th>joinDate</th>
-                                    <th>weightGoal</th>
+                                <tr style="border: 1px solid black; background-color: #00857E !important; color:white;">
+                                    <th>고객아이디</th>
+                                    <th>성명</th>
+                                    <th>주민번호</th>
+                                    <th>성별</th>
+                                    <th>나이</th>
+                                    <th>이메일 주소</th>
+                                    <th>전화번호</th>
+                                    <th>고객 비밀번호</th>
+                                    <th>가입날짜</th>
+                                    <th>고객 체중 목표</th>
+                                    <th>메일 발송</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <th></th>
-
                                 </tbody>
                             </table>
                         </div>
@@ -388,13 +445,13 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2020</span>
-                </div>
-            </div>
-        </footer>
+<%--        <footer class="sticky-footer bg-white">--%>
+<%--            <div class="container my-auto">--%>
+<%--                <div class="copyright text-center my-auto">--%>
+<%--                    <span>Copyright © Your Website 2020</span>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </footer>--%>
         <!-- End of Footer -->
 
     </div>
@@ -408,25 +465,60 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
+<%--<!-- Logout Modal-->--%>
+<%--<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--%>
+<%--    <div class="modal-dialog" role="document">--%>
+<%--        <div class="modal-content">--%>
+<%--            <div class="modal-header">--%>
+<%--                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>--%>
+<%--                <button class="close" type="button" data-dismiss="modal" aria-label="Close">--%>
+<%--                    <span aria-hidden="true">×</span>--%>
+<%--                </button>--%>
+<%--            </div>--%>
+<%--            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>--%>
+<%--            <div class="modal-footer">--%>
+<%--                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>--%>
+<%--                <a class="btn btn-primary" href="login.html">Logout</a>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<div class="modal">
+    <div class="modal_body">
+        <div class="closeDiv">
+            <button class="btn-close-popup">닫기</button>
         </div>
-    </div>
-</div>
+        <div class="form-container">
+            <h1>메일 보내기</h1>
 
+            <form action="/mail/send" method="post">
+                <table>
+                    <tr>
+                        <td>메일 주소</td>
+                        <td>
+                            <input type="text" name="address" placeholder="이메일 주소를 입력하세요">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td>
+                            <input type="text" name="title" placeholder="제목을 입력하세요">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>내용</td>
+                        <td>
+                            <textarea name="content" placeholder="보낼 내용을 입력하세요"> </textarea>
+                        </td>
+                    </tr>
+                </table>
+                <button>발송</button>
+            </form>
+
+
+        </div>
+        </div>
+</div>
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -477,23 +569,23 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
+<%--<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--%>
+<%--    <div class="modal-dialog" role="document">--%>
+<%--        <div class="modal-content">--%>
+<%--            <div class="modal-header">--%>
+<%--                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>--%>
+<%--                <button class="close" type="button" data-dismiss="modal" aria-label="Close">--%>
+<%--                    <span aria-hidden="true">×</span>--%>
+<%--                </button>--%>
+<%--            </div>--%>
+<%--            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>--%>
+<%--            <div class="modal-footer">--%>
+<%--                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>--%>
+<%--                <a class="btn btn-primary" href="login.html">Logout</a>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 <!-- Bootstrap core JavaScript-->
 <script src="resources/static/vendor/jquery/jquery.min.js"></script>
@@ -510,8 +602,43 @@
 <script src="resources/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page level custom scripts -->
+
 <script src="resources/static/js/demo/datatables-demo.js"></script>
 
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
+</footer>
+
 </body>
+<script>
+    window.onload = function(){
+        const modal = document.querySelector('.modal');
+        const modal_body = document.querySelector('.modal_body');
+        const form_container = document.querySelector('.form-container');
+        const btnOpenPopups = document.querySelectorAll('.custom-button-class');
+
+        // 각 버튼에 대한 이벤트 리스너 등록
+        btnOpenPopups.forEach(function(btnOpenPopup) {
+            btnOpenPopup.addEventListener('click', () => {
+                modal.style.display = 'block';
+                form_container.style.display = 'block';
+            });
+        });
+        function closeModal() {
+            var modal = document.querySelector(".modal");
+            modal.style.display = "none"; // 모달을 숨기도록 설정
+        }
+        var closePopupButton = document.querySelector(".btn-close-popup");
+        closePopupButton.addEventListener("click", closeModal);
+    }
+</script>
+
 
 </html>

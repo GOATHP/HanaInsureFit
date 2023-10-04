@@ -124,6 +124,18 @@
                     console.log("칼로리퍼센트" + caloriesPercentage);
                     setHeartClass(caloriesPercentage);
                     // 추가적인 로직 또는 UI 업데이트를 여기에 추가할 수 있습니다.const ctx = document.getElementById('myChart').getContext('2d');
+                    const annotation2 = {
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y',
+                        value: dailyRecommendedCalories, // 원하는 값을 설정하세요 (예: 1800)
+                        borderColor: '#ff0000',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: dailyRecommendedCalories
+                        }
+                    }
                     const ctx13 = document.getElementById('combined-bar-chart').getContext('2d');
 
                     myChart = new Chart(ctx13, {
@@ -203,10 +215,23 @@
                         options: {
                             barThickness:30,
                             scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    max: 3000,
+                                    stepSize: 500,
+                                },
                                 y: {
-                                    beginAtZero: true
-                                }
-                            }
+                                    type: 'linear', // y축의 유형을 linear로 설정
+                                    min: 0, // y축 최소값
+                                    max: 2000, // y축 최대값
+                                    stepSize: 500,
+                                },
+                            },
+                            plugins: {
+                                annotation: {
+                                    annotations: [annotation2]
+                                },
+                                },
                         }
                     });
                     // const ctx2 = document.getElementById('bar-chart-carbs').getContext('2d');
@@ -398,11 +423,11 @@
                     table.className = "foodTable";
                     var rows = [
                         { label: "식품명", value: foodData.foodName },
-                        { label: "탄수화물", value: foodData.carbs },
-                        { label: "지방", value: foodData.fat },
-                        { label: "단백질", value: foodData.protein },
-                        { label: "칼로리", value: foodData.calories },
-                        { label: "1회 제공량", value: foodData.amountPerOnce }
+                        { label: "탄수화물(g)", value: foodData.carbs },
+                        { label: "지방(g)", value: foodData.fat },
+                        { label: "단백질(g)", value: foodData.protein },
+                        { label: "칼로리(kcal)", value: foodData.calories },
+                        { label: "1회 제공량(g)", value: foodData.amountPerOnce }
                     ];
 
                     // 테이블 데이터 동적 생성 및 추가
@@ -686,6 +711,18 @@
 
                     createOrUpdateChart();
                     function createOrUpdateChart() {
+                        const annotation2 = {
+                            type: 'line',
+                            mode: 'horizontal',
+                            scaleID: 'y',
+                            value: dailyRecommendedCalories, // 원하는 값을 설정하세요 (예: 1800)
+                            borderColor: '#ff0000',
+                            borderWidth: 2,
+                            label: {
+                                enabled: true,
+                                content: dailyRecommendedCalories
+                            }
+                        }
                         myChart.destroy();
                         myChart1.destroy();
                         // myChart2.destroy();
@@ -721,10 +758,23 @@
                             options: {
                                 barThickness:30,
                                 scales: {
+                                    x: {
+                                        beginAtZero: true,
+                                        max: 3000,
+                                        stepSize: 500,
+                                    },
                                     y: {
-                                        beginAtZero: true
-                                    }
-                                }
+                                        type: 'linear', // y축의 유형을 linear로 설정
+                                        min: 0, // y축 최소값
+                                        max: 2000, // y축 최대값
+                                        stepSize: 500,
+                                    },
+                                },
+                                plugins: {
+                                    annotation: {
+                                        annotations: [annotation2]
+                                    },
+                                },
                             }
                         });
                         const ctx2 = document.getElementById('combined-bar-chart').getContext('2d');
@@ -950,7 +1000,6 @@
                         <%=name%>님 안녕하세요! 체중관리(감량)을 위해서는<br>
                         오늘 하루 <div class="calories" id="goalCalories">2238</div>를 드셔야 합니다! <br>
                         현재 <div class="calories" id="currentCalories">0</div>kcal(<div class="calories" id="caloriesPercentage">0% </div>)를 드셨네요!<br>
-
                     </div>
                 </div>
                 <div class="image-column">
@@ -958,8 +1007,8 @@
                     <br>
                     <br>
                     <p class="imageWord2" style="font-size: 20px;">
-                        일주일간 맞춤 칼로리 달성횟수 :
-                    <p class="successCount" id="successCOunt" style="font-size: 20px;">5</p>
+                        주간 칼로리 목표 달성 :
+                    <p class="successCount" id="successCount" style="font-size: 20px;">5</p>
                     <p class="imageWord2" style="font-size: 20px;">/ 7
                     <p>
                     </p>
@@ -1033,7 +1082,6 @@
                 </div>
                     </div>
                 </div>
-
             </div>
             <div class="middleCon3">
                 <div class="section">
@@ -1104,27 +1152,30 @@
 </div>
 </div>
 
-<footer id="footer">
-    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
-        Hana TI 2019. ALL RIGHT RESERVE</div>
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
 </footer>
-
 <script>
-    var caloriesCount = 0;
+
     var myBarChart;
     function drawChart(dailyRecommendedCalories) {
-
-
         const annotation = {
             type: 'line',
             mode: 'horizontal',
             scaleID: 'y',
-            value: 1800, // 원하는 값을 설정하세요 (예: 1800)
+            value: dailyRecommendedCalories, // 원하는 값을 설정하세요 (예: 1800)
             borderColor: '#ff0000',
             borderWidth: 2,
             label: {
                 enabled: true,
-                content: '1800'
+                content: dailyRecommendedCalories
             }
         }
         var currentDate = new Date();
@@ -1192,7 +1243,7 @@
     function fetchDataAndUpdateChart() {
         var labels = [];
         var dataValues = [];
-
+        var caloriesCount = 0;
         $.ajax({
             url: 'getChartData',
             method: 'POST',
@@ -1228,7 +1279,7 @@
                     }
                 }
                 console.log("칼로리카운트" + caloriesCount);
-                // document.getElementById("successCount").textContent = caloriesCount;
+                document.getElementById("successCount").textContent = caloriesCount;
 
             },
             error: function(error) {

@@ -173,7 +173,8 @@
                             </tr>
                             <tr>
                                 <th>주민등록번호</th>
-                                <td><%= identifyNum %></td>
+                                <td><%= identifyNum.substring(0, 6) + "-*******"%></td>
+
                                 <th>
                                     포인트
                                 </th>
@@ -195,20 +196,21 @@
                                     <%
                                         String healthGradeText = ""; // 결과를 저장할 변수
                                         // 등급 계산
-                                        if (healthGrade >= 1 && healthGrade <= 2) {
+                                        if (healthGrade == 1) {
                                             healthGradeText = "Grade1";
-                                        } else if (healthGrade >= 3 && healthGrade <= 4) {
+                                        } else if (healthGrade == 2) {
                                             healthGradeText = "Grade2";
-                                        } else if (healthGrade >= 5 && healthGrade <= 6) {
+                                        } else if (healthGrade == 3) {
                                             healthGradeText = "Grade3";
-                                        } else if (healthGrade >= 7 && healthGrade <= 9) {
+                                        } else if (healthGrade == 4) {
                                             healthGradeText = "Grade4";
                                         } else {
                                             // 다른 경우에 대한 처리
                                             healthGradeText = "알 수 없음"; // 예를 들어, 범위를 벗어나는 값인 경우
                                         }
                                     %>
-                                    <%=healthGrade%>등급(<%=healthGradeText%>)
+                                    <%=healthGradeText%>
+<%--                                    <%=healthGrade%>등급()--%>
                                 </td>
                                 <th>
                                     최종 가입료

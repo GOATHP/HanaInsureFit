@@ -25,8 +25,8 @@
     <link href="resources/static/css/sb-admin-2.min.css" rel="stylesheet">
     <style type="text/css">/* Chart.js */
     @keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
-    <script src="resources/static/js/sb-admin-2.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="resources/static/js/sb-admin-2.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
 <body id="page-top">
@@ -35,15 +35,20 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+        style="
+    min-height: 260px;
+    max-height: 260px;
+    height: 260px;
+">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고" style= "width:110%">
-<%--            <div class="sidebar-brand-icon rotate-n-15">--%>
-<%--                <i class="fas fa-laugh-wink"></i>--%>
-<%--            </div>--%>
-<%--            <div class="sidebar-brand-text mx-3">하나 InsureFit</div>--%>
+            <%--            <div class="sidebar-brand-icon rotate-n-15">--%>
+            <%--                <i class="fas fa-laugh-wink"></i>--%>
+            <%--            </div>--%>
+            <%--            <div class="sidebar-brand-text mx-3">하나 InsureFit</div>--%>
         </a>
 
         <!-- Divider -->
@@ -52,50 +57,59 @@
         <!-- Nav Item - Dashboard -->
 
         <!-- Divider -->
-<%--        <hr class="sidebar-divider">--%>
+        <%--        <hr class="sidebar-divider">--%>
 
         <!-- Heading -->
-<%--        <div class="sidebar-heading">--%>
-<%--            Interface--%>
-<%--        </div>--%>
+        <%--        <div class="sidebar-heading">--%>
+        <%--            Interface--%>
+        <%--        </div>--%>
 
         <!-- Nav Item - Pages Collapse Menu -->
 
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="/dashboardAdmin">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>대시보드</span></a>
+                <span style="
+    font-size: 18px;
+    color: white;
+">대시보드</span></a>
         </li>
-        <hr class="sidebar-divider d-none d-md-block">
+        <%--        <hr class="sidebar-divider d-none d-md-block">--%>
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="/manageInsu">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>상품관리</span></a>
+                <span style="
+    font-size: 18px;
+    color: white;
+">상품관리</span></a>
         </li>
-        <hr class="sidebar-divider d-none d-md-block">
+        <%--        <hr class="sidebar-divider d-none d-md-block">--%>
         <!-- Nav Item - Charts -->
         <li class="nav-item">
             <a class="nav-link" href="/manageMember">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>회원관리</span></a>
+                <span style="
+    font-size: 18px;
+    color: white;
+">회원관리</span></a>
         </li>
-        <hr class="sidebar-divider d-none d-md-block">
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>메일송부</span></a>
-        </li>
+        <%--        <hr class="sidebar-divider d-none d-md-block">--%>
+        <%--        <li class="nav-item">--%>
+        <%--            <a class="nav-link" href="charts.html">--%>
+        <%--                <i class="fas fa-fw fa-chart-area"></i>--%>
+        <%--                <span>메일송부</span></a>--%>
+        <%--        </li>--%>
 
-        <hr class="sidebar-divider d-none d-md-block">
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>설정</span></a>
-        </li>
+        <%----%>
+        <%--        <!-- Nav Item - Tables -->--%>
+        <%--        <li class="nav-item">--%>
+        <%--            <a class="nav-link" href="tables.html">--%>
+        <%--                <i class="fas fa-fw fa-table"></i>--%>
+        <%--                <span>설정</span></a>--%>
+        <%--        </li>--%>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+        <%--        <!-- Divider -->--%>
+        <%--        <hr class="sidebar-divider d-none d-md-block">--%>
 
         <!-- Sidebar Toggler (Sidebar) -->
 
@@ -316,7 +330,8 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                             style="color : black !important">
                                             회원 수</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">4000명</div>
                                     </div>
@@ -334,7 +349,7 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="color : black !important">
                                             보험 가입자 수</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">2,000명</div>
                                     </div>
@@ -352,7 +367,8 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">목표회원 달성률
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1"
+                                             style="color : black !important">목표회원 달성률
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
@@ -379,7 +395,8 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"
+                                             style="color : black !important;">
                                             보험 수</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
                                     </div>
@@ -500,72 +517,72 @@
                         </div>
 
                         <!-- Color System -->
-                        <div class="row">
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-primary text-white shadow">
-                                    <div class="card-body">
-                                        Primary
-                                        <div class="text-white-50 small">#4e73df</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-success text-white shadow">
-                                    <div class="card-body">
-                                        Success
-                                        <div class="text-white-50 small">#1cc88a</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-info text-white shadow">
-                                    <div class="card-body">
-                                        Info
-                                        <div class="text-white-50 small">#36b9cc</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-warning text-white shadow">
-                                    <div class="card-body">
-                                        Warning
-                                        <div class="text-white-50 small">#f6c23e</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-danger text-white shadow">
-                                    <div class="card-body">
-                                        Danger
-                                        <div class="text-white-50 small">#e74a3b</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-secondary text-white shadow">
-                                    <div class="card-body">
-                                        Secondary
-                                        <div class="text-white-50 small">#858796</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-light text-black shadow">
-                                    <div class="card-body">
-                                        Light
-                                        <div class="text-black-50 small">#f8f9fc</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-dark text-white shadow">
-                                    <div class="card-body">
-                                        Dark
-                                        <div class="text-white-50 small">#5a5c69</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <%--                        <div class="row">--%>
+                        <%--                            <div class="col-lg-6 mb-4">--%>
+                        <%--                                <div class="card bg-primary text-white shadow">--%>
+                        <%--                                    <div class="card-body">--%>
+                        <%--                                        Primary--%>
+                        <%--                                        <div class="text-white-50 small">#4e73df</div>--%>
+                        <%--                                    </div>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="col-lg-6 mb-4">--%>
+                        <%--                                <div class="card bg-success text-white shadow">--%>
+                        <%--                                    <div class="card-body">--%>
+                        <%--                                        Success--%>
+                        <%--                                        <div class="text-white-50 small">#1cc88a</div>--%>
+                        <%--                                    </div>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="col-lg-6 mb-4">--%>
+                        <%--                                <div class="card bg-info text-white shadow">--%>
+                        <%--                                    <div class="card-body">--%>
+                        <%--                                        Info--%>
+                        <%--                                        <div class="text-white-50 small">#36b9cc</div>--%>
+                        <%--                                    </div>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="col-lg-6 mb-4">--%>
+                        <%--                                <div class="card bg-warning text-white shadow">--%>
+                        <%--                                    <div class="card-body">--%>
+                        <%--                                        Warning--%>
+                        <%--                                        <div class="text-white-50 small">#f6c23e</div>--%>
+                        <%--                                    </div>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="col-lg-6 mb-4">--%>
+                        <%--                                <div class="card bg-danger text-white shadow">--%>
+                        <%--                                    <div class="card-body">--%>
+                        <%--                                        Danger--%>
+                        <%--                                        <div class="text-white-50 small">#e74a3b</div>--%>
+                        <%--                                    </div>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="col-lg-6 mb-4">--%>
+                        <%--                                <div class="card bg-secondary text-white shadow">--%>
+                        <%--                                    <div class="card-body">--%>
+                        <%--                                        Secondary--%>
+                        <%--                                        <div class="text-white-50 small">#858796</div>--%>
+                        <%--                                    </div>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="col-lg-6 mb-4">--%>
+                        <%--                                <div class="card bg-light text-black shadow">--%>
+                        <%--                                    <div class="card-body">--%>
+                        <%--                                        Light--%>
+                        <%--                                        <div class="text-black-50 small">#f8f9fc</div>--%>
+                        <%--                                    </div>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="col-lg-6 mb-4">--%>
+                        <%--                                <div class="card bg-dark text-white shadow">--%>
+                        <%--                                    <div class="card-body">--%>
+                        <%--                                        Dark--%>
+                        <%--                                        <div class="text-white-50 small">#5a5c69</div>--%>
+                        <%--                                    </div>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
 
                     </div>
 
@@ -589,18 +606,18 @@
                         </div>
 
                         <!-- Approach -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                            </div>
-                            <div class="card-body">
-                                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                    CSS bloat and poor page performance. Custom CSS classes are used to create
-                                    custom components and custom utility classes.</p>
-                                <p class="mb-0">Before working with this theme, you should become familiar with the
-                                    Bootstrap framework, especially the utility classes.</p>
-                            </div>
-                        </div>
+                        <%--                        <div class="card shadow mb-4">--%>
+                        <%--                            <div class="card-header py-3">--%>
+                        <%--                                <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>--%>
+                        <%--                            </div>--%>
+                        <%--                            <div class="card-body">--%>
+                        <%--                                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce--%>
+                        <%--                                    CSS bloat and poor page performance. Custom CSS classes are used to create--%>
+                        <%--                                    custom components and custom utility classes.</p>--%>
+                        <%--                                <p class="mb-0">Before working with this theme, you should become familiar with the--%>
+                        <%--                                    Bootstrap framework, especially the utility classes.</p>--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
 
                     </div>
                 </div>
@@ -612,13 +629,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2021</span>
-                </div>
-            </div>
-        </footer>
+
         <!-- End of Footer -->
 
     </div>
@@ -626,30 +637,6 @@
 
 </div>
 <!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Bootstrap core JavaScript-->
 <script src="resources/static/vendor/jquery/jquery.min.js"></script>
@@ -668,6 +655,15 @@
 <script src="resources/static/js/demo/chart-area-demo.js"></script>
 <script src="resources/static/js/demo/chart-pie-demo.js"></script>
 
-
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
+</footer>
 
 </body></html>

@@ -377,10 +377,17 @@
         </div>
     </main>
 </div>
-<footer id="footer">
-    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
-        Hana TI 2019. ALL RIGHT RESERVE</div>
-</footer>
+
+    <footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+        <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
+    </footer>
 <script>
 
     function loginFormFunc() {

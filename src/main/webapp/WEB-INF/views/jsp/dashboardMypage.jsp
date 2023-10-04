@@ -285,15 +285,13 @@
             <a href="/weightManage" class="sideBarTab">
                 식단 관리
             </a>
-            <a href="/weightManage" class="sideBarTab">
+            <a href="/weightAuth" class="sideBarTab">
                 체중정보 갱신
             </a>
-            <a href="/weightManage" class="sideBarTab">
-                건강정보 갱신
+            <a href="/recommendInsu" class="sideBarTab">
+                건강등급 갱신
             </a>
-            <a href="/weightManage" class="sideBarTab">
-                회원정보수정
-            </a>
+
 
 
             <%--            <a href="/insuJoin" class="sideBarTab">--%>
@@ -781,18 +779,18 @@
                         </div>
 
                         <!-- Approach -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                            </div>
-                            <div class="card-body">
-                                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                    CSS bloat and poor page performance. Custom CSS classes are used to create
-                                    custom components and custom utility classes.</p>
-                                <p class="mb-0">Before working with this theme, you should become familiar with the
-                                    Bootstrap framework, especially the utility classes.</p>
-                            </div>
-                        </div>
+<%--                        <div class="card shadow mb-4">--%>
+<%--                            <div class="card-header py-3">--%>
+<%--                                <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>--%>
+<%--                            </div>--%>
+<%--                            <div class="card-body">--%>
+<%--                                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce--%>
+<%--                                    CSS bloat and poor page performance. Custom CSS classes are used to create--%>
+<%--                                    custom components and custom utility classes.</p>--%>
+<%--                                <p class="mb-0">Before working with this theme, you should become familiar with the--%>
+<%--                                    Bootstrap framework, especially the utility classes.</p>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
                     </div>
                     <!-- Content Column -->
@@ -849,86 +847,26 @@
 <%--                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>--%>
 <%--                                </div>--%>
                             </div>
-                        </div>
-
-                        <!-- Color System -->
-                        <div class="row">
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-primary text-white shadow">
-                                    <div class="card-body">
-                                        Primary
-                                        <div class="text-white-50 small">#4e73df</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-success text-white shadow">
-                                    <div class="card-body">
-                                        Success
-                                        <div class="text-white-50 small">#1cc88a</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-info text-white shadow">
-                                    <div class="card-body">
-                                        Info
-                                        <div class="text-white-50 small">#36b9cc</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-warning text-white shadow">
-                                    <div class="card-body">
-                                        Warning
-                                        <div class="text-white-50 small">#f6c23e</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-danger text-white shadow">
-                                    <div class="card-body">
-                                        Danger
-                                        <div class="text-white-50 small">#e74a3b</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-secondary text-white shadow">
-                                    <div class="card-body">
-                                        Secondary
-                                        <div class="text-white-50 small">#858796</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-light text-black shadow">
-                                    <div class="card-body">
-                                        Light
-                                        <div class="text-black-50 small">#f8f9fc</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-dark text-white shadow">
-                                    <div class="card-body">
-                                        Dark
-                                        <div class="text-white-50 small">#5a5c69</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <a style="
+                               font-family:NanumSquareRoundB, Arial, sans-serif;
+                               padding: 8px;
+                               height: auto;
+                               border: none;
+                               background-color: rgb(219, 36, 100);
+                               color: #fff;
+                               cursor: pointer;
+                               border-radius: 4px;
+                               display: inline-block;
+                               width: 200px;
+                               border-radius: 15px;
+                               border: 2px solid rgb(219, 36, 100);
+                               text-align: center;" href='/weightAuth'>체중 갱신하기</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2021</span>
-                </div>
-            </div>
-        </footer>
+
         <!-- End of Footer -->
 
     </div>
@@ -936,7 +874,16 @@
 
 </div>
 <!-- End of Page Wrapper -->
-
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
+</footer>
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -979,5 +926,5 @@
 <script src="resources/static/js/demo/chart-pie-demo.js"></script>
 <script src="resources/static/js/demo/myPageInfo.js"></script>
 <script src="resources/static/js/demo/myPageInsu.js"></script>
-
-</body></html>
+</body>
+</html>

@@ -24,6 +24,7 @@ public interface MemberMapper {
     MyPageInsu getMyPageInsu(String customerID);
 
     UserGrade getUserGrade(String customerID);
-
+    void updateInbodyInfo(HashMap<String, Object> paramMap);
+    void insertInbodyInfo(HashMap<String, Object> paramMap);
     void regiGrade(@Param("customerID") String customerID, @Param("healthGrade") int healthGrade);
 }

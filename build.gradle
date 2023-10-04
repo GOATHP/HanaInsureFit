@@ -53,7 +53,11 @@ dependencies {
 
 	// jsoup
 	implementation group: 'org.jsoup', name: 'jsoup', version: '1.14.3'
+	// https://mvnrepository.com/artifact/org.springframework/spring-context-support
+	implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.24'
 
+	implementation 'com.sun.mail:javax.mail:1.6.2'
+	implementation 'net.nurigo:javaSDK:2.2'
 	// Gson, jackson 라이브러리 추가
 	implementation 'com.google.code.gson:gson:2.8.8'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'

@@ -1,5 +1,5 @@
 var customerID = document.getElementById("customerID").getAttribute("data-customerID");
-
+var dailyRecommendedCalories;
 $.ajax({
     url: 'getMyPageInfo',
     type: 'POST',
@@ -13,7 +13,7 @@ $.ajax({
         document.getElementById("bmiCell").textContent = data.bmi;
         document.getElementById("bmrCell").textContent = data.basalMetabolicRate + "kcal";
         document.getElementById("caloriesCell").textContent = data.calories + "kcal";
-
+        dailyRecommendedCalories = data.calories;
         var originalDate = data.checkDate;
         console.log(originalDate);
 // 시간 부분을 제외한 날짜 부분 추출

@@ -57,9 +57,10 @@
                     'customerID': customerID
                 },
                 success: function (response) {
-                    recordDate = response[0].recorddate;
+                    recordDate = response[response.length - 1].recorddate;
+                    console.log("홈페이지 날짜" + formattedDate + "레코드 날짜" + recordDate);
                     if (formattedDate === recordDate) {
-                        userConsumeCal = response[0].total_calories; // 칼로리 데이터를 data 배열에 추가
+                        userConsumeCal = response[response.length - 1].total_calories; // 칼로리 데이터를 data 배열에 추가
                     } else {
                         userConsumeCal = 0;
                     }
@@ -81,6 +82,7 @@
                     console.log("Data received from server:", response);
                     weightManageArray.push(response);
                     var currentCaloriesElement = document.getElementById("currentCalories");
+
                     if (weightManageArray[0].calories)
                         if (weightManageArray[0].calories - userConsumeCal < 0) {
                         // 값이 음수인 경우, 스타일 변경
@@ -96,6 +98,8 @@
                         warningPercentageElement.textContent = ((userConsumeCal / dailyRecommendedCalories) * 100).toFixed(1) + '%';
                         warning.textContent = '오늘 칼로리를 모두 소비하셨습니다. 체중 감량을 위해서 내일 식사하시길 권장드립니다.';
                     } else {
+
+                        console.log("현재 칼로리 엘리먼트" + weightManageArray[0].calories + " @@@@@@ " + userConsumeCal);
                         currentCaloriesElement.textContent = weightManageArray[0].calories - userConsumeCal;
                         var dailyRecommendedCalories = weightManageArray[0].calories;
                         var caloriesPercentageElement = document.getElementById("caloriesPercentage");
@@ -230,7 +234,7 @@
                             <li><a href="/introduce">하나Insure Fit이란?</a></li>
                             <li><a href="/recommendInsu">Grade보험</a></li>
                             <li><a href="/weightManage" class="clicked">건강관리</a></li>
-                            <li><a href="/myPage">마이페이지</a></li>
+                            <li><a href="/dashboardMypage">마이페이지</a></li>
                         </ul>
 
                 </nav>
@@ -325,7 +329,6 @@
                     function showItems(startIndex, endIndex) {
                         let currentRow;
                         const currentCaloriesElement = document.getElementById('currentCalories');
-// currentCaloriesElement의 값을 가져오거나, 0으로 초기화합니다.
                         const calorieValue = currentCaloriesElement ? parseFloat(currentCaloriesElement.textContent) : 0;
 
                         if (calorieValue < 0) {

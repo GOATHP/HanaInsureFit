@@ -65,6 +65,20 @@
         WHERE fdm.foodID = f.foodID and recorddate = TO_CHAR(SYSDATE, 'yy/MM/dd')
         ORDER BY mappingID
     </select>
+
+    <select id="getFoodNames2" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodNames">
+        SELECT foodName, mealCode
+        FROM selectedMenu
+        WHERE recorddate = #{recordDate} and customerID = #{customerID}
+        UNION
+        SELECT f.foodName, fdm.mealCode
+        FROM food f
+                 INNER JOIN foodDietMapping fdm ON f.foodID = fdm.foodID
+        WHERE fdm.foodID = f.foodID and recorddate = #{recordDate}
+        ORDER BY mealCode
+
+    </select>
+
     <select id="getIngredients" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients">
         SELECT
             fdm.mealCode,
@@ -85,6 +99,44 @@
             fdm.mealCode
     </select>
 
+    <select id="getIngredients2" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients">
+        SELECT
+            fdm.mealCode,
+            fdm.recordDate,
+            SUM(fdm.calories) AS total_calories,
+            SUM(fdm.carbs) AS total_carbs,
+            SUM(fdm.protein) AS total_protein,
+            SUM(fdm.fat) AS total_fat
+        FROM
+            foodDietMapping fdm
+        WHERE
+            fdm.recordDate = #{recordDate}
+          AND fdm.customerID = #{customerID}
+        GROUP BY
+            fdm.mealCode,
+            fdm.recordDate
+        UNION
+        SELECT
+            mealCode,
+            recordDate,
+            SUM(calories) AS total_calories,
+            SUM(carbs) AS total_carbs,
+            SUM(protein) AS total_protein,
+            SUM(fat) AS total_fat
+        FROM
+            selectedMenu
+        WHERE
+            recordDate = #{recordDate}
+          AND customerID = #{customerID}
+        GROUP BY
+            mealCode,
+            recordDate
+        ORDER BY
+            mealCode
+
+    </select>
+
+
     <select id="getSelectedIngredients" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.FoodIngredients">
         SELECT
             mealCode,
@@ -97,7 +149,7 @@
             selectedMenu
         WHERE
             recordDate = TO_CHAR(SYSDATE, 'yy/MM/dd')
-          AND customerID =  'CUST0001'
+          AND customerID =  #{customerID}
         GROUP BY
             mealCode,
             recordDate
@@ -117,7 +169,6 @@
     <select id="getTargetIngre" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.TargetIngre">
         select calories, protein, fat, carbohydrates from CustomerTargetDiet where customerid = #{customerID}
     </select>
-
 <!--    &#45;&#45;         SELECT *-->
 <!--    &#45;&#45;         FROM (-->
 <!--    &#45;&#45;         SELECT recorddate, SUM(calories) AS total_calories-->
@@ -126,6 +177,43 @@
 <!--    &#45;&#45;         ORDER BY recorddate DESC-->
 <!--    &#45;&#45;         )-->
 <!--    &#45;&#45;         WHERE ROWNUM <= 7-->
+    <select id="getWeekCalories2" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.WeekCalories">
+        <![CDATA[
+        SELECT
+            COALESCE(fm.recorddate, sm.RECORDDATE) AS recorddate,
+            COALESCE(fm.customerID, sm.CUSTOMERID) AS customerID,
+            COALESCE(fm.total_calories_in_foodDietMapping, 0) + COALESCE(sm.total_calories_in_selectedMenu, 0) AS total_calories
+        FROM
+            (
+                SELECT
+                    recorddate,
+                    customerID,
+                    SUM(CALORIES) AS total_calories_in_foodDietMapping
+                FROM
+                    foodDietMapping
+                WHERE
+                    customerID = #{customerID}
+                GROUP BY
+                    recorddate, customerID
+            ) fm
+                FULL OUTER JOIN
+            (
+                SELECT
+                    RECORDDATE,
+                    CUSTOMERID,
+                    SUM(CALORIES) AS total_calories_in_selectedMenu
+                FROM
+                    selectedMenu
+                WHERE
+                    CUSTOMERID = #{customerID}
+                GROUP BY
+                    RECORDDATE, CUSTOMERID
+            ) sm
+            ON
+                fm.recorddate = sm.RECORDDATE
+                ORDER BY RECORDDATE
+        ]]>
+    </select>
     <select id="getWeekCalories" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.WeekCalories">
         <![CDATA[
             SELECT
@@ -161,6 +249,8 @@
                 ON
                     fm.recorddate = sm.RECORDDATE
             WHERE ROWNUM <= 7
+            ORDER BY RECORDDATE
+
         ]]>
     </select>
     <select id="getMenuCalories" resultType="ac.kr.kopo.HanaInsureFit.healthCare.food.vo.MenuCalories">

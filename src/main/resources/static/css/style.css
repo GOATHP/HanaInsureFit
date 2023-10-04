@@ -30,7 +30,6 @@
     src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundL.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundL.woff2) format("woff2"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundL.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundL.ttf) format("truetype");
 }
 body {
-
     margin-left:50%;
     margin: 0 auto;
     padding: 0;
@@ -261,21 +260,21 @@ div.logo img {
     list-style: none;
 }
 
-footer {
-    color: rgba(10, 9, 9, 0.37);
-    background-color: white;
-    height: 10px;
-    font-family: "Hana", sans-serif !important;
-    padding-top: 10px;
-    padding-bottom: 20px;
-    text-align: center !important;
-    position: relative;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    font-weight: 900;
-    z-index: 0;
-}
+/*footer {*/
+/*    color: rgba(10, 9, 9, 0.37);*/
+/*    background-color: white;*/
+/*    height: 10px;*/
+/*    font-family: "Hana", sans-serif !important;*/
+/*    padding-top: 10px;*/
+/*    padding-bottom: 20px;*/
+/*    text-align: center !important;*/
+/*    position: relative;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    font-weight: 900;*/
+/*    z-index: 0;*/
+/*}*/
 
 
 .slider img {
@@ -577,6 +576,7 @@ a {
     border-radius: 25px;
     box-shadow:
             1px 1px 12px 0px rgb(0 0 0 / 10%);
+
 }
 
 .title {
@@ -634,7 +634,7 @@ a {
     min-height: 100%;
     max-width: 70%;
     width:70%;
-    padding-bottom: 100px;
+    padding-bottom: 30px;
 }
 
 #main2 {
@@ -662,15 +662,18 @@ a {
     flex-direction: column;
 }
 
-footer {
-    height: 10px;
-    position: relative;
-    transform: translateY(-100%);
-}
+/*footer {*/
+/*    height: 10px;*/
+/*    position: relative;*/
+/*    transform: translateY(-100%);*/
+/*}*/
 
 .slogan {
-    padding-top: 50PX;
+    padding-top: 20PX;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .slogan img{
@@ -997,7 +1000,6 @@ button {
     width: 200px;
     border-radius: 15px;
     border: 2px solid rgb(219, 36, 100);
-
 }
 
 .input__check{
@@ -1025,7 +1027,10 @@ button {
 }
 
 .closeDiv{
-    display: flex;s
+    display: flex;
+    width:100%;
+    align-items: flex-end;
+    flex-direction: column;
 }
 
 .search-result{
@@ -1991,6 +1996,7 @@ img.QRCode {
 }
 
 .login-button{
+    cursor:pointer;
     border-radius: 20px;
     border: 0px;
     height: 30px;
@@ -2092,7 +2098,7 @@ img.QRCode {
 
 .insuTable{
     border-collapse : collapse;
-    width: 500px;
+    width: 100%;
     text-align: center;
 
 }
@@ -2175,4 +2181,49 @@ img.QRCode {
 
 #insuranceTable{
     width:100%;
+}
+
+.fc-daygrid-day-bottom{
+    text-align: center;
+    font-size: 16px;
+}
+
+#preview{
+    width: 500px;
+}
+
+.submitBtn{
+        font-family:    "NanumSquareRoundB", Arial, sans-serif;
+        padding: 8px;
+        height: auto;
+        border: none;
+        background-color: rgb(219, 36, 100);
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+        display: inline-block;
+        width: 200px;
+        border-radius: 15px;
+        border: 2px solid rgb(219, 36, 100);
+}
+
+#certificateModalOpen{
+    cursor : pointer;
+    font-family:    "NanumSquareRoundB", Arial, sans-serif;
+    padding: 8px;
+    height: auto;
+    border: none;
+    background-color: rgb(219, 36, 100);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    display: inline-block;
+    width: 200px;
+    border-radius: 15px;
+    border: 2px solid rgb(219, 36, 100);
+}
+
+.close{
+    cursor : pointer;
 }
