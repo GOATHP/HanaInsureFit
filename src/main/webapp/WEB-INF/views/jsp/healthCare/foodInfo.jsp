@@ -45,6 +45,11 @@
     var customerID = "<%=(String) session.getAttribute("customerID")%>";
 
 </script>
+<style>
+    input[type="checkbox"]:checked {
+        background-color: #00857E; /* 원하는 배경색으로 변경 */
+    }
+</style>
 <script>
     // document.addEventListener("DOMContentLoaded", function () {
     //     var userConsumeCal;
@@ -283,7 +288,19 @@
                                     <td>
                                         <div id="menuTableBody">
                                     <!-- 여기에 메뉴와 가격이 동적으로 추가될 것입니다. -->
-                                            <button id="logSelectedMenusButton" class="logSelectedMenusButton">메뉴 식단 추가</button>
+
+                                        </div>
+                                        <div class="foodAddClass" style="
+                                            display: flex;
+                                            width: 100%;
+                                            align-items: center;
+                                            justify-content: center;
+                                        ">
+                                        <button id="logSelectedMenusButton" class="logSelectedMenusButton" style="
+                                                margin-top: 10px;
+                                                width: 100px;
+                                                border-radius: 5px;
+                                                ">식단 추가</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -308,22 +325,30 @@
                             </table>
                         </div>
                     </div>
-                    <div id="map"></div>
-                </div>
-                <button>
-                    <a id="findRoad">길찾기</a>
-                </button>
-                <div class="container">
-                    <div class="btn" onclick="toggleForm()">
-                        <span>식사 입력</span>
-                        <div class="dot"></div>
+                    <div class="mapContainer" style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+">
+                        <div id="map"></div>
+                        <button style="
+                                                margin-top: 10px;
+                                                width: 100px;
+                                                border-radius: 5px;
+                                                ">
+                            <a id="findRoad" >길찾기</a>
+                        </button>
                     </div>
+                </div>
+                <div class="container">
+
                     <div class="modal">
-                        <div class="modal_body2">
+                        <div class="modal_body2" style="width:700px;">
                             <div class="closeDiv">
-                                <button class="btn-close-popup">닫기</button>
+                                <button class="btn-close-popup"
+                                        style="width: 22px;height: 22px;font-size: 14px;">X</button>
                             </div>
-                            <div class="form-container">
+                            <div class="form-container" style="margin-top: 15px;display: block;width: 600px;">
                                 <h2>식사 입력 폼</h2>
                                 <table class="foodTable">
                                     <tr>
@@ -347,13 +372,11 @@
                                         </th>
 
                                         <td>
-                                            <div class="foodAdd2">
+                                            <div class="foodAdd2" style="width: 450px;">
                                                 <div class="foodInfo2" id="foodInfo2">
                                                 </div>
 
                                             </div>
-                                            <ul class="food-list"></ul>
-                                            <div class = "search-food">
                                                 <div class="foodColName">
                                         </td>
                                     </tr>
@@ -370,7 +393,7 @@
                     </div>
                     </table>
                     <div class="addBtn">
-                        <button id="addMeal">등록</button>
+                        <button id="addMeal" style="width: 100px;border-radius: 5px;">등록</button>
                     </div>
                 </div>
             </div>
@@ -378,16 +401,6 @@
     </main>
 </div>
 
-    <footer style="
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    background-color: #F9F9FB;
-">
-        <img src="resources/static/image/footer.png" style="
-    width: 1400px;
-">
-    </footer>
 <script>
 
     function loginFormFunc() {
@@ -708,7 +721,7 @@
         table.classList.add("foodInfo3");
         table.id = "foodInfo3";
         table.border = "1";
-
+        table.style.borderCollapse = "collapse";
         var headerRow = document.createElement("tr");
         // var header0 = document.createElement("th");
         // header0.textContent = "";
@@ -904,5 +917,18 @@
             });
         });
     </script>
+
+
+</div>
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
+</footer>
 </body>
 </html>

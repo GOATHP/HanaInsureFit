@@ -1,10 +1,8 @@
 package ac.kr.kopo.HanaInsureFit.member.service;
 
-import ac.kr.kopo.HanaInsureFit.member.vo.Member;
-import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInfo;
-import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInsu;
-import ac.kr.kopo.HanaInsureFit.member.vo.UserGrade;
+import ac.kr.kopo.HanaInsureFit.member.vo.*;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,4 +25,14 @@ public interface MemberService {
     void regiGrade(@Param("customerID") String customerID, @Param("healthGrade") int healthGrade);
 
     String sendAuthenticationCode(String phone);
+
+    void insertFriend(HashMap<String, String> paramMap);
+
+    List<compareWith> getFriendsCount(String customerID);
+
+    MyGrade getMyGrade(String customerID);
+
+    List<GradeChart> getGradeChart();
+
+    List<AdminLineData> getLineChart();
 }

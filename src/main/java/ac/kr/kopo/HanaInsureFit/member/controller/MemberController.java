@@ -1,8 +1,6 @@
 package ac.kr.kopo.HanaInsureFit.member.controller;
 
-import ac.kr.kopo.HanaInsureFit.member.vo.InbodyInfo;
-import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInfo;
-import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInsu;
+import ac.kr.kopo.HanaInsureFit.member.vo.*;
 import ac.kr.kopo.HanaInsureFit.util.weightCheck.OCR.ClovaOCRTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import ac.kr.kopo.HanaInsureFit.member.vo.Member;
 import ac.kr.kopo.HanaInsureFit.member.service.MemberService;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +40,21 @@ public class MemberController {
     @ResponseBody
     @PostMapping(value = "/getMyPageInfo")
     public MyPageInfo getMyPageInfo(@RequestParam("customerID") String customerID) {
+        System.out.println("Controller  getMyPageInfo  여까지옴" + customerID);
+        MyPageInfo myPageInfo = memberService.getMyPageInfo(customerID);
+        System.out.println("토탈팻" + myPageInfo.getBmi());
+        if (myPageInfo != null) {
+            return myPageInfo;
+        } else {
+            return null;
+        }
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/getMyPageInfo2")
+    public MyPageInfo getMyPageInfo2(@RequestParam("customerID") String customerID, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate(); // 세션 무효화
         System.out.println("Controller  getMyPageInfo  여까지옴" + customerID);
         MyPageInfo myPageInfo = memberService.getMyPageInfo(customerID);
         System.out.println("토탈팻" + myPageInfo.getBmi());
@@ -168,4 +181,60 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류 발생");
         }
     }
+    @PostMapping("/insertFriend")
+    public ResponseEntity<String> insertFriend(@RequestBody Friends friends) {
+        try {
+            String friendID = friends.getFriendID();
+            String customerID = friends.getCustomerID();
+            HashMap<String, String> paramMap = new HashMap<>();
+            System.out.println("customerID" + customerID + "friendID" + friendID);
+            paramMap.put("customerID", customerID);
+            paramMap.put("friendID", friendID);
+            memberService.insertFriend(paramMap);
+            System.out.println(paramMap);
+            return ResponseEntity.ok("전송 완료");
+        } catch (Exception e) {
+            // 예외 처리
+            e.printStackTrace(); // 예외 상세 정보를 로그에 출력
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류 발생");
+        }
+    }
+    @ResponseBody
+    @PostMapping("/getFriendsCount")
+    public List<compareWith> getFriendsCount(@RequestParam("customerID") String customerID){
+        List<compareWith> getFriends = memberService.getFriendsCount(customerID);
+        return getFriends;
+    }
+
+    @ResponseBody
+    @PostMapping("/getGradeChart")
+    public List<GradeChart> GradeChart(){
+        List<GradeChart> gradeCharts = memberService.getGradeChart();
+
+        System.out.println(gradeCharts);
+
+        return gradeCharts;
+    }
+
+    @ResponseBody
+    @PostMapping("/getLineChart")
+    public List<AdminLineData> GradeLineChart(){
+        List<AdminLineData> GradeLineChart = memberService.getLineChart();
+
+        System.out.println(GradeLineChart);
+
+        return GradeLineChart;
+    }
+    @ResponseBody
+    @PostMapping("/getMyGrade")
+    public List<MyGrade> GradeChart(@RequestBody List<String> customerIDs){
+        List<MyGrade> gradeCharts = new ArrayList<>();
+
+        for (String customerID : customerIDs) {
+            MyGrade grades = memberService.getMyGrade(customerID);
+            gradeCharts.add(grades);
+        }
+        return gradeCharts;
+    }
 }
+

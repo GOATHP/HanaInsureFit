@@ -25,7 +25,12 @@
             margin: 0 auto;
             width: 80%;
         }
+        input:focus {
+            outline: none;
+        }
+
     </style>
+    <script>var customerID = "<%=(String) session.getAttribute("customerID")%>";</script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -103,7 +108,7 @@
                 <div class="boxes">
                     <div class="box" style="background-color: #323850;"><a href="/weightManage">체중관리</a></div>
                     <div class="box"><a href="/recommendFood">식당추천</a></div>
-                    <div class="box"><a href="/recommendInsu">보험추천</a></div>
+                    <div class="box"><a href="/recommendInsu">Grade보험</a></div>
                     <div class="box" style="background-color: #323850;"><a href="/dashboardMypage">마이페이지</a></div>
                 </div>
             </div>
@@ -137,7 +142,7 @@
                 </div>
             </div>
             <div class="section">
-                <a href="/costCheck">
+                <a href="/compareCost">
                     절약비용조회
                 </a>
                 <div class="subSection">
@@ -146,38 +151,39 @@
             </div>
         </div>
     </main>
-    <a href="/openedAccount" class="submitBtn"></a>
+
 </div>
 <div class="modal">
-    <div class="modal_body">
+    <div>
+    <div class="modal_body" style="display: flex;flex-direction: column;justify-content: center; width:700px; height:500px">
 <%--        <form action="/loginMember" id="loginForm" method="post">--%>
-    <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
-        로그인
-        <table>
-                <tr>
-                    <th>
-                        <label for="customerID">아이디</label>
-                    </th>
-                    <td>
-                        <input type="text" id="customerID" name="customerID">
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <label for="password">비밀번호</label>
-                    </th>
-                    <td>
-                        <input type="password" id="password" name="password">
-                    </td>
-                </tr>
-            </table>
-            <input type="button" class="login-button" value="로그인" onclick="loginFormFunc()">
-<%--        </form>--%>
+    <div class="closeDiv">
+        <button class="btn-close-popup">X</button>
+    </div>
+    <div>
+    <img src="resources/static/image/loginImage.png" alt="프로젝트 로고">
+<%--        style="margin-right: 30px;"--%>
+        <div style="display: flex;flex-direction: column;">
+            <div style="padding:14px 17px 13px;border:1px solid gray;border-radius:6px 6px 0 0;font-family: inherit;display: flex;">
+            <img src="resources/static/image/IDImg.png" style="width:15px"  ><input type="text" id="customerID" name="customerID" placeholder="아이디"
+            style="border:0px; font-family: inherit;">
+            </div>
+            <div style="padding:14px 17px 13px;border:1px solid gray;font-family: inherit;display: flex;">
+            <img src="resources/static/image/PWImg.png" style="width:15px"><input type="password" id="password" name="password" placeholder="비밀번호"
+            style="border:0px; border-top:0px;font-family: inherit;">
+            </div>
+            <input type="button" class="login-button"  value="로그인" onclick="loginFormFunc()"
+                   style="margin:0px; width:330px !important; padding:14px 17px 13px;height: 50px;border-radius: 0 0 6px 6px;background-color: #00857E;font-size: 18px;font-family: inherit;">
+        </div>
+    </div>
+</div>
+
+    </div>
     </div>
 
 </div>
 <%--<footer id="footer">--%>
-<%--    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©--%>
+
 <%--        Hana TI 2019. ALL RIGHT RESERVE</div>--%>
 <%--</footer>--%>
 <script>
@@ -235,6 +241,9 @@
                     if (customerID === "admin") {
                         // If customerID is 'admin', redirect to the admin dashboard
                         window.location.href = "/dashboardAdmin";
+                    }
+                    else if(friendID) {
+                            window.location.href = "/acceptInvite";
                     } else {
                         // If customerID is not 'admin', redirect to the default page "/"
                         window.location.href = "/";
@@ -280,4 +289,56 @@
 </footer>
 
 </body>
+<script>
+
+    const currentURL = window.location.href;
+    const urlParams = new URLSearchParams(currentURL.split('?')[1]);
+
+    let friendID = null;
+    try {
+        friendID = urlParams.get('customerID');
+
+        console.log(friendID);
+    } catch (error) {
+        console.error('파라미터를 추출하는 동안 오류가 발생했습니다.', error);
+    }
+    // customerID가 null 또는 빈 문자열인 경우에 대한 예외 처리
+    if (!friendID) {
+        console.warn('customerID 파라미터가 없습니다.');
+    } else {
+        // customerID를 세션에 저장합니다.
+        sessionStorage.setItem('friendID', friendID);
+        console.log(friendID);
+    }
+    var friendsID = sessionStorage.getItem('friendID');
+    var friends = {
+        customerID : customerID,
+        friendID: friendsID  // friendID를 사용합니다.
+    };
+</script>
+<script>
+    console.log(friendsID);
+    console.log(customerID);
+    console.log(friends);
+    document.addEventListener("DOMContentLoaded", function () {
+        if (friendsID && customerID) {
+            // friendID가 존재하는 경우에만 AJAX 요청을 보냅니다.
+            $.ajax({
+                url: '/insertFriend',
+                type: "POST",
+                contentType: 'application/json',
+                dataType: "json",
+                data: JSON.stringify(friends),
+                success: function (response) {
+                    console.log(response);
+
+                },
+                error: function (error) {
+                    console.error(error);
+
+                }
+            });
+        }
+    });
+</script>
 </html>

@@ -75,7 +75,7 @@
 <div id="main3">
     <div class ="slogan">
         <img src="resources/static/image/슬로건.png" width="70%">
-        <div class="title">
+        <div class="title" >
             <h1>하나 InsureFit</h1>
             <p>건강할수록 더 낮은 보험료로 든든하게!<br>
                 하나 Grade 건강보험으로 합리적인 보험료 내고 동일한 보장받으세요. </p>

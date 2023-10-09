@@ -322,7 +322,7 @@
                 </div>
 
                 <!-- Content Row -->
-                <div class="row">
+                <div class="row" style="justify-content:center;">
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
@@ -331,7 +331,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
-                                             style="color : black !important">
+                                             style="color : black !important;font-size: 16px;font-weight: bold !important;">
                                             회원 수</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">4000명</div>
                                     </div>
@@ -349,7 +349,7 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="color : black !important">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="color : black !important;font-size: 16px;font-weight: bold !important;">
                                             보험 가입자 수</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">2,000명</div>
                                     </div>
@@ -368,7 +368,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1"
-                                             style="color : black !important">목표회원 달성률
+                                             style="color : black !important;font-size: 16px;font-weight: bold !important;">목표회원 달성률
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
@@ -389,24 +389,25 @@
                         </div>
                     </div>
 
-                    <!-- Pending Requests Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"
-                                             style="color : black !important;">
-                                            보험 수</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<%--                    <!-- Pending Requests Card Example -->--%>
+<%--                    <div class="col-xl-3 col-md-6 mb-4">--%>
+<%--                        <div class="card border-left-warning shadow h-100 py-2">--%>
+<%--                            <div class="card-body">--%>
+<%--                                <div class="row no-gutters align-items-center">--%>
+<%--                                    <div class="col mr-2">--%>
+<%--                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"--%>
+<%--                                             style="color : black !important;">--%>
+<%--                                            보험 수--%>
+<%--                                        </div>--%>
+<%--                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="col-auto">--%>
+<%--                                        <i class="fas fa-comments fa-2x text-gray-300"></i>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                 </div>
 
                 <!-- Content Row -->
@@ -418,7 +419,7 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                <h3 class="m-0 font-weight-bold text-primary" style="color:white !important;">회원가입 누적 그래프</h3>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -435,7 +436,7 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                    <canvas id="myAreaChart" style="display: block; width: 817px; height: 320px;" width="817" height="320" class="chartjs-render-monitor"></canvas>
+                                    <canvas id="myAreaChart" width="376" height="245" style="display: block; width: 376px; height: 245px;" class="chartjs-render-monitor"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -446,7 +447,7 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                <h3 class="m-0 font-weight-bold text-primary" style="color:white !important;">회원 건강등급 분포</h3>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -464,17 +465,6 @@
                             <div class="card-body">
                                 <div class="chart-pie pt-4 pb-2"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                                     <canvas id="myPieChart" width="376" height="245" style="display: block; width: 376px; height: 245px;" class="chartjs-render-monitor"></canvas>
-                                </div>
-                                <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
                                 </div>
                             </div>
                         </div>
@@ -637,24 +627,6 @@
 
 </div>
 <!-- End of Page Wrapper -->
-
-<!-- Bootstrap core JavaScript-->
-<script src="resources/static/vendor/jquery/jquery.min.js"></script>
-<script src="resources/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="resources/static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="resources/static/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="resources/static/vendor/chart.js/Chart.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="resources/static/js/demo/chart-area-demo.js"></script>
-<script src="resources/static/js/demo/chart-pie-demo.js"></script>
-
 <footer style="
     display: flex;
     width: 100%;
@@ -666,4 +638,84 @@
 ">
 </footer>
 
-</body></html>
+</body>
+<script>
+    var pieDataValues=[];
+    var myPieChart;
+    document.addEventListener("DOMContentLoaded", function () {
+        $.ajax({
+            url: 'getGradeChart',
+            type: 'POST',
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    pieDataValues.push(data[i].grade_COUNT);
+                }
+                drawPieChart(pieDataValues);
+            },
+            error: function (error) {
+                console.error('데이터를 가져오는 중 오류 발생: ', error);
+            },
+        })
+    });
+
+    function drawPieChart(data) {
+        console.log("drawPieChart 함수가 호출되었습니다.");
+        var ctx = document.getElementById("myPieChart");
+        myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ["Grade 1", "Grade 2", "Grade 3 ", "Grade 4"],
+                datasets: [{
+                    data: data,
+                    backgroundColor: ['#39F3BB', '#09BB9F', '#1D81A2', '#18A1CD'],
+                    hoverBackgroundColor: ['#0AAA78', '#06806C', '#13566B', '#106A86'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 2,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+
+                },
+                legend: {
+                    position: 'bottom',
+                    display: true,
+                    labels: {
+                        // padding: {
+                        //     top: 20
+                        // },
+                        fontSize: 14, // 범례 글꼴 크기
+                        usePointStyle: true,
+                        boxWidth: 10
+
+                    },
+                },
+                    cutoutPercentage: 50,
+                    elements: {
+                        arc: {
+                            borderWidth: 0.5, // 파이 차트 두께 조절
+                        },
+                    },
+                },
+        });
+    }
+</script>
+<script src="resources/static/vendor/jquery/jquery.min.js"></script>
+<script src="resources/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="resources/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="resources/static/js/sb-admin-2.min.js"></script>
+<script src="resources/static/vendor/chart.js/Chart.min.js"></script>
+<script src="resources/static/js/demo/chart-area-demo2.js"></script>
+<%--<script src="resources/static/js/demo/getGradeChart.js"></script>--%>
+</html>

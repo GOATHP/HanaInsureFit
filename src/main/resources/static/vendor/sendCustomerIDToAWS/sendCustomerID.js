@@ -2,7 +2,7 @@ var customerID = document.getElementById("customerID").getAttribute("data-custom
 
 // 링크를 클릭할 때 AJAX 요청을 보내는 코드
 $(document).ready(function() {
-    $("#recommendInsuLink").on("click", function(e) {
+    $("#join-insu-button").on("click", function(e) {
         e.preventDefault(); // 기본 링크 동작 방지
 
         $.ajax({
@@ -13,7 +13,8 @@ $(document).ready(function() {
                 'customerID': customerID
             },
             success: function (data) {
-                console.log(data);
+                console.log(data.healthgrade);
+                alert("고객님의 건강등급은 Grade " + data.healthgrade + " 입니다.")
                 // 요청이 성공하면 여기에서 추가 작업을 수행할 수 있습니다.
             },
             error: function (error) {

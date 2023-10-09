@@ -12,7 +12,9 @@
     <%
         String insuranceProductNumber = request.getParameter("insuranceProductNumber");
     %>
-
+    <script>
+        var customerID = "<%=(String) session.getAttribute("customerID")%>";
+    </script>
     <style>
         /* 팝업 스타일 */
         .popup {
@@ -40,6 +42,86 @@
             top: 10px;
             right: 10px;
             cursor: pointer;
+        }
+        .modall {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: #00000075;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: 15% auto;
+            padding: 20px;
+            width: 450px;
+            height: 560px;
+            border-radius: 20px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .phone-container{
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .login{
+            color: #000000;
+            text-align: center;
+            display: inline-block;
+        }
+        .login img{
+            width: 150px;
+            margin: 20px auto;
+        }
+        #phone-number, #auth-number{
+            width: 70%;
+            border-radius: 10px;
+            height: 50px;
+            float: left;
+            display: flex;
+            mix-blend-mode: normal;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            margin: 10px 0 5px 0;
+            background: 0;
+            border: 0;
+            border-bottom: solid 3px #b1b1b1;
+            color: black;
+        }
+        #phone-number::placeholder, #auth-number::placeholder{
+            text-align: left;
+            color: white;
+            background: 0;
+        }
+        .confirm-button,  #auth-req-button{
+            align-items: center;
+            justify-content: center;
+            width: 25%;
+            float: right;
+            border: 1px solid #a7a9a9;
+            background-color: #a7a9a9;
+            mix-blend-mode: normal;
+            color: white;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            margin: 10px 0 14px 0;
+            color: #010101;
+            font-weight: 700;
+            padding: 15px 0;
+            font-size: 15px;
+        }
+        .authbox{
+            width: 100%;
         }
     </style>
 </head>
@@ -84,6 +166,8 @@
                     String name = (String) session.getAttribute("name");
                     String customerID = (String) session.getAttribute("customerID");
                     String identifyNum = (String) session.getAttribute("identifyNum");
+//                    String gender = (String) session.getAttribute("gender");
+//                    String age = (String) session.getAttribute("age");
                     int healthGrade = (int) session.getAttribute("healthGrade");
                     if (name != null) {
                 %>
@@ -167,7 +251,7 @@
                             </tr>
                             <tr>
                                 <th>나이/성별</th>
-                                <td>28세(남자)</td>
+<%--                                <td><%=age%>(<%=gender%>)</td>--%>
                                 <th>보험료</th>
                                 <td>78,900원</td>
                             </tr>
@@ -223,24 +307,67 @@
                             </tbody>
                         </table>
                     </div>
-                        <button id="insertInsuButton">보험 가입하기</button>
-
+                        <button id="insertInsuButton" onclick="phoneAuth()">본인 인증</button>
                     </div>
+
+                <div id="myModal" class="modall">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="phone-container">
+                            <div class="login">
+                                <h2>휴대폰 인증</h2>
+                                <p>안전하고 간편하게 로그인하세요.</p>
+                                <p><c:out value="${member.name}"/>님의 휴대폰 인증</p>
+                                <img src="resources/static/image/phone-call.svg" alt="">
+                                <label for="phoneBrand">통신사 및 알뜰폰 선택:</label>
+                                <select id="phoneBrand" name="phoneBrand">
+                                    <option value="SKT">SKT</option>
+                                    <option value="KT">KT</option>
+                                    <option value="LG">LG</option>
+                                    <option value="SKT알뜰폰">SKT 알뜰폰</option>
+                                    <option value="KT알뜰폰">KT 알뜰폰</option>
+                                    <option value="LG알뜰폰">LG 알뜰폰</option>
+                                </select>
+                                <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요">
+                                <button type ="button" id ="auth-req-button">인증요청</button>
+                                <p id="ViewTimer"></p>
+                                <div class="authbox">
+                                    <input type ="password" id ="auth-number" placeholder="인증번호를 입력해주세요">
+                                    <button type="button" class="confirm-button" id ="auth-res-button">확인</button>
+                                    <button type="button" class="confirm-button" id ="join-insu-button" onclick="submitForm()">보험 가입하기</button>
+                                </div>
+
+                                <%--                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=951e0627da48ee51855b252517b6352d--%>
+                                <%--&redirect_uri=http://localhost:8080/api/social/login/kakao&response_type=code" class="kakaoa"><img class="kakao_btn" src="../../resources/images/kakaologin.png" width="30"></a>--%>
+                                <%--                    <a href="https://kauth.kakao.com/oauth/logout?client_id=951e0627da48ee51855b252517b6352d&logout_redirect_uri=http://localhost:8080/logout" class="kakaoa">logout</a>--%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+        </main>
     </div>
-    </main>
+
 </div>
 </div>
-<footer id="footer">
-    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
-        Hana TI 2019. ALL RIGHT RESERVE
-    </div>
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
 </footer>
+
 <script>
     $(document).ready(function() {
-        $("#insertInsuButton").click(function(e) {
-            e.preventDefault(); // 기본 클릭 동작(페이지 이동)을 막습니다.
 
+        $("#join-insu-button").click(function(e) {
+            e.preventDefault(); // 기본 클릭 동작(페이지 이동)을 막습니다.
             $.ajax({
                 type: "POST",
                 url: "/insertInsu",
@@ -445,28 +572,39 @@
         modal.classList.remove('visible');
     }
 </script>
-<%--<script>--%>
-<%--    // 페이지 로드 시 실행되는 함수--%>
-<%--    window.onload = function () {--%>
-<%--        // insuranceProductNumber 변수 값을 JavaScript로 가져옵니다.--%>
-<%--        var insuranceProductNumber = '<%= request.getParameter("insuranceProductNumber") %>';--%>
-<%--        console.log(insuranceProductNumber)--%>
-<%--        // Ajax 요청을 사용하여 컨트롤러로 변수를 전달합니다.--%>
-<%--        $.ajax({--%>
-<%--            type: "POST", // 또는 "POST" 요청을 사용하실 수도 있습니다.--%>
-<%--            url: "/Insusearching", // 컨트롤러의 엔드포인트 URL--%>
-<%--            data: {--%>
-<%--                input: insuranceProductNumber--%>
-<%--            },--%>
-<%--            success: function (data) {--%>
-<%--            },--%>
-<%--            error: function () {--%>
-<%--                // Ajax 요청이 실패한 경우 처리할 코드를 작성합니다.--%>
-<%--            }--%>
-<%--        });--%>
-<%--    };--%>
-<%--</script>--%>
+<script>
+    function phoneAuth(){
+        var modal = $("#myModal");
+        modal.css("display", "block");
+    };
+    var span = $(".close").eq(0);
+    span.click(function(){
+        var modal = $("#myModal");
+        modal.css("display", "none");
+    })
 
+    $("#auth-res-button").click(function(){
+       alert("본인 인증이 완료되었습니다.");
+    });
 
+    $("#auth-req-button").click(function() {
+        $.ajax({
+            type: "POST",
+            url: "/checkPhone",
+            dataType: "json",
+            data: {
+                'customerID': customerID
+            },
+            success: function(response) {
+                console.log(response);
+                alert("인증번호 전송이 완료되었습니다.")
+                // $("#auth-number").val(response);
+            },
+            error: function(error) {
+                console.error("로그인 실패 : ", error);
+            }
+        });
+    });
+</script>
 </div>
 </html>

@@ -12,6 +12,7 @@ import lombok.Setter;
 public class WeekCalories {
     private String recorddate;
     private double total_calories;
+    private String customerID;
 
     public WeekCalories(){
 

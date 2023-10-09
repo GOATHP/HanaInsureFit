@@ -37,7 +37,18 @@ body {
     width: 1500px;
 }
 
-
+#grade1Btn :hover{
+    background-color: #005753;
+}
+#grade2Btn :hover{
+    background-color: #005753;
+}
+#grade3Btn :hover{
+    background-color: #005753;
+}
+#grade4Btn :hover{
+    background-color: #005753;
+}
 
 .menuBar ::before{
     font-family: 'Material Icons';
@@ -550,6 +561,22 @@ a {
     padding-top:15px;
 }
 
+.benefit2 {
+    padding: 10px;
+    margin:10px;
+    margin-top:20px;
+    border-radius: 25px;
+    box-shadow:
+            1px 1px 12px 0px rgb(0 0 0 / 10%);
+}
+
+.benefit2 p{
+    text-align: left;
+    height:200px;
+    padding-top:15px;
+}
+
+
 .custom-hr {
     background-color: #00857E;
     height: 1px;
@@ -711,8 +738,32 @@ a {
     padding-bottom: 20px;
     color: #00857E;
     border-bottom: 1px solid #00857E;
+}
+
+.benefit2 {
+    color: #000000;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 30px;
+    width:590px;
+    height:550px;
+    max-width:590px;
+    padding:70px;
+    padding-top:10px;
+    padding-bottom:10px;
 
 }
+
+.benefit2 h2 {
+    font-family: "NanumSquareRoundEB", sans-serif;
+    padding-bottom: 20px;
+    color: #00857E;
+    border-bottom: 1px solid #00857E;
+    /* vertical-align: middle; */
+    display: flex;
+    justify-content: center;
+    align-items: center;}
 
 .image-row {
     display: flex;
@@ -1337,9 +1388,9 @@ fieldset {
 #map{
     width: 400px;
     height: 380px;
-    margin-top:50px;
-    border-radius: 10px;
     margin-top:40px;
+    border-radius: 10px;
+
 }
 
 .restaurant-details{
@@ -1359,13 +1410,19 @@ fieldset {
 
 .kcal-cell{
     width:290px;
+
 }
 
 .menuCell{
     width:80px;
+    vertical-align: middle;
+    font-size: 14px;
 }
 .priceCell{
     width:70px;
+    vertical-align: middle;
+    font-size: 14px;
+
 }
 
 .info-table th{
@@ -1880,7 +1937,7 @@ img.QRCode {
 }
 
 .graph-4{
-    font-size:14px;
+    font-size:18px;
     margin: 0 auto;
     /*height : 200px;*/
     width: 100%;
@@ -1997,7 +2054,6 @@ img.QRCode {
 
 .login-button{
     cursor:pointer;
-    border-radius: 20px;
     border: 0px;
     height: 30px;
     width: 250px !important;
@@ -2121,6 +2177,30 @@ img.QRCode {
     text-align: left;
 }
 
+.insuTable2{
+    border-collapse : collapse;
+    width: 500px;
+    text-align: center;
+
+}
+
+.insuTable2 th{
+    border: 1px solid #001e1f;
+    border-collapse : collapse;
+    padding: 10px 5px;
+    background-color: #009490;
+    color:white;
+
+}
+
+
+.insuTable2 td{
+    border: 1px solid #001e1f;
+    border-collapse : collapse;
+    padding: 10px 5px;
+    font-size: 12px;
+    text-align: left;
+}
 .foodTable{
     border-collapse : collapse;
     width: 100%;
@@ -2130,10 +2210,10 @@ img.QRCode {
 
 
 .foodTable th{
-    /*width:150px;*/
+    width:120px;
     border: 1px solid #001e1f;
     border-collapse : collapse;
-    /*padding: 10px 5px;*/
+    padding: 10px 5px;
     background-color: #009490;
     color:white;
 
@@ -2227,3 +2307,4 @@ img.QRCode {
 .close{
     cursor : pointer;
 }
+

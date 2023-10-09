@@ -20,7 +20,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.min.js"></script>
-
     <script>
          <%
          String name = (String) session.getAttribute("name");
@@ -48,8 +47,6 @@
                     'customerID': customerID
                 },
                 success: function(data) {
-
-
                     console.log(data);
                     var mealSection;
                     var mealCircle;
@@ -141,44 +138,61 @@
                     myChart = new Chart(ctx13, {
                         type: 'bar',
                         data: {
-                            labels: ['탄수화물 총합', '단백질 총합', '지방 총합'],
+                            labels: ['g'],
                             datasets: [
                                 {
-                                    label: ['탄수화물', '단백질', '지방'],
-                                    data: [total_carbs, total_protein, total_fat],
-                                    backgroundColor: [
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(75, 192, 192, 1)'
-                                    ],
+                                    label: '탄수화물', // 탄수화물 데이터셋의 레이블
+                                    data: [total_carbs],
+                                    backgroundColor: 'rgba(255, 206, 86, 1)',
+                                    borderColor: 'rgba(255, 206, 86, 1)',
+                                    borderWidth: 0.1
+                                },
+                                {
+                                    label: '단백질', // 단백질 데이터셋의 레이블
+                                    data: [total_protein],
+                                    backgroundColor: 'rgba(153, 102, 255, 1)',
+                                    borderColor: 'rgba(153, 102, 255, 1)',
+                                    borderWidth: 0.1
+                                },
+                                {
+                                    label: '지방', // 지방 데이터셋의 레이블
+                                    data: [total_fat],
+                                    backgroundColor: 'rgba(75, 192, 192, 1)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
                                     borderWidth: 0.1
                                 }
                             ]
                         },
                         options: {
-                            barThickness:30,
+                            categoryPercentage: 0.7,
+                            barPercentage: 0.8,
+                            barThickness: 30,
                             scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    max: 3000,
+                                    stepSize: 500,
+                                },
                                 y: {
-                                    beginAtZero: true
-                                }
-                            }
+                                    type: 'linear', // y축의 유형을 linear로 설정
+                                    min: 0, // y축 최소값
+                                    max: 100, // y축 최대값
+                                },
+                            },
+                            legend: {
+                                position: 'bottom',
+                                display: true,
+                                labels: {
+                                    padding: {
+                                        top: 30,
+                                    },
+                                    fontSize: 14, // 범례 글꼴 크기
+                                    usePointStyle: true,
+                                    boxWidth: 10
+                                },
+                            },
                         },
                         plugins: {
-                            legend: {
-                                display: false, // 범례 표시 여부
-                                position: 'top', // 범례 위치 (top, bottom, left, right)
-                                labels: {
-                                    font: {
-                                        size: 12 // 범례 레이블의 글꼴 크기
-                                    },
-                                    align: 'start'
-                                }
-                            }
                         }
                     });
 
@@ -194,7 +208,7 @@
                                 label: '칼로리 총합',
                                 data: [total_calories],
                                 backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)'
+                                    'rgba(255, 99, 132, 1)'
                                     // 'rgba(54, 162, 235, 0.2)',
                                     // 'rgba(255, 206, 86, 0.2)',
                                     // 'rgba(75, 192, 192, 0.2)',
@@ -231,7 +245,7 @@
                                 annotation: {
                                     annotations: [annotation2]
                                 },
-                                },
+                            },
                         }
                     });
                     // const ctx2 = document.getElementById('bar-chart-carbs').getContext('2d');
@@ -632,7 +646,7 @@
                     var total_carbs = 0;
                     var total_fat = 0;
                     var total_protein = 0;
-                    console.log("영양소" +  ingredients);
+                    console.log("영양소" + ingredients);
                     for (var i = 0; i < ingredients.length; i++) {
                         if (ingredients[i] !== null) { // null 체크
                             total_calories += ingredients[i].total_calories || 0; // null이나 undefined인 경우 0으로 처리
@@ -650,15 +664,15 @@
                     console.log('foodNames:' + foodNames.length);
 
                     for (var i = 0; i < foodNames.length; i++) {
-                    //     foodNames[foodNames.length - 1].foodName
-                    //     console.log('Food Name: ' + foodNames[i].foodName);
-                    //     console.log('Meal Code: ' + foodNames[i].mealCode);
+                        //     foodNames[foodNames.length - 1].foodName
+                        //     console.log('Food Name: ' + foodNames[i].foodName);
+                        //     console.log('Meal Code: ' + foodNames[i].mealCode);
                         var foodInfo = foodNames[i];
                         console.log(foodInfo);
                         var foodEntry = foodInfo.foodName;
                         if (foodInfo.mealCode === 0) {
                             morningSection = document.querySelector('.section:nth-child(1) .ateFood');
-                            morningCircle= document.querySelector('.section:nth-child(1) .circle');
+                            morningCircle = document.querySelector('.section:nth-child(1) .circle');
 
                             if (morningSection.innerHTML.trim() !== '') {
                                 morningSection.innerHTML += ', ';
@@ -670,7 +684,7 @@
 
                         } else if (foodInfo.mealCode === 1) {
                             lunchSection = document.querySelector('.section:nth-child(2) .ateFood');
-                            lunchCircle= document.querySelector('.section:nth-child(2) .circle');
+                            lunchCircle = document.querySelector('.section:nth-child(2) .circle');
 
                             if (lunchSection.innerHTML.trim() !== '') {
                                 lunchSection.innerHTML += ', ';
@@ -682,7 +696,7 @@
 
                         } else if (foodInfo.mealCode === 2) {
                             dinnerSection = document.querySelector('.section:nth-child(3) .ateFood');
-                            dinnerCircle= document.querySelector('.section:nth-child(3) .circle');
+                            dinnerCircle = document.querySelector('.section:nth-child(3) .circle');
                             if (dinnerSection.innerHTML.trim() !== '') {
                                 dinnerSection.innerHTML += ', ';
                             }
@@ -707,9 +721,8 @@
                     // 추가적인 로직 또는 UI 업데이트를 여기에 추가할 수 있습니다.const ctx = document.getElementById('myChart').getContext('2d');
 
 
-
-
                     createOrUpdateChart();
+
                     function createOrUpdateChart() {
                         const annotation2 = {
                             type: 'line',
@@ -737,7 +750,7 @@
                                     label: '칼로리 총합',
                                     data: [total_calories],
                                     backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)'
+                                        'rgba(255, 99, 132, 1)'
                                         // 'rgba(54, 162, 235, 0.2)',
                                         // 'rgba(255, 206, 86, 0.2)',
                                         // 'rgba(75, 192, 192, 0.2)',
@@ -756,7 +769,7 @@
                                 }]
                             },
                             options: {
-                                barThickness:30,
+                                barThickness: 30,
                                 scales: {
                                     x: {
                                         beginAtZero: true,
@@ -766,7 +779,7 @@
                                     y: {
                                         type: 'linear', // y축의 유형을 linear로 설정
                                         min: 0, // y축 최소값
-                                        max: 2000, // y축 최대값
+                                        max: 2500, // y축 최대값
                                         stepSize: 500,
                                     },
                                 },
@@ -777,40 +790,69 @@
                                 },
                             }
                         });
-                        const ctx2 = document.getElementById('combined-bar-chart').getContext('2d');
-                        myChart = new Chart(ctx2, {
+                        const ctx13 = document.getElementById('combined-bar-chart').getContext('2d');
+
+                        myChart = new Chart(ctx13, {
                             type: 'bar',
                             data: {
-                                labels: ['탄수화물 총합', '단백질 총합', '지방 총합'],
+                                labels: ['g'],
                                 datasets: [
                                     {
-                                        label: 'g',
-                                        data: [total_carbs, total_protein, total_fat],
-                                        backgroundColor: [
-                                            'rgba(255, 206, 86, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                            'rgba(75, 192, 192, 1)'
-                                        ],
-                                        borderWidth: 0.2
+                                        label: '탄수화물', // 탄수화물 데이터셋의 레이블
+                                        data: [total_carbs],
+                                        backgroundColor: 'rgba(255, 206, 86, 1)',
+                                        borderColor: 'rgba(255, 206, 86, 1)',
+                                        borderWidth: 0.1
+                                    },
+                                    {
+                                        label: '단백질', // 단백질 데이터셋의 레이블
+                                        data: [total_protein],
+                                        backgroundColor: 'rgba(153, 102, 255, 1)',
+                                        borderColor: 'rgba(153, 102, 255, 1)',
+                                        borderWidth: 0.1
+                                    },
+                                    {
+                                        label: '지방', // 지방 데이터셋의 레이블
+                                        data: [total_fat],
+                                        backgroundColor: 'rgba(75, 192, 192, 1)',
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        borderWidth: 0.1
                                     }
                                 ]
                             },
                             options: {
-                                barThickness:30,
+                                categoryPercentage: 0.7,
+                                barPercentage: 0.8,
+                                barThickness: 30,
                                 scales: {
+                                    x: {
+                                        beginAtZero: true,
+                                        max: 3000,
+                                        stepSize: 500,
+                                    },
                                     y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
+                                        type: 'linear', // y축의 유형을 linear로 설정
+                                        min: 0, // y축 최소값
+                                        max: 100, // y축 최대값
+                                    },
+                                },
+                                legend: {
+                                    position: 'bottom',
+                                    display: true,
+                                    labels: {
+                                        padding: {
+                                            top: 30,
+                                        },
+                                        fontSize: 14, // 범례 글꼴 크기
+                                        usePointStyle: true,
+                                        boxWidth: 10
+                                    },
+                                },
+                            },
+                            plugins: {}
                         });
                     }
-                    },
+                },
                 error: function (error) {
                     // 등록 중 오류가 발생한 경우에 수행할 동작
                     console.log(dataForServer);
@@ -987,7 +1029,7 @@
         <main>
             <div class="navInfo">Main &nbsp&nbsp  > &nbsp&nbsp 건강관리 &nbsp&nbsp > &nbsp&nbsp  칼로리 관리</div>
             <div class="calManageMoongoo">내 칼로리 관리</div>
-            <div class="image-row">
+            <div class="image-row" style="padding-bottom: 0px;">
                 <div class="image-column">
                     <img class="heart" style="width: 200px;height: 200px;" src="resources/static/image/heart_zero.png" alt="Heart Image">
 
@@ -1059,9 +1101,9 @@
                     </div>
 
                     </div>
-                    <button class="search-button" onclick="handleSearch()">추가</button>
+                    <button class="search-button" onclick="handleSearch()" style="margin-top: 30px;">추가</button>
                     <ul class="food-list"></ul>
-                    <div class = "search-food">
+<%--                    <div class = "search-food">--%>
                     <div class="foodColName">
                         </td>
                         </tr>
@@ -1129,22 +1171,14 @@
             <div class="calManageMoongoo">내 영양 성분 관리</div>
             <div class="graphContainer">
                 <div class="graph-container-4">
-                    <div class="graph-4" id="calories">칼로리
-                    <div class="graphContenet">그래프<canvas class="graphFood" id="bar-chart-calories" width="400" height="300"></canvas></div>
+                    <div class="graph-4" id="calories">칼로리 그래프
+                    <hr class="custom-hr" style="width:100px; height: 2px;">
+                    <div class="graphContenet"><canvas class="graphFood" id="bar-chart-calories" width="400" height="300"></canvas></div>
                     </div>
-                    <div class="graph-4" id="carbs">영양성분
-                        <div class="graphContenet">그래프<canvas class="graphFood" id="combined-bar-chart" width="400" height="300"></canvas></div>
+                    <div class="graph-4" id="carbs">영양성분 그래프
+                        <hr class="custom-hr" style="width:100px; height: 2px;">
+                        <div class="graphContenet"><canvas class="graphFood" id="combined-bar-chart" width="400" height="300"></canvas></div>
                     </div>
-<%--                    <div class="graph-4" id="carbs">탄수화물--%>
-<%--                        <div class="graphContenet">그래프<canvas class="graphFood" id="bar-chart-carbs" width="400" height="400"></canvas></div>--%>
-<%--                    </div>--%>
-
-<%--                    <div class="graph-4" id="protein">단백질--%>
-<%--                        <div class="graphContenet">그래프 <canvas class="graphFood" id="bar-chart-protein" width="400" height="400"></canvas></div>--%>
-<%--                    </div>--%>
-<%--                    <div class="graph-4" id="fat">지방--%>
-<%--                        <div class="graphContenet">그래프 <canvas class="graphFood" id="bar-chart-fat" width="400" height="400"></canvas></div>--%>
-<%--                    </div>--%>
                 </div>
             </div>
     </div>
@@ -1213,7 +1247,7 @@
                 y: {
                     type: 'linear', // y축의 유형을 linear로 설정
                     min: 0, // y축 최소값
-                    max: 2000, // y축 최대값
+                    max: 2500, // y축 최대값
                     stepSize: 500,
                 },
             },
@@ -1257,8 +1291,6 @@
                     dataValues.push(response[i].total_calories);
                     console.log("dataValues"+dataValues);
                 }
-
-
                 // 차트 데이터 업데이트
                 myBarChart.data.labels = labels;
                 myBarChart.data.datasets[0].data = dataValues;

@@ -119,4 +119,19 @@ public class WebController {
     public String checkPhone() throws Exception {
         return "jsp/openedAccount";
     }
+
+    @GetMapping ("/compareCost")
+    public String compareCost() throws Exception {
+        return "jsp/compareCost";
+    }
+
+    @GetMapping ("/InsureFitWith")
+    public String InsureFitWith() throws Exception {
+        return "jsp/InsureFitWith";
+    }
+
+    @GetMapping ("/acceptInvite")
+    public String acceptInvite() throws Exception {
+        return "jsp/acceptInvite";
+    }
 }

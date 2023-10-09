@@ -1,10 +1,7 @@
 package ac.kr.kopo.HanaInsureFit.member.dao;
 
 
-import ac.kr.kopo.HanaInsureFit.member.vo.Member;
-import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInfo;
-import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInsu;
-import ac.kr.kopo.HanaInsureFit.member.vo.UserGrade;
+import ac.kr.kopo.HanaInsureFit.member.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,11 +17,19 @@ public interface MemberMapper {
     Member loginMember(HashMap<String, String> loginData);
     int getGrade(String customerID);
     MyPageInfo getMyPageInfo(String customerID);
-
     MyPageInsu getMyPageInsu(String customerID);
-
     UserGrade getUserGrade(String customerID);
     void updateInbodyInfo(HashMap<String, Object> paramMap);
     void insertInbodyInfo(HashMap<String, Object> paramMap);
     void regiGrade(@Param("customerID") String customerID, @Param("healthGrade") int healthGrade);
+
+    void insertFriend(HashMap<String, String> paramMap);
+
+    List<compareWith> getFriendsCount(String customerID);
+
+    MyGrade getMyGrade(String customerID);
+
+    List<GradeChart> getGradeChart();
+
+    List<AdminLineData> getLineChart();
 }

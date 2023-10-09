@@ -6,15 +6,17 @@
     <!-- 회원 전체 조회 -->
     <select id="getRestaurant" resultType="ac.kr.kopo.HanaInsureFit.healthCare.restaurant.vo.Restaurant">
         SELECT *
-        FROM restaurant
+        FROM restaurant2
         WHERE address LIKE '%' || #{guDong} || '%'
     </select>
 
 
     <select id="getSelectedRestaurant" resultType="ac.kr.kopo.HanaInsureFit.healthCare.restaurant.vo.Restaurant">
+        <![CDATA[
         SELECT *
-        FROM restaurant
-        WHERE name = #{restaurantName}
+        FROM restaurant2
+        WHERE name = #{restaurantName} and ROWNUM <= 1
+        ]]>
     </select>
 
     <select id="getRestaurantCalories" resultType="java.lang.Integer">
@@ -24,7 +26,7 @@
     </select>
 
     <update id="updateNutritionBatch" parameterType="hashMap">
-        UPDATE restaurant
+        UPDATE restaurant2
         SET
             calories = #{menuCaloriesMap.calories},
             fat = #{menuCaloriesMap.fat},

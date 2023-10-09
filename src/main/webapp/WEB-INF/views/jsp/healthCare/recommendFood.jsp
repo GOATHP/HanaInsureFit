@@ -143,10 +143,11 @@
             var addressInfo = items[0].address; //여기가 주소 뽑아내는 곳
             var addressElement = document.getElementById("addressInfo");
             addressElement.textContent = addressInfo;
-            console.log("addressElement" + addressElement);
+            console.log("addressElement" + addressElement.textContent.split(" ")[1]);
             var addressInfoGuDong = extractGuDongFromAddress(addressInfo);
-            sendAddressInfoToServer("강서구 화곡동");
-            // 이후 주소 정보를 처리하는 로직을 추가할 수 있습니다.
+            console.log(addressInfoGuDong.split(" ")[0]);
+            // sendAddressInfoToServer(addressInfoGuDong.split(" ")[0]);
+            sendAddressInfoToServer("광명시");
         });
     }
 
@@ -244,7 +245,7 @@
     <div class="mainSideContainer">
         <div class="sideBar">
             <div class="sideBarName">
-                내 건강관리
+                건강관리
             </div>
             <div class="sideBarContents">
                 <a href="/weightManage" class="sideBarTab">
@@ -274,7 +275,7 @@
                 <div class="custom-hr2">
                     <a id="ascKcal">칼로리 낮은순</a>
                     <a id="descKcal">칼로리 높은순</a>
-                    <a id="priceKcal">가격순</a>
+
                 </div>
                 <div class="image-row2" id="restaurantContainer">
                     <div id="warning2" style="font-size: 30px;text-align: center;color: rgba(60, 57, 57, 0.692);"> </div>
@@ -500,10 +501,16 @@
         </div>
     </div>
 </div>
-<footer id="footer">
-    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
-        Hana TI 2019. ALL RIGHT RESERVE</div>
-</footer>
+    <footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+        <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
+    </footer>
 <script>
     function loginFormFunc() {
         console.log("꿀");

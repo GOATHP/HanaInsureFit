@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +8,7 @@
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+    <link href="resources/static/css/style.css" rel="stylesheet">
 </head>
 
 <script>
@@ -462,166 +463,112 @@
     }
 </style>
 <body>
+<header>
+    <div class="navAll">
+        <div class="upper">
+            <ul class="link_crfix">
+                <li class="item">
+                    <a class="headerLink" href="https://www.hanainsure.co.kr/">
+                        하나손해보험
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="headerLink" href="/introduce">
+                        서비스소개
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="headerLink" href="https://www.hanafn.com:8002/info/people/careerNonscheduledEmploy.do">
+                        채용안내
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="link_crfix">
+                <%
+                    String name = (String) session.getAttribute("name");
+                    String customerID = (String) session.getAttribute("customerID");
+                    if (name != null) {
+                %>
+                <li><div class="welcomeMent" id="customerID" data-customerID="<%=customerID%>"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
+                <li><a class="headerLink" href="javascript:void(0);" onclick="logout();">로그아웃</a></li>
+                <%
+                } else {
+                %>
+                <li class="item"><a href="/joinMember">회원가입</a></li>
+                <li class="item"><div class="loginButton">로그인</div></li>
+                <%
+                    }
+                %>
+            </ul>
+
+        </div>
+        <div class="menu">
+            <nav>
+                <div class="logo">
+                    <a href="/">
+                        <img src="resources/static/image/플젝로고.png" alt="프로젝트 로고">
+                    </a>
+                </div>
+                <ul>
+                    <ul>
+                        <li><a href="/introduce">하나Insure Fit이란?</a></li>
+                        <li><a href="/recommendInsu">Grade보험</a></li>
+                        <li><a href="/weightManage">건강관리</a></li>
+                        <li><a href="/dashboardMypage" style="color:#00857E">마이페이지</a></li>
+                    </ul>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
 <div class="main">
-
-    <div class="traveltitle">
-        모임통장 계좌 개설<hr/></div>
-    <div class="contents">
-        <div class="menu1">
-            <div class="menu1-1">모임통장 개설</div>
-            <div class="menuhr"><hr/></div>
-            <a href="group">모임약관동의</a>
-            <c:choose>
-                <c:when test="${sessionScope.member != null}">
-                    <a href="openedAccount">모임통장 개설</a>
-                    <a href="groupInvite">모임통장 초대</a>
-                </c:when>
-            </c:choose>
-        </div>
-        <div class="contents-1">
-            <div class="section-1">
-                <div class="contentsBox">
-                    <span class="contentsText">모임 개설</span><br>
-                    <span class="contentsText1">맞춤정보입력</span>
+    <section  id="hero-animated" class="hero-animated2 align-items-center">
+        <div id='mask_wrap2'>
+            <div id="mask"></div>
+            <div id="wrap2">
+                <div class="section-header mt-4">
+                    <h3 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;">가족 구성원 초대</h3>
                 </div>
-                <div class="stepper">
-                    <div class="line"></div>
-                    <div class="step">
-                        <div class="circle">1</div>
-                    </div>
-                    <div class="step">
-                        <div class="circle active">2</div>
-                    </div>
-                    <div class="step">
-                        <div class="circle">3</div>
-                    </div>
-                </div>
-            </div>
-            <div class="group71">
-                <form id="groupForm">
-                    <br/>
-                    <div class="flexClass">
-                        <span class="idbox"><span class="groupname" name="group_name">${sessionScope.groupAccount.group_name}</span>&#32;의 모임[<span name="group_type">${sessionScope.groupAccount.group_type}</span>]</span>
-                    </div>
-                    <br/>
+                <div class="container" style="width:700px;">
+                    <h4 style="font-family: 'Pretendard-Regular';" class="mt-4 fw-bolder">
+                        하나케어 우리가족지킴이에 ${ loginVO.name }님이 초대되셨습니다.
+                    </h4>
+                    <h5 class="mt-4">
+                        <strong>수락하기를 누르시면 그룹에 다음 정보를 제공합니다.</strong>
+                        <h5>· 건강검진 결과 정보</h5>
+                        <h5>· 보유 보험 정보</h5>
+                    </h5>
+                    <h5 class="mt-4">
+                        <strong>수락하기를 누르시면 다음 정보를 제공받을 수 있습니다.</strong>
+                        <h5>· 초대 수락한 가족 건강검진 결과</h5>
+                        <h5>· 가족 건강검진 결과 비교 차트</h5>
+                        <h5>· 가족 보유 보험 정보</h5>
 
-                    <br/>
-                    <div class="flexClass">
-                        <span class="idbox">연결 계좌번호</span>
-                        <input class="rec6" id="group_account" name="group_account" value="${sessionScope.groupAccount.account_num}" readonly/>
-                    </div>
-                    <br/>
-                    <div class="flexClass">
-                        <span class="idbox">납부일</span>
-                        <div class="payBox">
-                            <select name="g_month" class="pay1">
-                                <option value="" selected>선택</option>
-                                <option value="매달">매달</option>
-                            </select>
-                        </div>
+                    </h5>
+                    <div class="d-flex justify-content-center" style="margin-top: 60px;">
+                        <form action="${ pageContext.request.contextPath}/">
 
-                        <select name="g_day" class="pay2">
-                            <option value="" selected>선택</option>
-                            <option value="">일 선택</option>
-                            <option value="1">1일</option>
-                            <option value="2">2일</option>
-                            <option value="3">3일</option>
-                            <option value="4">4일</option>
-                            <option value="5">5일</option>
-                            <option value="6">6일</option>
-                            <option value="7">7일</option>
-                            <option value="8">8일</option>
-                            <option value="9">9일</option>
-                            <option value="10">10일</option>
-                            <option value="11">11일</option>
-                            <option value="12">12일</option>
-                            <option value="13">13일</option>
-                            <option value="14">14일</option>
-                            <option value="15">15일</option>
-                            <option value="16">16일</option>
-                            <option value="17">17일</option>
-                            <option value="18">18일</option>
-                            <option value="19">19일</option>
-                            <option value="20">20일</option>
-                            <option value="21">21일</option>
-                            <option value="22">22일</option>
-                            <option value="23">23일</option>
-                            <option value="24">24일</option>
-                            <option value="25">25일</option>
-                            <option value="26">26일</option>
-                            <option value="27">27일</option>
-                            <option value="28">28일</option>
-                            <option value="29">29일</option>
-                            <option value="30">30일</option>
-                            <option value="31">31일</option>
-                        </select>
+                            <input name="groupId" type="hidden">
+                            <button class="btn-getstarted scrollto me-2" style="font-family: 'Pretendard-Regular';" type="submit" id="clickBtn" onclick="sure()">수락하기</button>
+                        </form>
+                        <a class="btn-getstarted scrollto" style="font-family: 'Pretendard-Regular';" type="button" id="clickBtn" onclick="nextStep()">거절하기</a>
                     </div>
-                    <br/>
-                    <div class="flexClass">
-                        <span class="idbox">회비</span>
-                        <input type="text" name="g_dues" class="rec6" placeholder="회비를 입력해주세요"/>
-                    </div>
-                    <div class="flexClass">
-                        <span class="idbox">자동이체 여부</span>
-                        <select name="g_autopay" class="rec6">
-                            <option value="" selected>선택</option>
-                            <option value="N">N</option>
-                            <option value="Y">Y</option>
-
-                        </select>
-                    </div>
-                    <br/>
-                    <div class="flexClass">
-                        <span class="idbox">비밀번호</span>
-                        <input type="password" name="group_pw" class="rec6" placeholder="비밀번호를 입력해주세요"/>
-                    </div>
-                </form>
-                <button id="calculate" onclick="phoneAuth()"/>
-                <span>개설하기</span>
-                </button>
-
-            </div>
-
-        </div>
-    </div>
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="phone-container">
-                <div class="login">
-                    <h2>휴대폰 인증</h2>
-                    <p>안전하고 간편하게 로그인하세요.</p>
-                    <p><c:out value="${member.name}"/>님의 휴대폰 인증</p>
-                    <img src="resources/static/image/phone-call.svg" alt="">
-
-                    <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요">
-                    <button type ="button" id ="auth-req-button">인증요청</button>
-                    <p id="ViewTimer"></p>
-                    <div class="authbox">
-                        <input type ="password" id ="auth-number" placeholder="인증번호를 입력해주세요">
-                        <button type="button" class="confirm-button" id ="auth-res-button" onclick="submitForm()">확인</button>
-                    </div>
-                    <%--                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=951e0627da48ee51855b252517b6352d--%>
-                    <%--&redirect_uri=http://localhost:8080/api/social/login/kakao&response_type=code" class="kakaoa"><img class="kakao_btn" src="../../resources/images/kakaologin.png" width="30"></a>--%>
-                    <%--                    <a href="https://kauth.kakao.com/oauth/logout?client_id=951e0627da48ee51855b252517b6352d&logout_redirect_uri=http://localhost:8080/logout" class="kakaoa">logout</a>--%>
                 </div>
             </div>
         </div>
-    </div>
-
-</div>
-</div>
-<footer style="
+    </section>
+    <footer style="
     display: flex;
     width: 100%;
     justify-content: center;
     background-color: #F9F9FB;
 ">
-    <img src="resources/static/image/footer.png" style="
+        <img src="resources/static/image/footer.png" style="
     width: 1400px;
 ">
-</footer>
-</body>
+    </footer>
+</div>
 <script>
     // 모달창 열기
     function phoneAuth(){
@@ -652,7 +599,6 @@
             }
         });
     });
-
     function submitForm() {
         // serialize 함수를 사용하여 문자열로 직렬화
         var formData = $("#groupForm").serialize();
@@ -663,7 +609,6 @@
             var pair = item.split('=');
             formDataObj[pair[0]] = decodeURIComponent(pair[1] || '');
         });
-
         $.ajax({
             url: "/insertGroupDetail", // 실제 서버 URL로 변경
             method: "POST",
@@ -679,5 +624,5 @@
         });
     }
 </script>
-
+</body>
 </html>

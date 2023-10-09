@@ -19,7 +19,7 @@ public interface FoodMapper {
     void insertCustomerDiet(Map<String, Object> paramMap);
     List<FoodIngredients> getIngredients(String customerID);
     List<FoodIngredients> getSelectedIngredients(String customerID);
-    List<FoodNames> getFoodNames();
+    List<FoodNames> getFoodNames(String customerID);
     List<FoodNames> getFoodNames2(@Param("recordDate") String recordDate, @Param("customerID") String customerID);
     List<FoodIngredients> getIngredients2(@Param("recordDate") String recordDate, @Param("customerID") String customerID);
     List<FoodNames> getSelectedFoodNames(String customerID);
