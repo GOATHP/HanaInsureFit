@@ -191,6 +191,7 @@ public class MemberController {
             paramMap.put("customerID", customerID);
             paramMap.put("friendID", friendID);
             memberService.insertFriend(paramMap);
+            memberService.insertFriendReverse(paramMap);
             System.out.println(paramMap);
             return ResponseEntity.ok("전송 완료");
         } catch (Exception e) {
@@ -235,6 +236,20 @@ public class MemberController {
             gradeCharts.add(grades);
         }
         return gradeCharts;
+    }
+    @ResponseBody
+    @PostMapping("/getCheckUp")
+    public ResponseEntity<CheckUp> getCheckUp(@RequestParam("customerID") String customerID, HttpServletRequest request){
+        System.out.println("겟체크업" + customerID);
+        try {
+            HttpSession session = request.getSession();
+            CheckUp checkUp = memberService.getCheckUp(customerID);
+
+            return ResponseEntity.ok(checkUp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }
 

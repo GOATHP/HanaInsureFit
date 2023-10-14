@@ -114,6 +114,17 @@
             overflow: auto;
             background: #00000075;
         }
+        .modall2 {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: #00000075;
+        }
 
         .modal-content {
             background-color: #ffffff;
@@ -122,6 +133,7 @@
             width: 450px;
             height: 650px;
             border-radius: 20px;
+            margin-top:100px;
         }
 
         .close {
@@ -130,6 +142,14 @@
             font-size: 28px;
             font-weight: bold;
         }
+
+        .close2 {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
         .phone-container{
             width: 100%;
             text-align: center;
@@ -281,7 +301,7 @@
 <div class="mainSideContainer">
     <div class="sideBar">
         <div class="sideBarName">
-            보험추천
+            Grade보험
         </div>
         <div class="sideBarContents">
             <a href="/recommendInsu" class="sideBarTabClicked">
@@ -324,7 +344,7 @@
 <%--                    <div id="gradeCalculation">--%>
 
                 <a href="#" id="recommendInsuLink">
-                    <div class="box" style="justify-content: center;align-items: center;color:#fff;margin: 0 auto; width: 160px; height: 80px" onclick="phoneAuth()">건강등급 산출</div>
+                    <div class="box" style="justify-content: center;align-items: center;color:#fff;margin: 0 auto; width: 160px; height: 80px" onclick="phoneAuth2()">건강등급 산출</div>
                 </a>
 
                 <%--                        <table>--%>
@@ -352,7 +372,7 @@
 <%--                            </tr>--%>
 <%--                        </table>--%>
                     </div>
-<%--                </div>--%>
+
             <br>
             <h2>보장내용</h2>
             <button type="button" class="collapsible" onclick="collapse(this);">건강등급이란?</button>
@@ -751,9 +771,35 @@
                     </ul></div>
                 </p>
             </div>
-            <div id="myModal" class="modall">
+            <div id="myModal2" class="modall2">
                 <div class="modal-content">
-                    <span class="close">&times;</span>
+                    <span class="close2">&times;</span>
+                    <div class="phone-container">
+                        <div class="login">
+                            <h2 class="sideBarName">건강검진이용정보동의</h2>
+                            <p style="
+    font-size: 18px;
+">고객님의 국민건강보험공단 건강검진결과를 통해</p>
+                            <p style="
+    font-size: 18px;
+">건강등급을 산출하고자 합니다.<br>
+                            <p style="
+    font-size: 18px;
+"> 이를 위해 휴대폰 본인인증을 해주세요.</p>
+                            <img src="https://api.linkareer.com/attachments/38236" alt="">
+                            <%--                            <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요">--%>
+                            <%--                            <button type ="button" id ="auth-req-button">인증요청</button>--%>
+                            <%--                            <p id="ViewTimer"></p>--%>
+
+                                <button type="button" class="confirm-button" style="width: 100%;border-top: 0px; font-size:16px; background-color: #00857E;" onclick="phoneAuth()">본인인증하기</button>
+                            </div>
+                </div>
+                </div>
+            </div>
+
+                <div id="myModal" class="modall">
+                <div class="modal-content">
+                    <span class="close2">&times;</span>
                     <div class="phone-container">
                         <div class="login">
                             <h2 class="sideBarName">휴대폰 인증</h2>
@@ -778,10 +824,10 @@
                                 <button type ="button" id ="auth-req-button" style="border-bottom: 0px; width: 106px;">인증요청</button>
                                 <p id="ViewTimer"></p>
                                 </div>
-    <div style="display: flex;align-items: center;justify-content: center;">
+                                    <div style="display: flex;align-items: center;justify-content: center;">
                                 <input type ="password" id ="auth-number" placeholder="인증번호를 입력해주세요">
                                 <button type="button" class="confirm-button" id ="auth-res-button" style="border-left:0px; width: 77px;">확인</button>
-    </div>
+                                    </div>
                                 <button type="button" class="confirm-button" id ="join-insu-button" style="width: 100%;border-top: 0px;background-color: #00857E;">건강등급 산출하기</button>
                             </div>
 
@@ -867,6 +913,8 @@
     function phoneAuth(){
         var modal = $("#myModal");
         modal.css("display", "block");
+        var modal2 = $("#myModal2");
+        modal2.css("display", "none");
     };
     var span = $(".close").eq(0);
     span.click(function(){
@@ -895,6 +943,40 @@
         });
     });
 </script>
+<script>
+    function phoneAuth2(){
+        var modal = $("#myModal2");
+        modal.css("display", "block");
+    };
+    var span = $(".close2").eq(0);
+    span.click(function(){
+        var modal = $("#myModal2");
+        modal.css("display", "none");
+    });
+    // $("#auth-res-button").click(function(){
+    //     alert("본인 인증이 완료되었습니다.");
+    // });
+    // $("#auth-req-button").click(function() {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/checkPhone",
+    //         dataType: "json",
+    //         data: {
+    //             'customerID': customerID
+    //         },
+    //         success: function(response) {
+    //             console.log(response);
+    //             alert("인증번호 전송이 완료되었습니다.")
+    //             // $("#auth-number").val(response);
+    //         },
+    //         error: function(error) {
+    //             console.error("로그인 실패 : ", error);
+    //         }
+    //     });
+    // });
+
+</script>
+
 </body>
 
 </html>

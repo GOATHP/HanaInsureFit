@@ -1,3 +1,12 @@
+
+Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#858796';
+
+src="https://code.jquery.com/jquery-3.4.1.min.js"
+src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.min.js"
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"
+src="https://cdn.jsdelivr.net/npm/chart.js"
+
 var labels = [];
 var dataValues = [];
 function fetchDataAndUpdateChart() {
@@ -9,11 +18,14 @@ function fetchDataAndUpdateChart() {
     success: function (response) {
       console.log("Data Check : " + response);
       for (var i = 0; i < response.length; i++)  {
-        console.log(response[i].JOINDATE);
-        labels.push(response[i].JOINDATE);
-        dataValues.push(response[i].CUSTOMER_COUNT);
+        console.log(response[i])
+        console.log(response[i].joindate);
+        labels.push(response[i].joindate);
+        dataValues.push(response[i].customer_COUNT+i);
       }
       drawLineChart();
+
+      document.querySelector('.h5.mb-0.font-weight-bold.text-gray-800').textContent = response.length - 1+"명";
     },
     //   // 차트 데이터 업데이트
     //   myBarChart.data.labels = labels;

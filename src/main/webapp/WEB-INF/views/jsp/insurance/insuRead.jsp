@@ -10,6 +10,11 @@
     <link href="resources/static/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<style>
+    .insuTable td{
+        font-size: 11px !important;
+    }
+</style>
 <script>
     $(document).ready(function () {
         // AllInsusearching 요청을 보내고 서버로부터 보험 정보를 받아옵니다.
@@ -78,7 +83,7 @@
             newRow.append("<td>" + insurance.insuranceProductName + "</td>");
             newRow.append("<td>" + insurance.insuranceCompanyName + "</td>");
             newRow.append("<td>" + insurance.insuContent + "</td>");
-            newRow.append("<td>" + insurance.insuranceFee + "원(월)" + "</td>");
+            newRow.append("<td>" + (insurance.insuranceFee * 0.8).toFixed(0) + "원(월)" + "</td>");
             newRow.append("<td>" + insurance.insuranceStartDate +"~" + insurance.insuranceEndDate + "</td>");
 
             tbody.append(newRow);
@@ -189,13 +194,13 @@
 
             <div class="insuMoongoo"><br>
                 <div class="insuInfo">
-                    <span class="colorText">보험 가입 완료 !</span> <br>하나 InsureFit과 함께<br> <span class="colorText">보험료 할인</span>받으세요!
+                    <span class="colorText">보험 가입 신청 완료 !</span> <br>하나 InsureFit과 함께<br> <span class="colorText">보험료 할인</span>받으세요!
                 </div>
             </div>
             <div class="areaContainer">
                 <div class="rightArea6">
                     <div class="insuInfo3">
-                        <%= name %>님 보험 목록
+                        <%= name %>님 신청 보험 목록
 
 
                     </div>

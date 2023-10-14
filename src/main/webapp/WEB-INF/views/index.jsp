@@ -155,7 +155,7 @@
 </div>
 <div class="modal">
     <div>
-    <div class="modal_body" style="display: flex;flex-direction: column;justify-content: center; width:700px; height:500px">
+    <div class="modal_body" style="display: flex;flex-direction: column;justify-content: center; width:450px; height:500px">
 <%--        <form action="/loginMember" id="loginForm" method="post">--%>
     <div class="closeDiv">
         <button class="btn-close-popup">X</button>
@@ -168,7 +168,7 @@
             <img src="resources/static/image/IDImg.png" style="width:15px"  ><input type="text" id="customerID" name="customerID" placeholder="아이디"
             style="border:0px; font-family: inherit;">
             </div>
-            <div style="padding:14px 17px 13px;border:1px solid gray;font-family: inherit;display: flex;">
+            <div style="padding:14px 17px 13px;border:1px solid gray; border-top:0px; font-family: inherit;display: flex;">
             <img src="resources/static/image/PWImg.png" style="width:15px"><input type="password" id="password" name="password" placeholder="비밀번호"
             style="border:0px; border-top:0px;font-family: inherit;">
             </div>
@@ -321,7 +321,7 @@
     console.log(customerID);
     console.log(friends);
     document.addEventListener("DOMContentLoaded", function () {
-        if (friendsID && customerID) {
+        if (friendsID !== null && customerID !== null && friendsID !== customerID && customerID !== 'Admin Name') {
             // friendID가 존재하는 경우에만 AJAX 요청을 보냅니다.
             $.ajax({
                 url: '/insertFriend',

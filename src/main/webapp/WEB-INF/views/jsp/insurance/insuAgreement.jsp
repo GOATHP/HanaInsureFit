@@ -173,7 +173,7 @@
     border-radius: 5px;
     padding: 5px;
     /* margin-bottom: 30px; */
-">아크로뱃 다운로드</a>
+">보험약관 다운로드</a>
                     <div class="mainContent">
 
                         <button type="button" class="collapsible" onclick="collapse(this);">보험상세내용</button>
@@ -400,7 +400,7 @@
 <%--                    </div>--%>
 
                         <div class="contents">
-                            <form action="/insuJoinInput" method="get" id="form__wrap" style="margin-top: 30px;">
+                            <form action="/insuDesign" method="get" id="form__wrap" style="margin-top: 30px;">
                                 <div class="terms__check__all">
                                     <input type="checkbox" name="checkAll" id="checkAll" />
                                     <label for="checkAll"
@@ -539,7 +539,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <button type="submit" class="next-button" id="nextBtn">다음</button>
+                                <button type="submit" class="next-button" id="nextBtn">보험 설계하기</button>
                             </form>
                         </div>
                     </div>

@@ -10,6 +10,22 @@
     <link href="resources/static/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<style>
+    .insuTable th{
+        border: 1px solid #001e1f;
+        border-collapse : collapse;
+        padding: 10px 5px;
+        background-color: #009490;
+        color:white;
+    }
+    .insuTable td{
+        border: 1px solid #001e1f;
+        border-collapse : collapse;
+        padding: 10px 5px;
+        font-size: 12px;
+        text-align: left;
+    }
+</style>
 <script>
     $(document).ready(function () {
         // AllInsusearching 요청을 보내고 서버로부터 보험 정보를 받아옵니다.

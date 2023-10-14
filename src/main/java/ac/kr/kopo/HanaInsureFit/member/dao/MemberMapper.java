@@ -7,8 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Mapper
 public interface MemberMapper {
@@ -32,4 +30,8 @@ public interface MemberMapper {
     List<GradeChart> getGradeChart();
 
     List<AdminLineData> getLineChart();
+
+    CheckUp getCheckUp(String customerID);
+
+    void insertFriendReverse(HashMap<String, String> paramMap);
 }

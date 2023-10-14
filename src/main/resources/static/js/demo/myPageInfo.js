@@ -1,4 +1,3 @@
-var customerID = document.getElementById("customerID").getAttribute("data-customerID");
 var dailyRecommendedCalories;
 $.ajax({
     url: 'getMyPageInfo',
@@ -22,11 +21,10 @@ $.ajax({
 
         document.getElementById("gradeRecordDate").textContent = "마지막 등록일자 : " + dateWithoutTime;
 
-
-
         console.log(data);
         var healthGrade = data.healthGrade;
         console.log(healthGrade);
+        document.querySelector('.healthGrade').textContent=healthGrade;
         var gradeImgElement = document.getElementById("gradeImg");
         gradeImgElement.setAttribute("class", "gradeImg");
         gradeImgElement.setAttribute("alt", "프로젝트");

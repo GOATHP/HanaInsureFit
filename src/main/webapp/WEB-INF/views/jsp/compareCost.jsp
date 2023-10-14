@@ -100,7 +100,7 @@
 </header>
 <div id="main3">
 
-    <div class ="slogan" style="width:1000px;">
+    <div class ="slogan" style="width:1000px;height: 970px;">
         <div class="fourBtn">
             <button id="grade1Btn" style="
     width: 150px;
@@ -158,7 +158,7 @@
         할인액
     </div>
         <div style="width:100%;/* margin: 0 auto; */display: flex;justify-content: center;margin-bottom: 20px;">
-            <%=name%>님의 할인된 보험금은&nbsp<div id="insuFeeCell" style="color:#00857E"></div>입니다.
+            <%=name%>님의 예상 할인 보험금은&nbsp<div id="insuFeeCell" style="color:#00857E"></div>입니다.
         </div>
         <div>
             <table class="insuTable2" style="
@@ -208,6 +208,18 @@
                 </tr>
                 </tbody>
             </table>
+            <a href="/insuList" style="
+    width: 150px;
+    margin: 30px;
+    font-size: 15px;
+    background-color: #00857E;
+     border: 1px solid #00857E;
+    padding: 8px;
+    height: auto;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 15px;
+">Grade 보험 가입하기</a>
         </div>
     </div>
     </div>

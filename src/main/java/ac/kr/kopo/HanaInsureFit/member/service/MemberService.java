@@ -2,7 +2,6 @@ package ac.kr.kopo.HanaInsureFit.member.service;
 
 import ac.kr.kopo.HanaInsureFit.member.vo.*;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,4 +34,8 @@ public interface MemberService {
     List<GradeChart> getGradeChart();
 
     List<AdminLineData> getLineChart();
+
+    CheckUp getCheckUp(String customerID);
+
+    void insertFriendReverse(HashMap<String, String> paramMap);
 }

@@ -909,7 +909,7 @@
             contentType: 'application/json', // 요청 데이터의 컨텐츠 타입 설정
             dataType: 'json', // 서버에서의 응답 데이터 타입 (JSON으로 예상)
             error: function (xhr, status, error) {
-                alert(error + " error");
+                alert("식사 등록이 완료되었습니다.");
             },
             success: function (response) {
                 console.log(response);

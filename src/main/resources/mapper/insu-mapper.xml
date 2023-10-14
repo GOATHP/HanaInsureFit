@@ -15,6 +15,10 @@
         where insuranceProductNumber = #{insuranceProductNumber}
     </select>
 
+    <select id="getInsuSpecial" resultType="ac.kr.kopo.HanaInsureFit.insurance.vo.specialAgree">
+        select *
+        from SpecialAgreements
+    </select>
 
     <insert id="insertInsu" parameterType="HashMap">
         INSERT INTO customerInusMapping (CUSTOMERID, INSURANCESTARTDATE, INSURANCEENDDATE, INSURANCEPRODUCTNUMBER)
@@ -32,6 +36,16 @@
         where customerid = #{customerID}
     </select>
 
+    <insert id="insertInsuMapping">
+        MERGE INTO specialInsuMapping s
+            USING (SELECT #{customerID} AS customerID FROM dual) d
+            ON (s.customerID = d.customerID)
+            WHEN MATCHED THEN
+                UPDATE SET s.insuFee = #{insuFee}, s.selectedInsurances = #{selectedInsurances}
+            WHEN NOT MATCHED THEN
+                INSERT (insuFee, selectedInsurances, customerID)
+                    VALUES (#{insuFee}, #{selectedInsurances}, #{customerID})
+    </insert>
 
 <select id="insuByCustIDList" resultType="ac.kr.kopo.HanaInsureFit.insurance.vo.insuByCustID">
     SELECT
@@ -53,5 +67,26 @@
     ON
     a.INSURANCEPRODUCTNUMBER = #{insuranceProductNumber} AND
     b.CUSTOMERID = #{customerId}
-</select>
+    </select>
+
+    <select id="getSpecialInsuMapping">
+        select * from specialInsuMapping where customerID=#{customerID}
+    </select>
+
+
+    <select id="getPoint" resultType="ac.kr.kopo.HanaInsureFit.insurance.vo.PointTable">
+        select * from PointTable where customerID = #{customerID}
+    </select>
+
+    <insert id="insertPointFood">
+        INSERT INTO PointTable (CUSTOMERID, POINTS, USABLEPOINTS, TRANSACTIONDATE, DESCRIPTION)
+        VALUES (#{customerID}, 50, COALESCE((SELECT USABLEPOINTS + 50 FROM PointTable WHERE CUSTOMERID = #{customerID}), 0), #{registrationDate}, '칼로리 맞춤 식사');
+    </insert>
+
+    <insert id="insertPointInbody">
+        INSERT INTO PointTable (CUSTOMERID, POINTS, USABLEPOINTS, TRANSACTIONDATE, DESCRIPTION)
+        VALUES (#{customerID}, 100, COALESCE((SELECT USABLEPOINTS + 100 FROM PointTable WHERE CUSTOMERID = #{customerID}), 0), #{registrationDate}, '인바디 기록 갱신');
+    </insert>
+
+
 </mapper>

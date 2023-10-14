@@ -119,4 +119,11 @@ public class MemberServiceImpl implements MemberService {
     public List<AdminLineData> getLineChart(){
         return memberMapper.getLineChart();
     };
+
+    public CheckUp getCheckUp(String customerID){
+        return memberMapper.getCheckUp(customerID);
+    }
+    public void insertFriendReverse(HashMap<String, String> paramMap){
+        memberMapper.insertFriendReverse(paramMap);
+    }
 }

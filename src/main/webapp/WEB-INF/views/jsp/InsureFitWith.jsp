@@ -24,6 +24,35 @@
 
     <style>
 
+        #main3{
+            padding-bottom: 10px;
+        }
+
+        #goldImg{
+            margin-top:30px
+        }
+        #silverImg{
+            margin-top:30px
+        }
+        #bronzeImg{
+            margin-top:30px
+        }
+
+        .medal{
+            background-color: #00857E;
+            padding: 20px;
+            color:white;
+            font-size: 18px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+
+        }
+
+
+        .medal img{
+            width: 30px;display: flex;height: 50px;margin-bottom: 10px; margin-left:10px;
+        }
+
         .main {
             width: 100%;
             height: 850px;
@@ -294,7 +323,7 @@
     </style>
 <body>
 
-<div id="main3" style="padding-bottom: 50px;">
+<div id="main3">
 
     <header>
         <div class="navAll">
@@ -405,7 +434,7 @@
                 <div class="graph-4" id="goldMedal">
                     <div class="medal" style="padding:10px; display: flex; align-items: center; padding-bottom: 0px;">
                         <div><img src="resources/static/image/goldmedal.png" style="width: 30px;display: flex;"></div>
-                        <div style="padding-left: 20px;padding-top: 10px; font-size:26px;">1등</div>
+                        <div style="padding-left: 5px; font-size:26px;">1등</div>
                     </div>
                     <hr class="custom-hr" style="width:100px; height: 2px;">
                     <div id="gold">
@@ -416,7 +445,7 @@
                 <div class="graph-4" id="silverMedal">
                     <div class="medal" style="padding:10px; display: flex;align-items: center; padding-bottom: 0px;">
                         <div><img src="resources/static/image/silvermedal.png" style="width: 30px;display: flex;"></div>
-                        <div style="padding-left: 15px;padding-top: 10px; font-size:26px;">2등</div>
+                        <div style="padding-left: 5px; font-size:26px;">2등</div>
                     </div>
                     <hr class="custom-hr" style="width:100px;  height: 2px;">
                     <div id="silver">
@@ -426,7 +455,7 @@
                 <div class="graph-4" id="bronzeMedal">
                     <div class="medal" style="padding:10px; display: flex;align-items: center; padding-bottom: 0px;">
                         <div><img src="resources/static/image/bronzemedal.png" style="width: 30px;display: flex;"></div>
-                        <div style="padding-left: 20px;padding-top: 10px; font-size:26px;">3등</div>
+                        <div style="padding-left: 5px;font-size:26px;">3등</div>
                     </div>
                     <hr class="custom-hr" style="width:100px;  height: 2px;">
                     <div id="bronze" >

@@ -15,7 +15,7 @@ $(document).ready(function() {
             success: function (data) {
                 console.log(data.healthgrade);
                 alert("고객님의 건강등급은 Grade " + data.healthgrade + " 입니다.")
-                // 요청이 성공하면 여기에서 추가 작업을 수행할 수 있습니다.
+                window.location.href = "/gradeCheck"
             },
             error: function (error) {
                 console.error('데이터를 가져오는 중 오류 발생: ', error);

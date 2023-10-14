@@ -2,7 +2,6 @@ package ac.kr.kopo.HanaInsureFit.core.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class WebController {
@@ -85,7 +84,10 @@ public class WebController {
 
         return "jsp/insurance/insuJoinInput";
     }
-
+    @GetMapping ("/gradeCheck")
+    public String gradeCheck() throws Exception {
+        return "jsp/insurance/gradeCheck";
+    }
     @GetMapping ("/calendar")
     public String calendar() throws Exception {
         return "jsp/calendar";
@@ -133,5 +135,9 @@ public class WebController {
     @GetMapping ("/acceptInvite")
     public String acceptInvite() throws Exception {
         return "jsp/acceptInvite";
+    }
+    @GetMapping ("/insuDesign")
+    public String insuDesign() throws Exception {
+        return "jsp/insurance/insuDesign";
     }
 }

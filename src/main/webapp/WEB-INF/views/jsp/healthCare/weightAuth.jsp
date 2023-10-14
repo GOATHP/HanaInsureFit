@@ -22,6 +22,15 @@
   <link href="./css/main-body.css" rel="stylesheet"/>
   <title>체중 정보 갱신 </title>
 </head>
+<style>
+  .input-group label {
+    display: inline-block;
+    width: 100px; /* 원하는 너비로 조절하세요 */
+    text-align: right;
+    margin-right: 10px; /* 레이블과 입력 필드 사이의 간격을 조절하세요 */
+  }
+
+</style>
 <script>
     <%
   String name = (String) session.getAttribute("name");
@@ -95,28 +104,26 @@
       <form id="frm" name="step2-form" action="/signUp_STEP3" method="post" enctype="multipart/form-data">
         <section>
           <div class="titArea">
-            <h2 class="titH3">체중 정보 갱신</h2>
+            <h2 class="sideBarName" style="text-align: center;">체중 정보 갱신</h2>
           </div>
-          <table class="tableY formTbl">
-            <colgroup>
-              <col style="width:185px">
-              <col style="width:auto">
-            </colgroup>
-            <tbody>
-            <tr>
-              <td class="th">Personal Identification</td>
-              <td>
                 <div class="idCardCerti" id="idCardCerti1">
                   <div class="uniformImg"><img src="./images/registerEx.png" alt=""></div>
-                  <div class="form">
+                  <div class="form" style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+">
                     <div class="uploadField">
-                      <label for="idCardImage">Upload Identification Image:</label>
-                      <input type="file" id="idCardImage" name="idCardImage" accept="image/*"
+                      <label for="idCardImage" style="font-size: 16px;">인바디 이미지 업로드:</label>
+                      <input type="file" id="idCardImage" name="idCardImage" style="width: 200px;" accept="image/*"
                              onchange="previewImage(event)">
-                      <span class="txt">Please upload your identification image.</span>
+<%--                      <span class="txt">Please upload your identification image.</span>--%>
                     </div>
                     <div class="btn_a" onclick="openModal()">
-                      <a id="certificateModalOpen">Authenticate</a>
+                      <a id="certificateModalOpen" style="
+    width: 100px;
+    margin-top: 20px;
+">갱신</a>
                       <%--                                            <a id="certificateModalOpener">인증하기</a>--%>
                     </div>
                     <br/>
@@ -125,8 +132,7 @@
                 </div>
               </td>
             </tr>
-            </tbody>
-          </table>
+
         </section>
       </form>
     </div>
@@ -139,14 +145,21 @@ OCR API 호출: 사용자가 모달에서 'Authenticate' 버튼을 클릭하면,
 응답 표시: 추출된 텍스트를 모달의 입력 필드에 표시
 --%>
 <%-- 인증 페이지 --%>
-<div id="certificateModal" class="modal">
-  <div class="modal-content">
+<div id="certificateModal" class="modal" style="justify-content: center;">
+  <div class="modal-content" style="
+    width: 1000px;
+    margin: 0 auto;
+">
     <div class="modal-header">
-      <div class="authenticateHeader">Authenticate</div>
+      <div class="authenticateHeader" style="font-size: 24px;">인바디 인증</div>
       <span class="close">&times;</span>
     </div>
 
-    <div class="modal-main">
+    <div class="modal-main" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
       <div class="modal-main-left">
         <img id="preview" width="100%">
     </div>
@@ -200,9 +213,19 @@ OCR API 호출: 사용자가 모달에서 'Authenticate' 버튼을 클릭하면,
 
     </div>
     <form id="registrationForm" action="${pageContext.request.contextPath}/signUp_STEP3" method="post">
-      <div class="btnWrap">
+      <div class="btnWrap" style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+">
         <div class="submitButton">
-          <input type="submit" value="Authenticate" class="submitBtn" id="ocrCheck">
+          <input type="submit" value="인증하기" class="submitBtn" id="ocrCheck" style="
+    margin-right: 30px;
+    background-color:#00857E;
+    width: 100px;
+    border: 0px;
+">
         </div>
 
         <input type="hidden" id="hiddenName" name="hiddenName">
@@ -213,7 +236,12 @@ OCR API 호출: 사용자가 모달에서 'Authenticate' 버튼을 클릭하면,
         <input type="hidden" id="hiddenLocEng" name="hiddenLocEng">
         <input type="hidden" id="hiddenCountry" name="hiddenCountry">
         <div class="submitButton">
-          <input type="submit" value="Submit" class="submitBtn" id="submitOCR">
+          <input type="submit" value="제출하기" class="submitBtn" id="submitOCR" style="
+    margin-right: 30px;
+    background-color:#00857E;
+    width: 100px;
+    border: 0px;
+">
           <div id="loadingScreen" class="spinner-border text-success" role="status">
             <span class="sr-only"></span>
           </div>
@@ -340,6 +368,10 @@ OCR API 호출: 사용자가 모달에서 'Authenticate' 버튼을 클릭하면,
       success: function (data) {
         console.log('POST 요청 성공:', data);
         // 성공적으로 요청을 보냈을 때 할 작업을 수행할 수 있습니다.
+        alert("체중정보 갱신이 완료되었습니다.")
+        let modal = document.getElementById("certificateModal");
+        modal.style.display = "none";
+
       },
       error: function (xhr, status, error) {
         console.error('POST 요청 실패:', error);

@@ -60,9 +60,11 @@
             margin: 15% auto;
             padding: 20px;
             width: 450px;
-            height: 560px;
+            height: 650px;
             border-radius: 20px;
+            margin-top:50px;
         }
+
 
         .close {
             color: #aaa;
@@ -74,6 +76,8 @@
             width: 100%;
             text-align: center;
             margin-top: 30px;
+            display: flex;
+            justify-content: center;
         }
         .login{
             color: #000000;
@@ -81,21 +85,22 @@
             display: inline-block;
         }
         .login img{
-            width: 150px;
-            margin: 20px auto;
+            width: 300px;
+            margin: 50px auto;
         }
         #phone-number, #auth-number{
-            width: 70%;
-            border-radius: 10px;
+            width: 100%;
+            /*border-radius: 10px;*/
             height: 50px;
             float: left;
             display: flex;
-            mix-blend-mode: normal;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            margin: 10px 0 5px 0;
-            background: 0;
-            border: 0;
-            border-bottom: solid 3px #b1b1b1;
+            border: 1px solid gainsboro;
+            /*mix-blend-mode: normal;*/
+            /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+            /*margin: 10px 0 5px 0;*/
+            /*background: 0;*/
+
+            /*border-bottom: solid 3px #b1b1b1;*/
             color: black;
         }
         #phone-number::placeholder, #auth-number::placeholder{
@@ -108,17 +113,20 @@
             justify-content: center;
             width: 25%;
             float: right;
-            border: 1px solid #a7a9a9;
+            /*border: 1px solid #a7a9a9;*/
             background-color: #a7a9a9;
             mix-blend-mode: normal;
             color: white;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            border-radius: 10px;
-            margin: 10px 0 14px 0;
-            color: #010101;
+            /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+            border-radius: 0px;
+            height:50px;
+            /*margin: 10px 0 14px 0;*/
+            color: white;
             font-weight: 700;
-            padding: 15px 0;
-            font-size: 15px;
+            border: 1px solid gainsboro;
+            /*padding: 15px 0;*/
+            /*font-size: 15px;*/
+
         }
         .authbox{
             width: 100%;
@@ -235,7 +243,7 @@
             <div class="areaContainer">
                 <div class="rightArea5">
                     <div class="tableContainer">
-                        <table class="insuTable">
+                        <table class="insuTable3">
                             <thead>
                             <tr>
                                 <th colspan="2" class="col">고객 정보</th>
@@ -251,18 +259,19 @@
                             </tr>
                             <tr>
                                 <th>나이/성별</th>
-<%--                                <td><%=age%>(<%=gender%>)</td>--%>
-                                <th>보험료</th>
-                                <td>78,900원</td>
+                                <td>26세(여자)</td>
+                                <th>기본 보험료</th>
+                                <td id="insuranceFee">78,900원</td>
                             </tr>
                             <tr>
                                 <th>주민등록번호</th>
                                 <td><%= identifyNum.substring(0, 6) + "-*******"%></td>
 
                                 <th>
-                                    포인트
+                                    보장내용
                                 </th>
                                 <td>
+                                    일반상해후유장해80%이상후유장해(1000만원)
                                     <div class="modal">
                                         <div class="modal_body">건강등급 구간별 보험료
                                             <button class="btn-close-popup">X</button>
@@ -272,7 +281,6 @@
                                 </td>
                             </tr>
                             <tr>
-
                                 <th>
                                     건강등급
                                 </th>
@@ -299,10 +307,9 @@
                                 <th>
                                     최종 가입료
                                 </th>
-                                <td>
+                                <td id="insuranceFeeLast">
                                     78,900원
                                 </td>
-
                             </tr>
                             </tbody>
                         </table>
@@ -312,29 +319,39 @@
 
                 <div id="myModal" class="modall">
                     <div class="modal-content">
-                        <span class="close">&times;</span>
+                        <div class="close2" style="
+    text-align: right;
+    width: 100%;
+">&times;</div>
                         <div class="phone-container">
                             <div class="login">
-                                <h2>휴대폰 인증</h2>
+                                <h2 class="sideBarName">휴대폰 인증</h2>
                                 <p>안전하고 간편하게 로그인하세요.</p>
-                                <p><c:out value="${member.name}"/>님의 휴대폰 인증</p>
-                                <img src="resources/static/image/phone-call.svg" alt="">
-                                <label for="phoneBrand">통신사 및 알뜰폰 선택:</label>
-                                <select id="phoneBrand" name="phoneBrand">
-                                    <option value="SKT">SKT</option>
-                                    <option value="KT">KT</option>
-                                    <option value="LG">LG</option>
-                                    <option value="SKT알뜰폰">SKT 알뜰폰</option>
-                                    <option value="KT알뜰폰">KT 알뜰폰</option>
-                                    <option value="LG알뜰폰">LG 알뜰폰</option>
-                                </select>
-                                <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요">
-                                <button type ="button" id ="auth-req-button">인증요청</button>
-                                <p id="ViewTimer"></p>
+                                <p><%=name%>님의 휴대폰 인증</p>
+                                <img src="resources/static/image/플젝로고.png" alt="">
+                                <%--                            <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요">--%>
+                                <%--                            <button type ="button" id ="auth-req-button">인증요청</button>--%>
+                                <%--                            <p id="ViewTimer"></p>--%>
                                 <div class="authbox">
-                                    <input type ="password" id ="auth-number" placeholder="인증번호를 입력해주세요">
-                                    <button type="button" class="confirm-button" id ="auth-res-button">확인</button>
-                                    <button type="button" class="confirm-button" id ="join-insu-button" onclick="submitForm()">보험 가입하기</button>
+                                    <%--                                <div class="loader loader-9"></div>--%>
+                                    <div style="display: flex;align-items: center;justify-content: center;">
+                                        <select id="phoneBrand" name="phoneBrand" style="height: 50px;border: 1px solid gainsboro; border-bottom: 0px;">
+                                            <option value="SKT">SKT</option>
+                                            <option value="KT">KT</option>
+                                            <option value="LG">LG</option>
+                                            <option value="SKT알뜰폰">SKT 알뜰폰</option>
+                                            <option value="KT알뜰폰">KT 알뜰폰</option>
+                                            <option value="LG알뜰폰">LG 알뜰폰</option>
+                                        </select>
+                                        <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요" style="border-bottom: 0px; border-left:0px; border-right: 0px;">
+                                        <button type ="button" id ="auth-req-button" style="border-bottom: 0px; width: 106px;">인증요청</button>
+                                        <p id="ViewTimer"></p>
+                                    </div>
+                                    <div style="display: flex;align-items: center;justify-content: center;">
+                                        <input type ="password" id ="auth-number" placeholder="인증번호를 입력해주세요">
+                                        <button type="button" class="confirm-button" id ="auth-res-button" style="border-left:0px; width: 77px;">확인</button>
+                                    </div>
+                                    <button type="button" class="confirm-button" id ="join-insu-button" style="width: 100%;border-top: 0px;background-color: #00857E;">보험가입신청하기</button>
                                 </div>
 
                                 <%--                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=951e0627da48ee51855b252517b6352d--%>
@@ -438,21 +455,21 @@
         });
     }
 </script>
-<script>
-    const modal = document.querySelector('.modal');
-    const btnOpenPopup = document.querySelector('.btn-open-popup');
+<%--<script>--%>
+<%--    const modal = document.querySelector('.modal');--%>
+<%--    const btnOpenPopup = document.querySelector('.btn-open-popup');--%>
 
-    btnOpenPopup.addEventListener('click', () => {
-        modal.style.display = 'block';
-    });
+<%--    btnOpenPopup.addEventListener('click', () => {--%>
+<%--        modal.style.display = 'block';--%>
+<%--    });--%>
 
-    function closeModal() {
-        var modal = document.querySelector(".modal");
-        modal.style.display = "none"; // 모달을 숨기도록 설정
-    }
-    var closePopupButton = document.querySelector(".btn-close-popup");
-    closePopupButton.addEventListener("click", closeModal);
-</script>
+<%--    function closeModal() {--%>
+<%--        var modal = document.querySelector(".modal");--%>
+<%--        modal.style.display = "none"; // 모달을 숨기도록 설정--%>
+<%--    }--%>
+<%--    var closePopupButton = document.querySelector(".btn-close-popup");--%>
+<%--    closePopupButton.addEventListener("click", closeModal);--%>
+<%--</script>--%>
 </body>
 <script>
     'use strict';
@@ -518,26 +535,21 @@
 
 </script>
 <script>
-
     $(".checkbox_group").on("click", "#check_all", function () {
         $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
     });
-
     // 체크박스 개별 선택
     $(".checkbox_group").on("click", ".normal", function () {
         var is_checked = true;
-
         $(".checkbox_group .normal").each(function () {
             is_checked = is_checked && $(this).is(":checked");
         });
-
         $("#check_all").prop("checked", is_checked);
     });
 
     function toggleContent(dlElement) {
         // 현재 클릭한 dl 요소에서 dd 요소 찾기
         const ddElement = dlElement.nextElementSibling;
-
         // dd 요소 토글
         if (ddElement.style.display === 'none' || ddElement.style.display === '') {
             ddElement.style.display = 'block';
@@ -552,7 +564,6 @@
             toggleContent(dlElement);
         });
     });
-
     'use strict';
 
     const openBtn = document.querySelector('.button--open');
@@ -606,5 +617,7 @@
         });
     });
 </script>
+<script src="resources/static/js/demo/myPageInsu6.js"></script>
+<script src="resources/static/js/demo/myPageInsu7.js"></script>
 </div>
 </html>

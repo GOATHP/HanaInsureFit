@@ -17,6 +17,10 @@
 </script>
 
 <style>
+    .section-header.mt-4{
+        display: flex;
+        justify-content: center;
+    }
 
     .main {
         width: 100%;
@@ -527,12 +531,12 @@
         <div id='mask_wrap2'>
             <div id="mask"></div>
             <div id="wrap2">
-                <div class="section-header mt-4">
-                    <h3 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;">가족 구성원 초대</h3>
+                <div class="section-header mt-4" >
+                    <h3 class="sideBarName" style="width:310px">Hana InsureFit 초대</h3>
                 </div>
-                <div class="container" style="width:700px;">
+                <div class="container" style="width:400px;">
                     <h4 style="font-family: 'Pretendard-Regular';" class="mt-4 fw-bolder">
-                        하나케어 우리가족지킴이에 ${ loginVO.name }님이 초대되셨습니다.
+                        최유림님께서 HanaInsureFit에 초대하셨습니다.
                     </h4>
                     <h5 class="mt-4">
                         <strong>수락하기를 누르시면 그룹에 다음 정보를 제공합니다.</strong>

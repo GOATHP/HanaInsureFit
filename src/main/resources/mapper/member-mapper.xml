@@ -142,4 +142,8 @@
         ORDER BY
             JOINDATE
     </select>
+    
+    <select id="getCheckUp" resultType="ac.kr.kopo.HanaInsureFit.member.vo.CheckUp">
+        SELECT * FROM HEALTHCHECK WHERE CUSTOMERID=#{customerID}
+    </select>
 </mapper>
