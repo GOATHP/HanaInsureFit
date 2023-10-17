@@ -126,7 +126,7 @@
 
     <select id="getGradeChart" resultType="ac.kr.kopo.HanaInsureFit.member.vo.GradeChart">
         SELECT HEALTHGRADE, COUNT(*) AS GRADE_COUNT
-        FROM HEALTHGRADE
+        FROM hanacustomer
         GROUP BY HEALTHGRADE
         order by healthgrade
     </select>

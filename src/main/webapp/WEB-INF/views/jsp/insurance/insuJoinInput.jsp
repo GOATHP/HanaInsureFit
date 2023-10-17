@@ -237,9 +237,15 @@
 
         <main>
             <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp > &nbsp&nbspGrade보험가입</div>
-            <div class="insuInfo2">
-            보험 가입 신청서
+            <div style="display: flex;align-content: center;align-items: center;justify-content: center;
+                    margin-top: 20px;">
+                <div class="sideBarName" style="width: 100%; margin-bottom: 0px;">
+                    보험 가입 신청서
+                </div>
             </div>
+<%--            <div class="insuInfo2">--%>
+<%--            보험 가입 신청서--%>
+<%--            </div>--%>
             <div class="areaContainer">
                 <div class="rightArea5">
                     <div class="tableContainer">
@@ -253,7 +259,8 @@
                             <tbody>
                             <tr>
                                 <th>이름</th>
-                                <td><%= name %></td>
+                                <td style="
+    width: 35%;"><%= name %></td>
                                 <th>보험명</th>
                                 <td>무배당 Grade 건강 보험</td>
                             </tr>

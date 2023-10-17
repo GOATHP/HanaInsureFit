@@ -69,6 +69,9 @@
         });
     });
 
+    function numberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     // 보험 정보를 테이블에 추가하는 함수
     function appendInsuranceDataToTable(insuranceData) {
         // 테이블의 tbody 요소를 가져옵니다. 여기에 데이터를 추가할 것입니다.
@@ -98,7 +101,7 @@
             newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuContent + "</a></td>");
             newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.minAgeAtRegistration + "세 ~ " +
                 insurance.maxAgeAtRegistration + "세</a></td>");
-            newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceFee + "원(월)</a></td>");
+            newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + numberWithCommas(insurance.insuranceFee) + "원(월)</a></td>");
             tbody.append(newRow);
         }
     }
@@ -206,8 +209,15 @@
     <div id="main">
         <main>
             <div class="navInfo">Main &nbsp&nbsp > &nbsp&nbspGrade보험&nbsp&nbsp > &nbsp&nbspGrade보험목록&nbsp&nbsp</div>
+            <div style="display: flex;align-content: center;align-items: center;justify-content: center;">
+                <div class="sideBarName" style="width: 100%;">
+                    건강등급 보험목록
+                </div>
+            </div>
             <div class="insuMoongoo"><br>
+
                 <div class="insuInfo">
+
                     <span class="colorText">건강등급</span> 확인하고<br> <span class="colorText">보험료 할인</span>받으세요!
                     <div class="explainInsu">
                         에너지 효율이 높은 등급의 전기제품을 구입하여<br>
@@ -220,10 +230,7 @@
             <div class="areaContainer">
 
                 <div class="rightArea3">
-                    <div class="centerAlign">
-                        건강등급 보험 목록
 
-                    </div>
                     <span class="basis">상품 내용을 클릭하시면 가입 페이지로 이동합니다.</span>
                     <div id="gradeCalculation">
                         <table id="insuTable" class="insuTable">

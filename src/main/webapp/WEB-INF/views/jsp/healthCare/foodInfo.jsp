@@ -85,7 +85,8 @@
         var day = today.toLocaleDateString('en-US', { day: '2-digit' });
 
 // 연도를 맨 앞에 두고 월과 일을 그대로 두기
-        var formattedDate = year.toString().slice(-2) + '/' + month + '/' + day;
+//         var formattedDate = year.toString().slice(-2) + '/' + month + '/' + day;
+        var formattedDate = '23/10/16';
         var recordDate;
 
 
@@ -98,9 +99,9 @@
                     'customerID': customerID
                 },
                 success: function (response) {
-                    recordDate = response[0].recorddate;
+                    recordDate = response[response.length - 1].recorddate;
                     if (formattedDate === recordDate) {
-                        userConsumeCal = response[0].total_calories; // 칼로리 데이터를 data 배열에 추가
+                        userConsumeCal = response[response.length - 1].total_calories; // 칼로리 데이터를 data 배열에 추가
                     } else {
                         userConsumeCal = 0;
                     }
@@ -259,7 +260,19 @@
     <div id="main">
         <main>
             <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbsp건강관리&nbsp&nbsp > &nbsp&nbsp칼로리 맞춤 식당</div>
-            <div class="calManageMoongoo">식당 정보<br>
+            <div class="calManageMoongoo">
+                <div style="
+                    display: flex;
+                    align-content: center;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 20px;
+                    ">
+                    <div class="sideBarName" style="width: 200px; margin-bottom: 0px;">
+                        식당 정보
+                    </div>
+                </div>
                 <div class="weightInfo1">
                     현재 남은 칼로리 <div class="calories" id="currentCalories">0</div>kcal(<div class="calories"
                                                                                           id="caloriesPercentage">0% </div>)

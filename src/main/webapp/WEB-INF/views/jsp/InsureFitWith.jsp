@@ -24,24 +24,26 @@
 
     <style>
 
-        #main3{
+        #main3 {
             padding-bottom: 10px;
         }
 
-        #goldImg{
-            margin-top:30px
-        }
-        #silverImg{
-            margin-top:30px
-        }
-        #bronzeImg{
-            margin-top:30px
+        #goldImg {
+            margin-top: 30px
         }
 
-        .medal{
+        #silverImg {
+            margin-top: 30px
+        }
+
+        #bronzeImg {
+            margin-top: 30px
+        }
+
+        .medal {
             background-color: #00857E;
             padding: 20px;
-            color:white;
+            color: white;
             font-size: 18px;
             margin-bottom: 20px;
             border-radius: 5px;
@@ -49,8 +51,12 @@
         }
 
 
-        .medal img{
-            width: 30px;display: flex;height: 50px;margin-bottom: 10px; margin-left:10px;
+        .medal img {
+            width: 30px;
+            display: flex;
+            height: 50px;
+            margin-bottom: 10px;
+            margin-left: 10px;
         }
 
         .main {
@@ -384,22 +390,59 @@
                             <li><a href="/introduce">하나Insure Fit이란?</a></li>
                             <li><a href="/recommendInsu">Grade보험</a></li>
                             <li><a href="/weightManage">건강관리</a></li>
-                            <li><a href="/dashboardMypage" style="color:#00857E">마이페이지</a></li>
+                            <li><a href="/dashboardMypage">마이페이지</a></li>
                         </ul>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
-    <div class="traveltitle"
-         style="width:100%;/* margin: 0 auto; */display: flex;justify-content: flex-start;margin-bottom: 20px;">
-        <%= name %>님의&nbsp<span class="clicked">InsureFit</span> 친구 :&nbsp
-        <div id="friendCount">0</div>
-    </div>
-    <hr class="custom-hr2" style="height:3px; margin: 0px;
+
+
+    <div class="contents">
+        <div style="
+                    display: flex;
+                    align-content: center;
+
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 20px;
+                    ">
+            <div class="sideBarName" style="width: 300px; margin-bottom: 0px; text-align: center;">
+                InsureFit With
+            </div>
+        </div>
+        <div class="traveltitle"
+             style="width:100%;/* margin: 0 auto; */display: flex;justify-content: flex-start;margin-bottom: 20px;">
+            <%= name %>님의&nbsp<span class="clicked">InsureFit&nbsp</span> 친구 :&nbsp
+            <div id="friendCount">0</div>
+        </div>
+        <hr class="custom-hr2" style="height:3px; width: 100%;margin: 0px;
         margin-bottom:20px;
         "/>
-    <div class="introContainer">
+
+        <%--            <div class="section-1">--%>
+        <%--                <div class="stepper">--%>
+        <%--                    <div class="line"></div>--%>
+        <%--                    <div class="step">--%>
+        <%--                        <div class="circle">1</div>--%>
+        <%--                    </div>--%>
+        <%--                    <div class="step">--%>
+        <%--                        <div class="circle">2</div>--%>
+        <%--                    </div>--%>
+        <%--                    <div class="step">--%>
+        <%--                        <div class="circle active">3</div>--%>
+        <%--                    </div>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <div class="newAccount1"><img class="newAccountImg" src="resources/static/image/플젝로고.png"></div>
+        <div class="hanaClassBox">
+            <button id="kakaotalk-sharing-btn" href="javascript:;" onclick="send()">
+                <span>친구 초대하기</span>
+            </button>
+        </div>
+
+        <div class="introContainer">
         <div class="benefit2">
             <h2>InsureFit with
                 <select id="friendSelector" style="
@@ -410,7 +453,7 @@
     /* border-bottom: 1px solid #00857E; */
 ">
                 </select>
-           <button onclick="getSelectedFriend()" style="width: 50px;">선택</button>
+                <button onclick="getSelectedFriend()" style="width: 50px;">선택</button>
             </h2>
             <div class="graph-container-4" style="height:330px; padding-top:20px;">
                 <div class="graph-4" id="calories">내 그래프
@@ -423,7 +466,8 @@
                 <div class="graph-4" id="carbs">친구 그래프
                     <hr class="custom-hr" style="width:100px;">
                     <div class="graphContenet">
-                        <canvas class="graphFood" id="bar-chart-calories-friend" width="450" height="550" style="padding-top:0px;" ></canvas>
+                        <canvas class="graphFood" id="bar-chart-calories-friend" width="450" height="550"
+                                style="padding-top:0px;"></canvas>
                     </div>
                 </div>
             </div>
@@ -432,18 +476,18 @@
             <h2>InsureFit 순위</h2>
             <div class="graph-container-4" style="height:330px; padding-top:0px;">
                 <div class="graph-4" id="goldMedal">
-                    <div class="medal" style="padding:10px; display: flex; align-items: center; padding-bottom: 0px;">
+                    <div class="medal" style="padding:5px 10px; display: flex; align-items: center; padding-bottom: 0px;">
                         <div><img src="resources/static/image/goldmedal.png" style="width: 30px;display: flex;"></div>
                         <div style="padding-left: 5px; font-size:26px;">1등</div>
                     </div>
                     <hr class="custom-hr" style="width:100px; height: 2px;">
                     <div id="gold">
-                    <%=name%>님
+                        <%=name%>님
                     </div>
                     <img id="goldImg" style="width:120px"></img>
                 </div>
                 <div class="graph-4" id="silverMedal">
-                    <div class="medal" style="padding:10px; display: flex;align-items: center; padding-bottom: 0px;">
+                    <div class="medal" style="padding:5px 10px; display: flex;align-items: center; padding-bottom: 0px;">
                         <div><img src="resources/static/image/silvermedal.png" style="width: 30px;display: flex;"></div>
                         <div style="padding-left: 5px; font-size:26px;">2등</div>
                     </div>
@@ -453,12 +497,12 @@
                     <img id="silverImg" style="width:120px"></img>
                 </div>
                 <div class="graph-4" id="bronzeMedal">
-                    <div class="medal" style="padding:10px; display: flex;align-items: center; padding-bottom: 0px;">
+                    <div class="medal" style="padding:5px 10px; display: flex;align-items: center; padding-bottom: 0px;">
                         <div><img src="resources/static/image/bronzemedal.png" style="width: 30px;display: flex;"></div>
                         <div style="padding-left: 5px;font-size:26px;">3등</div>
                     </div>
                     <hr class="custom-hr" style="width:100px;  height: 2px;">
-                    <div id="bronze" >
+                    <div id="bronze">
                     </div>
                     <img id="bronzeImg" style="width:120px"></img>
                 </div>
@@ -468,28 +512,6 @@
 </div>
 
 </div>
-<div class="contents">
-
-    <%--            <div class="section-1">--%>
-    <%--                <div class="stepper">--%>
-    <%--                    <div class="line"></div>--%>
-    <%--                    <div class="step">--%>
-    <%--                        <div class="circle">1</div>--%>
-    <%--                    </div>--%>
-    <%--                    <div class="step">--%>
-    <%--                        <div class="circle">2</div>--%>
-    <%--                    </div>--%>
-    <%--                    <div class="step">--%>
-    <%--                        <div class="circle active">3</div>--%>
-    <%--                    </div>--%>
-    <%--                </div>--%>
-    <%--            </div>--%>
-    <div class="newAccount1"><img class="newAccountImg" src="resources/static/image/플젝로고.png"></div>
-    <div class="hanaClassBox">
-        <button id="kakaotalk-sharing-btn" href="javascript:;" onclick="send()">
-            <span>친구 초대하기</span>
-        </button>
-    </div>
 </div>
 </div>
 <footer style="
@@ -506,43 +528,74 @@
 <script>
     function send() {
         $.ajax({
-            url: '/getMyPageInfo2',
-            method: "POST",
-            dataType: "json",
-            data: {
-                'customerID': customerID
-            },
-            success: function (response) {
-
-                Kakao.Share.createDefaultButton({
-                    container: '#kakaotalk-sharing-btn',
-                    objectType: 'feed',
-                    content: {
-                        title: 'Hana InsureFit에 초대되었습니다.',
-                        description: 'Hana InsureFit에 초대되었습니다.',
-                        imageUrl: 'https://ibb.co/9YshwDR',
-                        link: {
-                            // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-                            mobileWebUrl: 'http://localhost:8080',
-                            webUrl: 'http://localhost:8080',
-                        },
-                    },
-                    buttons: [
-                        {
-                            title: 'InsureFitWith 시작하기',
+                url: '/getMyPageInfo2',
+                method: "POST",
+                dataType: "json",
+                data: {
+                    'customerID': customerID
+                },
+                success: function (response) {
+                    Kakao.Share.createDefaultButton({
+                        // container: '#kakaotalk-sharing-btn',
+                        // objectType: 'feed',
+                        // templateId: 99418,
+                        // templateArgs: {
+                        //     title: "이정민님이 당신을 초대합니다.\n" +
+                        //         "🔥멤버코드: " + memberCode + "🔥",
+                        //     desc: "로그인 > 여행일정 > 여행코드 버튼 클릭 > 코드입력"
+                        // },
+                        container: '#kakaotalk-sharing-btn',
+                        objectType: 'feed',
+                        content: {
+                            title: 'Hana InsureFit에 초대되었습니다.',
+                            description: 'Hana InsureFit에 초대되었습니다.',
+                            imageUrl: 'https://img.freepik.com/free-photo/3d-render-hand-holding-heart-with-pulse-line-beat_107791-17213.jpg?size=338&ext=jpg&ga=GA1.1.1413502914.1697241600&semt=ais',
                             link: {
-                                mobileWebUrl: 'http://localhost:8080?customerID=' + customerID,
-                                webUrl: 'http://localhost:8080?customerID=' + customerID
+                                // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+                                mobileWebUrl: 'http://localhost:8080',
+                                webUrl: 'http://localhost:8080',
                             },
-                        }
-                    ],
-                    serverCallbackArgs: '{"key" : "value"}',
-                });
-            }
-        })
+                        },
+                        buttons: [
+                            {
+                                title: 'InsureFitWith 시작하기',
+                                link: {
+                                    mobileWebUrl: 'http://localhost:8080?customerID=' + customerID,
+                                    webUrl: 'http://localhost:8080?customerID=' + customerID
+                                },
+                            }
+                        ],
+                        serverCallbackArgs: '{"key" : "value"}',
+                    });
+                }
+            })
     }
 
     Kakao.init('6fa66706bdb2ae27d99cb7a2d394b4d8'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<%--<script>--%>
+<%--    function sendKakao() {--%>
+<%--        if (!Kakao.isInitialized()) {--%>
+<%--            Kakao.init('6fa66706bdb2ae27d99cb7a2d394b4d8');--%>
+<%--        }--%>
+
+<%--        Kakao.Link.sendScrap({--%>
+<%--            requestUrl: 'http://localhost:8080',--%>
+<%--            templateId: 99418 ,--%>
+<%--            templateArgs: {--%>
+<%--                title: "이정민님이 당신을 초대합니다.\n" +--%>
+<%--                    "🔥멤버코드: " + "🔥",--%>
+<%--                desc: "로그인 > 여행일정 > 여행코드 버튼 클릭 > 코드입력"--%>
+<%--            },--%>
+<%--        });--%>
+<%--    // var kakaoShareBtn = document.getElementById('kakaotalk-sharing-btn');--%>
+<%--    // kakaoShareBtn.addEventListener('click', function() {--%>
+<%--    //     sendKakao();--%>
+<%--    }--%>
+<%--</script>--%>
+
 </script>
 <script>
     function getData(endpoint, requestData, successCallback, errorCallback) {
@@ -557,7 +610,8 @@
     }
 
     var friendData;
-    const customerIDs=[];
+    const customerIDs = [];
+
     function getFriendsCount() {
 
         var requestData = {'customerID': customerID};
@@ -868,6 +922,7 @@
 </script>
 <script>
     var friendGrades;
+
     function getMyGrade() {
         console.log("customerIDs", customerIDs);
         $.ajax({
@@ -881,7 +936,7 @@
 
                 friendGrades.push(newFriendData);
 
-                friendGrades.sort(function(a, b) {
+                friendGrades.sort(function (a, b) {
                     return a.healthGrade - b.healthGrade;
                 });
 

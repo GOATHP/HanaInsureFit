@@ -64,8 +64,13 @@ public class InsuServiceImpl implements InsuService {
     public void insertPointFood(HashMap<String, Object> paramMap){
         insuMapper.insertPointFood(paramMap);
     };
+    @Override
     public void insertPointInbody(HashMap<String, Object> paramMap){
         insuMapper.insertPointInbody(paramMap);
+    };
+    @Override
+    public void updatePoint(int pointValue){
+        insuMapper.updatePoint(pointValue);
     };
 }
 

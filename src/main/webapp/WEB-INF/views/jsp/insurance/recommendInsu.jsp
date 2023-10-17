@@ -326,6 +326,11 @@
 
             <div class="areaContainer" style="flex-direction: column;
                  align-items: center";>
+                <div style="display: flex;align-content: center;align-items: center;justify-content: center;">
+                    <div class="sideBarName" style="width:300px; text-align: center;">
+                        건강등급 산출/갱신
+                    </div>
+                </div>
                 <div style="display: flex">
                     <img src="resources/static/image/Grades.png" style="width: 520px;height: 250px;margin-top: 20px;">
                 <div class="insuMoongoo"><br>

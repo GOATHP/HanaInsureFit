@@ -40,8 +40,31 @@
             background-color: rgba(0, 0, 0, 0.4);
         }
 
+        button {
+            border: 0px;
+            height: 30px;
+            background-color: #00857E;
+            color: white;
+            border-radius: 5px;
+        }
+
         #pointTable {
-            width: 670px;
+            width: 900px;
+        }
+
+        #pointTable th {
+            background-color: #00857E;
+            color: white;
+        }
+
+        #pointTable th, td {
+            border-left: 0.5px solid #4d4d4d;
+            border-top: 0.5px solid #4d4d4d;
+        }
+
+        #pointTable th:last-child, #pointTable td:last-child {
+            border-right: 0.5px solid #4d4d4d;
+
         }
 
         .modal.show {
@@ -55,8 +78,9 @@
             top: 50%;
             left: 50%;
             width: 1000px;
-            /*height: 600px;*/
+
             padding: 40px;
+            padding: 20px;
             text-align: center;
             background-color: rgb(255, 255, 255);
             border-radius: 10px;
@@ -847,7 +871,7 @@
                                border: 2px solid rgb(219, 36, 100);
                                margin-bottom: 20px;
                                text-align: center;
-                               " href='/compareCost'>등급할인혜택보기</a>
+                               " href='/compareCost' id="compareCost">등급할인혜택보기</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -895,8 +919,10 @@
                                             </table>
                                         </div>
                                     </div>
+
                                 </div>
-                                <a style="
+                                <div style="display: flex;width: 400px;justify-content: space-around;">
+                                    <a style="
                                font-family:NanumSquareRoundB, Arial, sans-serif;
                                padding: 8px;
                                height: auto;
@@ -912,7 +938,25 @@
                                border: 2px solid rgb(219, 36, 100);
                                /* margin-bottom: 20px; */
                                text-align: center;
-                               " href='/weightAuth'>체중 갱신하기</a>
+                               " href='/recommendInsu' id="recommendInsu">건강등급 갱신</a>
+                                    <a style="
+                               font-family:NanumSquareRoundB, Arial, sans-serif;
+                               padding: 8px;
+                               height: auto;
+                               margin-bottom: 20px;
+                               border: none;
+                               background-color: rgb(219, 36, 100);
+                               color: #fff;
+                               cursor: pointer;
+                               border-radius: 4px;
+                               display: inline-block;
+                               width: 130px;
+                               /*border-radius: 15px;*/
+                               border: 2px solid rgb(219, 36, 100);
+                               /* margin-bottom: 20px; */
+                               text-align: center;
+                               " href='/weightAuth' id="weightAuth">체중정보 갱신</a>
+                                </div>
                             </div>
                         </div>
                         <!-- Approach -->
@@ -980,7 +1024,7 @@
                                             <th>포인트</th>
                                             <td>
                                                 <div style="display: flex;justify-content: space-between;align-items: center;">
-                                                    <input id="pointInput" placeholder="잔여 포인트 : 1,000원">
+                                                    <input id="pointInput" placeholder="잔여 포인트 : 0원">
                                                     <button id="consumePoint" onclick="applyPoint()">포인트 적용</button>
                                                 </div>
 
@@ -991,7 +1035,7 @@
                                             <td>
                                                 <div style="display: flex;justify-content: space-between;align-items: center;">
                                                     <span id="thisMonthFee"></span>
-                                                    <button>보험금 납부</button>
+                                                    <button id="getInsuFee" onclick="getInsuFee()">보험금 납부</button>
                                                 </div>
 
                                             </td>
@@ -1121,34 +1165,42 @@
     </div>
     <div class="modal">
         <div class="modal_body"
-             style="display: flex;flex-direction: column; width:700px; height:500px">
+             style="display: flex;flex-direction: column; width:1000px; height:700px">
             <%--        <form action="/loginMember" id="loginForm" method="post">--%>
             <div class="closeDiv" style="
     width: 100%;
     display: flex;
     justify-content: flex-end;
 ">
-                <button class="btn-close-popup">X</button>
+                <button class="btn-close-popup" style="
+    border: 0px;
+    border-radius: 5px;
+    background-color: #00857E;
+    color:white;
+    height: 30px;
+    width: 30px;
+    ">X
+                </button>
             </div>
             <div style="
     display: flex;
     align-items: center;
     height: 100%;
 ">
-            <table id="pointTable">
-                <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>포인트</th>
-                    <th>잔여 포인트</th>
-                    <th>지급 날짜</th>
-                    <th>비고</th>
-                </tr>
-                </thead>
-                <tbody id="modal">
-                </tbody>
-            </table>
-        </div>
+                <table id="pointTable">
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>포인트</th>
+                        <th>잔여 포인트</th>
+                        <th>지급 날짜</th>
+                        <th style="width:50px;">비고</th>
+                    </tr>
+                    </thead>
+                    <tbody id="modal">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -1245,8 +1297,40 @@
 
         // 새로운 값을 요소에 설정합니다.
         thisMonthFeeElement.textContent = newNumber.toLocaleString() + "원(월)";
+        pointInput.value = "";
+        document.getElementById('pointValue').textContent = "0P";
+        pointInput.placeholder = "잔여 포인트 : 0P";
+    }
+
+    function getInsuFee() {
+        alert("보험료 입금을 위한 가상계좌정보가 발송되었습니다.");
+
     }
 </script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: "/getCheckUp",
+            dataType: "json",
+            data: {
+                'customerID': customerID
+            },
+            success: function (data) {
+                console.log(data);
 
+                document.getElementById("heightCell").textContent = data.height + "cm";
+                document.getElementById("weightCell").textContent = data.weight + "kg";
+                document.getElementById("bmiCell").textContent = (data.weight / ((data.height / 100) ** 2)).toFixed(1);
+                // document.getElementById("bmrCell").textContent = 1965 + "kcal";
+                // document.getElementById("caloriesCell").textContent = 1765 + "kcal";
+            },
+            error: function (xhr, status, error) {
+                alert("서버 오류: " + error);
+            }
+        });
+    })
+
+</script>
 </body>
 </html>

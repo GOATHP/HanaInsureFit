@@ -713,17 +713,17 @@
         overflow-y: auto;"><div style="
     overflow: auto;
     height: 20px;
-">일반상해80%이상후유장해(건강Grade), 뇌혈관질환진단비(건강Grade), 급성심근경색증진단비(건강Grade)
+">유방및생식기암진단비(건강Grade), 뇌혈관질환진단비(건강Grade)
             </div>
                     </td>
                 </tr>
                 <tr>
                     <th>특약보험료</th>
-                    <td>4,000원(월)</td>
+                    <td>2,000원(월)</td>
                 </tr>
                 <tr>
                     <th>최종보험료</th>
-                    <td>74,129원(월)</td>
+                    <td>72,129원(월)</td>
                 </tr>
             </table>
                 <div>

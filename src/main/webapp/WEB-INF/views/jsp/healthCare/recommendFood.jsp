@@ -43,7 +43,8 @@
         var day = today.toLocaleDateString('en-US', { day: '2-digit' });
 
 // 연도를 맨 앞에 두고 월과 일을 그대로 두기
-        var formattedDate = year.toString().slice(-2) + '/' + month + '/' + day;
+//         var formattedDate = year.toString().slice(-2) + '/' + month + '/' + day;
+        var formattedDate = '23/10/16';
         var recordDate;
 
         console.log("날짜" + formattedDate);
@@ -86,6 +87,7 @@
                     if (weightManageArray[0].calories)
                         if (weightManageArray[0].calories - userConsumeCal < 0) {
                         // 값이 음수인 경우, 스타일 변경
+                        // weightManageArray[0].calories
                         var dailyRecommendedCalories = weightManageArray[0].calories;
                         var warningTextElement = document.getElementById('currentCalories');
                         var warningPercentageElement = document.getElementById("caloriesPercentage");
@@ -259,7 +261,19 @@
         <div id="main">
             <main>
                 <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbsp 건강관리&nbsp&nbsp > &nbsp&nbsp칼로리 맞춤 식당</div>
-                <div class="calManageMoongoo">칼로리 맞춤 식당 추천<br>
+                <div class="calManageMoongoo">
+                    <div style="
+                    display: flex;
+                    align-content: center;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 20px;
+                    ">
+                        <div class="sideBarName" style="width: 300px; margin-bottom: 0px;">
+                            칼로리 맞춤 식당
+                        </div>
+                    </div>
                     <div class="weightInfo1">
                         현재까지 섭취 칼로리를 고려해 근처 식당을 추천드립니다.<br>
                         현재 남은 칼로리 <div class="calories" id="currentCalories">0</div>kcal(<div class="calories" id="caloriesPercentage">0% </div>)
@@ -376,8 +390,6 @@
                                 const proteinValue = restaurant.protein;
                                 const fatValue = restaurant.fat;
                                 const carbsValue = restaurant.carbs;
-
-
 
                                 const maxLength = 20; // 원하는 최대 길이 정의
                                 let truncatedDishes = dishes; // 원래 문자열을 변수에 할당

@@ -3,14 +3,17 @@ package ac.kr.kopo.HanaInsureFit.insurance.controller;
 import ac.kr.kopo.HanaInsureFit.insurance.service.InsuService;
 import ac.kr.kopo.HanaInsureFit.insurance.vo.*;
 import jdk.swing.interop.SwingInterOpUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +21,8 @@ import java.util.Map;
 
 @Controller
 public class InsuController {
+    @Autowired
+    private SqlSession sqlSession;
 
     @Autowired
     private InsuService insuService;
@@ -158,21 +163,36 @@ public class InsuController {
     }
     @ResponseBody
     @PostMapping("/insertPointFood")
-    public ResponseEntity<String> InsertPointFood(@RequestBody HashMap<String, Object> paramMap) {
-        insuService.insertPointFood(paramMap);
-        return ResponseEntity.ok("식단 기록 포인트 전송 완료"); // ResponseEntity 생성자를 사용하여 ResponseEntity 반환
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseEntity<String> InsertPointFood(@RequestBody HashMap<String, Object> paramMap) throws SQLException {
+        String customerID = (String) paramMap.get("customerID");
+        List<String> recordDates = (List<String>) paramMap.get("recordDate");
+
+        try {
+            for (String recordDate : recordDates) {
+                HashMap<String, Object> record = new HashMap<>();
+                record.put("customerID", customerID);
+                record.put("recordDate", recordDate);
+                System.out.println("record" + record);
+                insuService.insertPointFood(record);
+            }
+            return ResponseEntity.ok("Success");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+        }
     }
     @ResponseBody
     @PostMapping("/insertPointInbody")
     public ResponseEntity<String> InsertPointInbody(@RequestBody HashMap<String, Object> paramMap) {
         insuService.insertPointInbody(paramMap);
+
         return ResponseEntity.ok("인바디 기록 포인트 전송 완료"); // ResponseEntity 생성자를 사용하여 ResponseEntity 반환
     }
 
-    @ResponseBody
-    @PostMapping("/insertPointInbody")
-    public ResponseEntity<String> InsertPointInbody(@RequestBody HashMap<String, Object> paramMap) {
-        insuService.insertPointInbody(paramMap);
-        return ResponseEntity.ok("인바디 기록 포인트 전송 완료"); // ResponseEntity 생성자를 사용하여 ResponseEntity 반환
-    }
+//    @ResponseBody
+//    @PostMapping("/insertPointInbody")
+//    public ResponseEntity<String> updatePoint(@RequestParam("pointValue") int pointValue) {
+//        insuService.updatePoint(pointValue);
+//        return ResponseEntity.ok("인바디 기록 포인트 전송 완료"); // ResponseEntity 생성자를 사용하여 ResponseEntity 반환
+//    }
 }

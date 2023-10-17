@@ -150,9 +150,12 @@
             <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp > &nbsp&nbspGrade보험가입</div>
             <div class="areaContainer">
 
+
                 <div class="rightArea7">
-                    <div class="centerAlign">
+                    <div style="display: flex;align-content: center;align-items: center;justify-content: center;">
+                    <div class="sideBarName" style="width:300px">
                         보험가입 약관동의
+                    </div>
                     </div>
                         <div class="gradeInsurance">
                             <br>
@@ -171,9 +174,13 @@
                         </div>
                     <a href="/resources/static/보험약관.pdf" target="_blank" class="btn btn_icon btn_arrow acrobat_btn fr" role="button"style="
     border-radius: 5px;
-    padding: 5px;
-    /* margin-bottom: 30px; */
-">보험약관 다운로드</a>
+    padding: 10px;
+    font-size: 18px; width:200px;
+    display: flex;
+    align-items: center;
+    box-shadow: 1px 1px 12px 0px rgb(0 0 0 /20%);
+    background-color: #00857E; border: 1px solid #00857E;
+    color:white;"><img src="https://static.vecteezy.com/system/resources/previews/009/636/767/original/document-3d-icon-png.png" style="height: 30px;">보험약관 다운로드</a>
                     <div class="mainContent">
 
                         <button type="button" class="collapsible" onclick="collapse(this);">보험상세내용</button>
@@ -401,7 +408,11 @@
 
                         <div class="contents">
                             <form action="/insuDesign" method="get" id="form__wrap" style="margin-top: 30px;">
-                                <div class="terms__check__all">
+                                <div class="terms__check__all" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
                                     <input type="checkbox" name="checkAll" id="checkAll" />
                                     <label for="checkAll"
                                     >Hana InsureFit 이용약관, 개인정보 수집 및 이용, 프로모션 정보 수신(선택)에 모두 동의합니다.</label
@@ -409,7 +420,11 @@
                                 </div>
                                 <ul class="terms__list">
                                     <li class="terms__box">
-                                        <div class="input__check">
+                                        <div class="input__check" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
                                             <input type="checkbox" name="agreement" id="termsOfService" value="termsOfService" required />
                                             <label for="termsOfService" class="required">Hana InsureFit 회원가입 이용약관</label>
                                         </div>
@@ -494,7 +509,11 @@
                                         </div>
                                     </li>
                                     <li class="terms__box">
-                                        <div class="input__check">
+                                        <div class="input__check" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
                                             <input type="checkbox" name="agreement" id="privacyPolicy" value="privacyPolicy" required />
                                             <label for="privacyPolicy" class="required">개인정보 수집 및 이용 동의</label>
                                         </div>
@@ -518,7 +537,11 @@
                                         </div>
                                     </li>
                                     <li class="terms__box">
-                                        <div class="input__check">
+                                        <div class="input__check" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
                                             <input type="checkbox" name="agreement" id="allowPromotions" value="allowPromotions" />
                                             <label for="allowPromotions">프로모션 정보 수신 동의</label>
                                         </div>
@@ -539,7 +562,8 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <button type="submit" class="next-button" id="nextBtn">보험 설계하기</button>
+                                <button type="submit" class="next-button" id="nextBtn" style="font-size: 18px; width:150px;
+                                background-color: #00857E; border: 1px solid #00857E;">보험 설계하기</button>
                             </form>
                         </div>
                     </div>

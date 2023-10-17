@@ -7,19 +7,19 @@ $.ajax({
         'customerID': customerID
     },
     success: function (data) {
-        document.getElementById("heightCell").textContent = data.height + "cm";
-        document.getElementById("weightCell").textContent = data.weight + "kg";
-        document.getElementById("bmiCell").textContent = data.bmi;
+        // document.getElementById("heightCell").textContent = data.height + "cm";
+        // document.getElementById("weightCell").textContent = data.weight + "kg";
+        // document.getElementById("bmiCell").textContent = data.bmi;
         document.getElementById("bmrCell").textContent = data.basalMetabolicRate + "kcal";
         document.getElementById("caloriesCell").textContent = data.calories + "kcal";
         dailyRecommendedCalories = data.calories;
-        var originalDate = data.checkDate;
+        var originalDate = data.registrationDate;
         console.log(originalDate);
 // 시간 부분을 제외한 날짜 부분 추출
         var dateParts = originalDate.split(" ");
         var dateWithoutTime = dateParts[0]; // "2001-08-23
 
-        document.getElementById("gradeRecordDate").textContent = "마지막 등록일자 : " + dateWithoutTime;
+        // document.getElementById("gradeRecordDate").textContent = "마지막 등록일자 : " + dateWithoutTime;
 
         console.log(data);
         var healthGrade = data.healthGrade;

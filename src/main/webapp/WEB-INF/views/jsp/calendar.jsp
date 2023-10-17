@@ -143,10 +143,23 @@
     flex-direction: row-reverse;
     width: 100%;
         ">
-        <button class="btn-close-popup">닫기</button>
+            <button class="btn-close-popup" style="
+    border: 0px;
+    border-radius: 5px;
+    font-size: 18px;
+    color:white;
+    height: 30px;
+    width: 30px;
+    ">X</button>
         </div>
-        식단 기록
-        <div class="modal-date"></div>
+        <div style="display: flex;align-content: center;align-items: center;justify-content: center;
+                    margin-top: 20px;">
+            <div class="sideBarName" style="margin-bottom: 30px;display: flex;border-radius: 10px;">
+                내 식단 -&nbsp
+                <div class="modal-date"></div>
+            </div>
+        </div>
+
         <div class="middleCon3">
             <div class="section">
                 <div class="kcalContent">
@@ -393,18 +406,13 @@
             console.log("day", day);
             const recordDate = year+'/'+month+'/'+day;
             console.log("formattedDate", recordDate);
-
             // 모달 창 열기
             const modal = document.querySelector('.modal');
             modal.style.display = 'block';
-
             // 모달에 날짜 표시
             const modalDateElement = document.querySelector('.modal-date');
             modalDateElement.textContent = recordDate;
-
             sendDateToServer(recordDate);
-
-
         }
 
         // 클릭 이벤트 핸들러를 등록할 날짜 요소 선택
@@ -424,8 +432,6 @@
         dateElements2.forEach(dateElement2 => {
             dateElement2.addEventListener('click', handleDayClick);
         });
-
-
         // 모달 닫기 버튼 클릭 이벤트 핸들러 등록
         const closePopupButton = document.querySelector(".btn-close-popup");
         closePopupButton.addEventListener("click", () => {

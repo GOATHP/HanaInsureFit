@@ -64,7 +64,6 @@ public class MemberController {
             return null;
         }
     }
-
     @ResponseBody
     @PostMapping(value = "/getMyPageInsu")
     public MyPageInsu getMyPageInsu(@RequestParam("customerID") String customerID) {
@@ -80,7 +79,6 @@ public class MemberController {
 
     @PostMapping("/loginMember")
     public ResponseEntity<String> loginMember(@RequestBody HashMap<String, String> loginData, HttpServletRequest request) {
-
         System.out.println(loginData);
         Member loginMember = memberService.loginMember(loginData);
         int healthgrade = memberService.getGrade(loginMember.getCustomerID());
@@ -119,6 +117,7 @@ public class MemberController {
         }
         return response;
     }
+
     @PostMapping("/checkPhone")
     @ResponseBody
     public String checkPhone(@RequestParam("customerID") String customerID) {

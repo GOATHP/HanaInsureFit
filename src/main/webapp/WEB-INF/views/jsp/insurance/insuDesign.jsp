@@ -11,18 +11,21 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <style>
+
     #selectedInsurances{
         max-height: 100px; /* 최대 높이 설정 */
         overflow-y: auto;
     }
-    .remove-button {
-        width: 50px;
+    .remove-button{
+        width: 20px;
+        height: 20px;
         margin-left: 5px;
+        padding: 0px;
     }
-
     .insurance-item {
         font-size: 14px;
         margin-right: 10px;
+        padding-left:5px;
         white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
         overflow: hidden; /* 넘치는 텍스트 숨김 */
         text-overflow: ellipsis;
@@ -243,7 +246,7 @@
 
             <div class="insuInfo"
                  style="width: 900px;display: flex;text-align: center;flex-direction: column;align-items: center;">
-                <div class="sideBarName">보험 설계</div>
+                <div class="sideBarName" style="padding: 10px 20px;">보험 설계</div>
                 <div>내게 필요한&nbsp<span class="colorText">특약</span>을 직접 추가해보세요!
                     <div>
                     </div>
@@ -257,7 +260,8 @@
                                 <tbody>
 
                                 </tbody>
-                                <div id="specialInsu" style="display: flex;flex-direction: column;">
+                                <div id="specialInsu" style="display: flex;flex-direction: column;
+margin-bottom: 20px">
                                     <select id="insuranceSelect" style="width: 200px;height: 50px;border-radius: 0px;">
                                     </select>
 
@@ -268,12 +272,12 @@
                                 <div id="totalInsuFee2" style="display: flex;">
                                 </div>
                             </table>
-                            <div id="selectedInsurances" style="display: flex;">
+                            <div id="selectedInsurances" style="display: flex; box-shadow: 1px 1px 12px 0px rgb(0 0 0 /20%);">
                             </div>
                         <div style="margin-top: 20px;display: flex;justify-content: center;
-                             font-size: 15px;
+                             font-size: 20px;
                             ">
-                            <button onclick="joinInsu()" class="addInsu">다음</button>
+                            <button onclick="joinInsu()" class="addInsu" style="font-size: 20px; width:100px; border-radius: 5px;">다음</button>
                         </div>
                         </div>
             </div>
@@ -374,6 +378,8 @@
     function updateSelectedInsurances() {
         var selectedInsurancesDiv = document.getElementById('selectedInsurances');
         selectedInsurancesDiv.innerHTML = '';
+        selectedInsurancesDiv.style.cssText = 'display: flex; box-shadow: 1px 1px 12px 0px rgb(0 0 0 /20%);';
+
 
         var totalPremium = 0;
 
@@ -393,7 +399,10 @@
         });
         var totalInsuFee = document.getElementById('totalInsuFee');
         var totalPremiumDiv = document.createElement('div');
-        totalInsuFee.textContent = '추가 특약 보험금: ' + totalPremium + '원';
+        totalInsuFee.textContent = '특약 추가비용: ' + totalPremium + '원';
+        totalInsuFee.style.cssText = "display: flex;justify-content: center;font-size: 20px;";
+
+
 
         var insuFeeTD = document.querySelector('.insuFeeContent td');
         // var currentPremium = parseFloat(insuFeeTD.textContent.replace(/\D+/g, ''));

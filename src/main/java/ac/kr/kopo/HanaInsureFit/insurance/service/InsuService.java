@@ -29,5 +29,8 @@ public interface InsuService {
     List<PointTable> getPoint(String customerID);
     void insertPointFood(HashMap<String, Object> paramMap);
     void insertPointInbody(HashMap<String, Object> paramMap);
+    void updatePoint(int pointValue);
+
+
 
 }

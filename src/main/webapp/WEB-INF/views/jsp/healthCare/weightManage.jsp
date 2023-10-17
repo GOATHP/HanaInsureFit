@@ -568,7 +568,7 @@
             myBarChart.update();
         }
         function addMeal() {
-
+            alert('식사 등록이 완료되었습니다.');
             var mealTypeRadios = document.getElementsByName('mealType');
             var selectedMealType;
             for (var i = 0; i < mealTypeRadios.length; i++) {
@@ -662,6 +662,11 @@
                     barChartCalories = total_calories;
                     // foodNames 출력
                     console.log('foodNames:' + foodNames.length);
+                    document.querySelector('.section:nth-child(2) .ateFood').innerHTML = '';
+
+                    document.querySelector('.section:nth-child(1) .ateFood').innerHTML = '';
+
+                    document.querySelector('.section:nth-child(3) .ateFood').innerHTML = '';
 
                     for (var i = 0; i < foodNames.length; i++) {
                         //     foodNames[foodNames.length - 1].foodName
@@ -688,7 +693,7 @@
 
                             if (lunchSection.innerHTML.trim() !== '') {
                                 lunchSection.innerHTML += ', ';
-
+                                console.log("foodEntry" + foodEntry);
                             }
                             lunchSection.innerHTML += foodEntry;
                             // lunchSection.innerHTML += foodEntry;
@@ -1028,7 +1033,13 @@
     <div id="main">
         <main>
             <div class="navInfo">Main &nbsp&nbsp  > &nbsp&nbsp 건강관리 &nbsp&nbsp > &nbsp&nbsp  칼로리 관리</div>
-            <div class="calManageMoongoo">내 칼로리 관리</div>
+            <div style="display: flex;align-content: center;align-items: center;justify-content: center;
+                    margin-top: 20px;">
+                <div class="sideBarName" style="width: 100%; margin-bottom: 0px;">
+                    칼로리 관리
+                </div>
+            </div>
+            <div class="calManageMoongoo"></div>
             <div class="image-row" style="padding-bottom: 0px;">
                 <div class="image-column">
                     <img class="heart" style="width: 200px;height: 200px;" src="resources/static/image/heart_zero.png" alt="Heart Image">
@@ -1058,17 +1069,20 @@
             </div>
 
             <div class="container">
-                <div class="btn" onclick="toggleForm()">
+                <div class="btn" onclick="toggleForm()" style="
+    border-radius: 10px;
+    width:200px;
+">
                     <span>식사 입력</span>
                     <div class="dot"></div>
                 </div>
                 <div class="modal">
                     <div class="modal_body">
                         <div class="closeDiv">
-                        <button class="btn-close-popup">닫기</button>
+                        <button class="btn-close-popup" style="width:30px;">X</button>
                         </div>
-                    <div class="form-container">
-                    <h2>식사 입력 폼</h2>
+                    <div class="form-container" style="margin-top:0px;">
+                        <h2><div class="sideBarName">식사 입력 폼</div></h2>
                     <table class="foodTable">
                         <tr>
                     <th><label for="mealType">식사 시간대</label></th>
@@ -1085,7 +1099,7 @@
                         </tr>
                         <tr>
                             <th>
-                                <div class="foodColName">
+                                <div class="foodColName" style="margin:0px;">
                                     <label for="foodInput">음식 검색</label>
                                 </div>
                             </th>
@@ -1101,7 +1115,7 @@
                     </div>
 
                     </div>
-                    <button class="search-button" onclick="handleSearch()" style="margin-top: 30px;">추가</button>
+                    <button class="search-button" onclick="handleSearch()" style="border-radius: 10px; font-size: 16px; border:1px solid #00857E; margin-top: 30px;width: 100px;background-color: #00857E;">추가</button>
                     <ul class="food-list"></ul>
 <%--                    <div class = "search-food">--%>
                     <div class="foodColName">
@@ -1119,7 +1133,8 @@
                     </div>
                     </table>
                     <div class="addBtn">
-                        <button id="addMeal" onclick="addMeal()">등록</button>
+                        <button id="addMeal" onclick="addMeal()" style="margin-top: 30px;font-size: 16px;border:1px solid #00857E;width: 100px;background-color: #008485;
+                        border-radius: 10px;">등록</button>
                     </div>
                 </div>
                     </div>

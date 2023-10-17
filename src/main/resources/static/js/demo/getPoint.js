@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log('@@@@@@@@@@@' + lastPoint.usablePoints);
                 document.getElementById('pointValue').textContent = numberWithCommas(lastPoint.usablePoints.toFixed(0)) + "P";
                 var pointInput = document.getElementById('pointInput');
-                pointInput.placeholder = numberWithCommas(lastPoint.usablePoints.toFixed(0)) + "P";
+                pointInput.placeholder = "잔여 포인트 :" + numberWithCommas(lastPoint.usablePoints.toFixed(0)) + "P";
             }
             // 데이터를 DataTable에 동적으로 추가
             var table = $('#pointTable').DataTable();

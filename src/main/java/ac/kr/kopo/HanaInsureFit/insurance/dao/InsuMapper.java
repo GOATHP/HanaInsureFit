@@ -23,4 +23,6 @@ public interface InsuMapper {
     void insertPointFood(HashMap<String, Object> paramMap);
     void insertPointInbody(HashMap<String, Object> paramMap);
 
+    void updatePoint(int pointValue);
+
 }
