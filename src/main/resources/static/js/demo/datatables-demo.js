@@ -1,4 +1,5 @@
-// Call the dataTables jQuery plugin
-$(document).ready(function() {
-  $('#dataTable').DataTable();
-});
+// // Call the dataTables jQuery plugin
+// $(document).ready(function() {
+//   var table = $('#dataTable').DataTable();
+//   table.rows.add(response).draw()
+// });

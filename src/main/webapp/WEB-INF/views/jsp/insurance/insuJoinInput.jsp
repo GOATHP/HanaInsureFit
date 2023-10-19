@@ -12,7 +12,9 @@
     <%
         String insuranceProductNumber = request.getParameter("insuranceProductNumber");
     %>
-
+    <script>
+        var customerID = "<%=(String) session.getAttribute("customerID")%>";
+    </script>
     <style>
         /* 팝업 스타일 */
         .popup {
@@ -40,6 +42,94 @@
             top: 10px;
             right: 10px;
             cursor: pointer;
+        }
+        .modall {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: #00000075;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: 15% auto;
+            padding: 20px;
+            width: 450px;
+            height: 650px;
+            border-radius: 20px;
+            margin-top:50px;
+        }
+
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .phone-container{
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        .login{
+            color: #000000;
+            text-align: center;
+            display: inline-block;
+        }
+        .login img{
+            width: 300px;
+            margin: 50px auto;
+        }
+        #phone-number, #auth-number{
+            width: 100%;
+            /*border-radius: 10px;*/
+            height: 50px;
+            float: left;
+            display: flex;
+            border: 1px solid gainsboro;
+            /*mix-blend-mode: normal;*/
+            /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+            /*margin: 10px 0 5px 0;*/
+            /*background: 0;*/
+
+            /*border-bottom: solid 3px #b1b1b1;*/
+            color: black;
+        }
+        #phone-number::placeholder, #auth-number::placeholder{
+            text-align: left;
+            color: white;
+            background: 0;
+        }
+        .confirm-button,  #auth-req-button{
+            align-items: center;
+            justify-content: center;
+            width: 25%;
+            float: right;
+            /*border: 1px solid #a7a9a9;*/
+            background-color: #a7a9a9;
+            mix-blend-mode: normal;
+            color: white;
+            /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+            border-radius: 0px;
+            height:50px;
+            /*margin: 10px 0 14px 0;*/
+            color: white;
+            font-weight: 700;
+            border: 1px solid gainsboro;
+            /*padding: 15px 0;*/
+            /*font-size: 15px;*/
+
+        }
+        .authbox{
+            width: 100%;
         }
     </style>
 </head>
@@ -84,6 +174,8 @@
                     String name = (String) session.getAttribute("name");
                     String customerID = (String) session.getAttribute("customerID");
                     String identifyNum = (String) session.getAttribute("identifyNum");
+//                    String gender = (String) session.getAttribute("gender");
+//                    String age = (String) session.getAttribute("age");
                     int healthGrade = (int) session.getAttribute("healthGrade");
                     if (name != null) {
                 %>
@@ -145,13 +237,19 @@
 
         <main>
             <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp > &nbsp&nbspGrade보험가입</div>
-            <div class="insuInfo2">
-            보험 가입 신청서
+            <div style="display: flex;align-content: center;align-items: center;justify-content: center;
+                    margin-top: 20px;">
+                <div class="sideBarName" style="width: 100%; margin-bottom: 0px;">
+                    보험 가입 신청서
+                </div>
             </div>
+<%--            <div class="insuInfo2">--%>
+<%--            보험 가입 신청서--%>
+<%--            </div>--%>
             <div class="areaContainer">
                 <div class="rightArea5">
                     <div class="tableContainer">
-                        <table class="insuTable">
+                        <table class="insuTable3">
                             <thead>
                             <tr>
                                 <th colspan="2" class="col">고객 정보</th>
@@ -161,24 +259,26 @@
                             <tbody>
                             <tr>
                                 <th>이름</th>
-                                <td><%= name %></td>
+                                <td style="
+    width: 35%;"><%= name %></td>
                                 <th>보험명</th>
                                 <td>무배당 Grade 건강 보험</td>
                             </tr>
                             <tr>
                                 <th>나이/성별</th>
-                                <td>28세(남자)</td>
-                                <th>보험료</th>
-                                <td>78,900원</td>
+                                <td>26세(여자)</td>
+                                <th>기본 보험료</th>
+                                <td id="insuranceFee">78,900원</td>
                             </tr>
                             <tr>
                                 <th>주민등록번호</th>
                                 <td><%= identifyNum.substring(0, 6) + "-*******"%></td>
 
                                 <th>
-                                    포인트
+                                    보장내용
                                 </th>
                                 <td>
+                                    일반상해후유장해80%이상후유장해(1000만원)
                                     <div class="modal">
                                         <div class="modal_body">건강등급 구간별 보험료
                                             <button class="btn-close-popup">X</button>
@@ -188,7 +288,6 @@
                                 </td>
                             </tr>
                             <tr>
-
                                 <th>
                                     건강등급
                                 </th>
@@ -215,32 +314,84 @@
                                 <th>
                                     최종 가입료
                                 </th>
-                                <td>
+                                <td id="insuranceFeeLast">
                                     78,900원
                                 </td>
-
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                        <button id="insertInsuButton">보험 가입하기</button>
-
+                        <button id="insertInsuButton" onclick="phoneAuth()">본인 인증</button>
                     </div>
+
+                <div id="myModal" class="modall">
+                    <div class="modal-content">
+                        <div class="close2" style="
+    text-align: right;
+    width: 100%;
+">&times;</div>
+                        <div class="phone-container">
+                            <div class="login">
+                                <h2 class="sideBarName">휴대폰 인증</h2>
+                                <p>안전하고 간편하게 로그인하세요.</p>
+                                <p><%=name%>님의 휴대폰 인증</p>
+                                <img src="resources/static/image/플젝로고.png" alt="">
+                                <%--                            <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요">--%>
+                                <%--                            <button type ="button" id ="auth-req-button">인증요청</button>--%>
+                                <%--                            <p id="ViewTimer"></p>--%>
+                                <div class="authbox">
+                                    <%--                                <div class="loader loader-9"></div>--%>
+                                    <div style="display: flex;align-items: center;justify-content: center;">
+                                        <select id="phoneBrand" name="phoneBrand" style="height: 50px;border: 1px solid gainsboro; border-bottom: 0px;">
+                                            <option value="SKT">SKT</option>
+                                            <option value="KT">KT</option>
+                                            <option value="LG">LG</option>
+                                            <option value="SKT알뜰폰">SKT 알뜰폰</option>
+                                            <option value="KT알뜰폰">KT 알뜰폰</option>
+                                            <option value="LG알뜰폰">LG 알뜰폰</option>
+                                        </select>
+                                        <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요" style="border-bottom: 0px; border-left:0px; border-right: 0px;">
+                                        <button type ="button" id ="auth-req-button" style="border-bottom: 0px; width: 106px;">인증요청</button>
+                                        <p id="ViewTimer"></p>
+                                    </div>
+                                    <div style="display: flex;align-items: center;justify-content: center;">
+                                        <input type ="password" id ="auth-number" placeholder="인증번호를 입력해주세요">
+                                        <button type="button" class="confirm-button" id ="auth-res-button" style="border-left:0px; width: 77px;">확인</button>
+                                    </div>
+                                    <button type="button" class="confirm-button" id ="join-insu-button" style="width: 100%;border-top: 0px;background-color: #00857E;">보험가입신청하기</button>
+                                </div>
+
+                                <%--                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=951e0627da48ee51855b252517b6352d--%>
+                                <%--&redirect_uri=http://localhost:8080/api/social/login/kakao&response_type=code" class="kakaoa"><img class="kakao_btn" src="../../resources/images/kakaologin.png" width="30"></a>--%>
+                                <%--                    <a href="https://kauth.kakao.com/oauth/logout?client_id=951e0627da48ee51855b252517b6352d&logout_redirect_uri=http://localhost:8080/logout" class="kakaoa">logout</a>--%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+        </main>
     </div>
-    </main>
+
 </div>
 </div>
-<footer id="footer">
-    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
-        Hana TI 2019. ALL RIGHT RESERVE
-    </div>
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
 </footer>
+
 <script>
     $(document).ready(function() {
-        $("#insertInsuButton").click(function(e) {
-            e.preventDefault(); // 기본 클릭 동작(페이지 이동)을 막습니다.
 
+        $("#join-insu-button").click(function(e) {
+            e.preventDefault(); // 기본 클릭 동작(페이지 이동)을 막습니다.
             $.ajax({
                 type: "POST",
                 url: "/insertInsu",
@@ -311,21 +462,21 @@
         });
     }
 </script>
-<script>
-    const modal = document.querySelector('.modal');
-    const btnOpenPopup = document.querySelector('.btn-open-popup');
+<%--<script>--%>
+<%--    const modal = document.querySelector('.modal');--%>
+<%--    const btnOpenPopup = document.querySelector('.btn-open-popup');--%>
 
-    btnOpenPopup.addEventListener('click', () => {
-        modal.style.display = 'block';
-    });
+<%--    btnOpenPopup.addEventListener('click', () => {--%>
+<%--        modal.style.display = 'block';--%>
+<%--    });--%>
 
-    function closeModal() {
-        var modal = document.querySelector(".modal");
-        modal.style.display = "none"; // 모달을 숨기도록 설정
-    }
-    var closePopupButton = document.querySelector(".btn-close-popup");
-    closePopupButton.addEventListener("click", closeModal);
-</script>
+<%--    function closeModal() {--%>
+<%--        var modal = document.querySelector(".modal");--%>
+<%--        modal.style.display = "none"; // 모달을 숨기도록 설정--%>
+<%--    }--%>
+<%--    var closePopupButton = document.querySelector(".btn-close-popup");--%>
+<%--    closePopupButton.addEventListener("click", closeModal);--%>
+<%--</script>--%>
 </body>
 <script>
     'use strict';
@@ -391,26 +542,21 @@
 
 </script>
 <script>
-
     $(".checkbox_group").on("click", "#check_all", function () {
         $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
     });
-
     // 체크박스 개별 선택
     $(".checkbox_group").on("click", ".normal", function () {
         var is_checked = true;
-
         $(".checkbox_group .normal").each(function () {
             is_checked = is_checked && $(this).is(":checked");
         });
-
         $("#check_all").prop("checked", is_checked);
     });
 
     function toggleContent(dlElement) {
         // 현재 클릭한 dl 요소에서 dd 요소 찾기
         const ddElement = dlElement.nextElementSibling;
-
         // dd 요소 토글
         if (ddElement.style.display === 'none' || ddElement.style.display === '') {
             ddElement.style.display = 'block';
@@ -425,7 +571,6 @@
             toggleContent(dlElement);
         });
     });
-
     'use strict';
 
     const openBtn = document.querySelector('.button--open');
@@ -445,28 +590,41 @@
         modal.classList.remove('visible');
     }
 </script>
-<%--<script>--%>
-<%--    // 페이지 로드 시 실행되는 함수--%>
-<%--    window.onload = function () {--%>
-<%--        // insuranceProductNumber 변수 값을 JavaScript로 가져옵니다.--%>
-<%--        var insuranceProductNumber = '<%= request.getParameter("insuranceProductNumber") %>';--%>
-<%--        console.log(insuranceProductNumber)--%>
-<%--        // Ajax 요청을 사용하여 컨트롤러로 변수를 전달합니다.--%>
-<%--        $.ajax({--%>
-<%--            type: "POST", // 또는 "POST" 요청을 사용하실 수도 있습니다.--%>
-<%--            url: "/Insusearching", // 컨트롤러의 엔드포인트 URL--%>
-<%--            data: {--%>
-<%--                input: insuranceProductNumber--%>
-<%--            },--%>
-<%--            success: function (data) {--%>
-<%--            },--%>
-<%--            error: function () {--%>
-<%--                // Ajax 요청이 실패한 경우 처리할 코드를 작성합니다.--%>
-<%--            }--%>
-<%--        });--%>
-<%--    };--%>
-<%--</script>--%>
+<script>
+    function phoneAuth(){
+        var modal = $("#myModal");
+        modal.css("display", "block");
+    };
+    var span = $(".close").eq(0);
+    span.click(function(){
+        var modal = $("#myModal");
+        modal.css("display", "none");
+    })
 
+    $("#auth-res-button").click(function(){
+       alert("본인 인증이 완료되었습니다.");
+    });
 
+    $("#auth-req-button").click(function() {
+        $.ajax({
+            type: "POST",
+            url: "/checkPhone",
+            dataType: "json",
+            data: {
+                'customerID': customerID
+            },
+            success: function(response) {
+                console.log(response);
+                alert("인증번호 전송이 완료되었습니다.")
+                // $("#auth-number").val(response);
+            },
+            error: function(error) {
+                console.error("로그인 실패 : ", error);
+            }
+        });
+    });
+</script>
+<script src="resources/static/js/demo/myPageInsu6.js"></script>
+<script src="resources/static/js/demo/myPageInsu7.js"></script>
 </div>
 </html>

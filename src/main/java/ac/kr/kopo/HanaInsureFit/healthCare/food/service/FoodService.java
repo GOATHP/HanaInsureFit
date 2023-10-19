@@ -16,7 +16,7 @@ public interface FoodService {
     List<FoodIngredients> getIngredients(String customerID);
     AvgIngredients getAvgIngre(String customerID);
     TargetIngre getTargetIngre(String customerID);
-    List<FoodNames> getFoodNames();
+    List<FoodNames> getFoodNames(String customerID);
     long getDietID();
     List<WeekCalories> getWeekCalories(String customerID);
     List<FoodNames> getFoodNames2(@Param("recordDate") String recordDate, @Param("customerID") String customerID);

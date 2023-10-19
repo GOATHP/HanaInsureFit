@@ -20,13 +20,34 @@
                )
     </insert>
 
+    <insert id="insertFriend">
+        INSERT INTO friends(friendID,customerID)
+        VALUES (
+                #{friendID},
+               #{customerID}
+                )
+    </insert>
+
+    <insert id="insertFriendReverse">
+        INSERT INTO friends(friendID, customerID)
+        VALUES (
+                   #{customerID},  -- friendID와 customerID 위치를 바꾸어 입력
+                   #{friendID}     -- friendID와 customerID 위치를 바꾸어 입력
+               )
+    </insert>
+
+    <select id="getFriendsCount" resultType="ac.kr.kopo.HanaInsureFit.member.vo.compareWith">
+        SELECT hc.name, hc.customerID
+        FROM hanacustomer hc
+                 JOIN friends f ON hc.customerID = f.friendID
+        WHERE f.customerID = #{customerID}
+    </select>
+
     <update id="updateInbodyInfo">
         UPDATE CustomerTargetDiet
         SET CALORIES = #{goalCalories}
         WHERE CUSTOMERID = #{customerID}
     </update>
-
-
     <select id="getAllMember" parameterType="ac.kr.kopo.HanaInsureFit.member.vo.Member"
             resultType="ac.kr.kopo.HanaInsureFit.member.vo.Member">
         SELECT *
@@ -96,4 +117,33 @@
                         VALUES (health_grade_sequence.NEXTVAL, #{customerID}, #{healthGrade}, TO_DATE(SYSDATE, 'YY/MM/DD'))
     </update>
 
+    <select id="getMyGrade" resultType="ac.kr.kopo.HanaInsureFit.member.vo.MyGrade">
+        SELECT hc.NAME, hg.CUSTOMERID, hg.HEALTHGRADE
+        FROM hanacustomer hc
+                 INNER JOIN healthgrade hg ON hc.CUSTOMERID = hg.CUSTOMERID
+        WHERE hc.CUSTOMERID = #{customerID}
+    </select>
+
+    <select id="getGradeChart" resultType="ac.kr.kopo.HanaInsureFit.member.vo.GradeChart">
+        SELECT HEALTHGRADE, COUNT(*) AS GRADE_COUNT
+        FROM hanacustomer
+        GROUP BY HEALTHGRADE
+        order by healthgrade
+    </select>
+
+    <select id="getLineChart" resultType="ac.kr.kopo.HanaInsureFit.member.vo.AdminLineData">
+        SELECT
+            TO_CHAR(JOINDATE, 'YY/MM/DD') as JOINDATE,
+            COUNT(*) AS CUSTOMER_COUNT
+        FROM
+            hanacustomer  -- Replace with the actual table name
+        GROUP BY
+            JOINDATE
+        ORDER BY
+            JOINDATE
+    </select>
+    
+    <select id="getCheckUp" resultType="ac.kr.kopo.HanaInsureFit.member.vo.CheckUp">
+        SELECT * FROM HEALTHCHECK WHERE CUSTOMERID=#{customerID}
+    </select>
 </mapper>

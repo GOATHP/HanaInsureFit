@@ -121,7 +121,7 @@ public class FoodController {
     @ResponseBody
     @PostMapping("/loadData")
     public ResponseEntity<String> loadData(@RequestParam("customerID") String customerID) {
-        List<FoodNames> foodNames = foodService.getFoodNames();
+        List<FoodNames> foodNames = foodService.getFoodNames(customerID);
         List<FoodNames> foodNames2 = foodService.getSelectedFoodNames(customerID);
         List<FoodIngredients> ingredients = foodService.getIngredients(customerID);
         List<FoodIngredients> ingredients2 = foodService.getSelectedIngredients(customerID);
@@ -192,7 +192,7 @@ public class FoodController {
         paramMap.put("customerID", customerID);
         System.out.println("매개변수 확인 => " + paramMap);
         foodService.insertCustomerDiet(paramMap);
-        List<FoodNames> foodNames = foodService.getFoodNames();
+        List<FoodNames> foodNames = foodService.getFoodNames(customerID);
         List<FoodNames> foodNames2 = foodService.getSelectedFoodNames(customerID);
         List<FoodIngredients> ingredients = foodService.getIngredients(customerID);
         List<FoodIngredients> ingredients2 = foodService.getSelectedIngredients(customerID);

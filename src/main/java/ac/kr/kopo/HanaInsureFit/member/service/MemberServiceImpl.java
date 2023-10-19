@@ -1,6 +1,6 @@
 package ac.kr.kopo.HanaInsureFit.member.service;
 
-import ac.kr.kopo.HanaInsureFit.member.vo.Member;
+import ac.kr.kopo.HanaInsureFit.member.vo.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +8,6 @@ import java.util.Random;
 
 
 import ac.kr.kopo.HanaInsureFit.member.dao.MemberMapper;
-import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInfo;
-import ac.kr.kopo.HanaInsureFit.member.vo.MyPageInsu;
-import ac.kr.kopo.HanaInsureFit.member.vo.UserGrade;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.apache.ibatis.annotations.Param;
@@ -78,8 +75,8 @@ public class MemberServiceImpl implements MemberService {
         Message coolsms = new Message(apiKey, api_secret);
         String authenticationCode = createAuthenticationCode();
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("from", phone);
-        params.put("to", phone);
+        params.put("from", "01093660469");
+        params.put("to", "01033190457");
         params.put("type", "SMS");
         params.put("text", "[Hana InsureFit] 서비스 이용 인증 번호는"+authenticationCode+"입니다.");
         params.put("app_version", "jcmarket app 1.1");
@@ -100,5 +97,33 @@ public class MemberServiceImpl implements MemberService {
             authenticationCode+=randCode;
         }
         return authenticationCode;
+    }
+
+    public void insertFriend(HashMap<String, String> paramMap){
+        memberMapper.insertFriend(paramMap);
+    }
+
+    public List<compareWith> getFriendsCount(String customerID){
+
+        return memberMapper.getFriendsCount(customerID);
+    }
+
+    public MyGrade getMyGrade(String customerID){
+        return memberMapper.getMyGrade(customerID);
+    }
+
+    public List<GradeChart> getGradeChart(){
+        return memberMapper.getGradeChart();
+    };
+
+    public List<AdminLineData> getLineChart(){
+        return memberMapper.getLineChart();
+    };
+
+    public CheckUp getCheckUp(String customerID){
+        return memberMapper.getCheckUp(customerID);
+    }
+    public void insertFriendReverse(HashMap<String, String> paramMap){
+        memberMapper.insertFriendReverse(paramMap);
     }
 }

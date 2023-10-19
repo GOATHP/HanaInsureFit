@@ -56,6 +56,7 @@
             </ul>
         </div>
         <div class="menu">
+
             <nav>
                 <div class="logo">
                     <a href="/">
@@ -73,9 +74,21 @@
     </div>
 </header>
 <div id="main3">
-    <div class ="slogan">
+    <div style="
+                    display: flex;
+                    align-content: center;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 20px;
+                    ">
+        <div class="sideBarName" style="width: 200px; margin-top:20px; margin-bottom: 0px; text-align: center;">
+            서비스 소개
+        </div>
+    </div>
+    <div class ="slogan" style="margin-top:20px;">
         <img src="resources/static/image/슬로건.png" width="70%">
-        <div class="title">
+        <div class="title" >
             <h1>하나 InsureFit</h1>
             <p>건강할수록 더 낮은 보험료로 든든하게!<br>
                 하나 Grade 건강보험으로 합리적인 보험료 내고 동일한 보장받으세요. </p>
@@ -99,7 +112,7 @@
         <div class="benefit">
             <h2>3. 보험료 할인 혜택</h2>
             <p>우리와 함께하는 회원들은 건강한 체중 관리 성공으로 얻을 수 있는 혜택을 누릴 수 있습니다.<br>
-                "하나 InsureFit"은 다양한 협력 보험사와의 제휴를 통해 건강한 라이프스타일을
+                "하나 InsureFit"은 다양한 하나손해보험과의 제휴를 통해 건강한 라이프스타일을
                 증명한 회원들에게 보험료 할인 혜택을 제공합니다.</p>
         </div>
         <div class="benefit">

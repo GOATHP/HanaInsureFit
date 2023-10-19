@@ -8,7 +8,208 @@
     <title>하나 InsureFit</title>
     <link href="resources/static/css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /*html,*/
+        /*body {*/
+        /*    padding: 0;*/
+        /*    margin: 0;*/
+        /*}*/
 
+        /*html,*/
+        /*body,*/
+        /*input,*/
+        /*button,*/
+        /*textarea {*/
+        /*    !*font: 100%/1.4 "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;*!*/
+        /*}*/
+        /*.wrapper {*/
+        /*    min-width: 290px;*/
+        /*    max-width: 800px;*/
+        /*    padding-left: 1em;*/
+        /*    padding-right: 1em;*/
+        /*    margin-left: auto;*/
+        /*    margin-right: auto;*/
+        /*}*/
+
+        .text-giga { line-height: 1; font-size: 24px; font-weight: 300; }
+        .pad-top    { padding-top: 1em; }
+        .space-out { margin: 100px; }
+
+
+        /*-------------------------------------------
+            $ Loaders
+        -------------------------------------------*/
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 3em;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+        }
+        .loader,
+        .loader:before,
+        .loader:after {
+            animation: 1s infinite ease-in-out;
+        }
+        .loader:before,
+        .loader:after {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .loader-9,
+        .loader-10 {
+            background-color: white;
+            animation: loader9 0.4s infinite linear;
+        }
+        .loader-10 {
+            animation: loader10 60s infinite ease-in-out;
+        }
+        .loader-9:before,
+        .loader-10:before {
+            content: '';
+            width: 80%;
+            height: 80%;
+            background-color: white;
+            top: 10%;
+            left: 10%;
+            box-shadow: 5px -3px 0 rgba(255,100,100,0.7),
+            5px 5px 0 rgba(100,255,100,0.7),
+            -3px 5px 0 rgba(100,100,255,0.7),
+            -5px -5px 0 rgba(240,240,120,0.7);
+        }
+        .loader-9:after,
+        .loader-10:after {
+            content: '';
+            border: 3px solid white;
+            z-index: 2;
+            top: -3px;
+            left: -3px;
+        }
+
+        @keyframes loader9 {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes loader10 {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360000deg); }
+        }
+        .modall {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: #00000075;
+        }
+        .modall2 {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: #00000075;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: 15% auto;
+            padding: 20px;
+            width: 450px;
+            height: 650px;
+            border-radius: 20px;
+            margin-top:100px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close2 {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .phone-container{
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        .login{
+            color: #000000;
+            text-align: center;
+            display: inline-block;
+        }
+        .login img{
+            width: 300px;
+            margin: 50px auto;
+        }
+        #phone-number, #auth-number{
+            width: 100%;
+            /*border-radius: 10px;*/
+            height: 50px;
+            float: left;
+            display: flex;
+            border: 1px solid gainsboro;
+            /*mix-blend-mode: normal;*/
+            /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+            /*margin: 10px 0 5px 0;*/
+            /*background: 0;*/
+
+            /*border-bottom: solid 3px #b1b1b1;*/
+            color: black;
+        }
+        #phone-number::placeholder, #auth-number::placeholder{
+            text-align: left;
+            color: white;
+            background: 0;
+        }
+        .confirm-button,  #auth-req-button{
+            align-items: center;
+            justify-content: center;
+            width: 25%;
+            float: right;
+            /*border: 1px solid #a7a9a9;*/
+            background-color: #a7a9a9;
+            mix-blend-mode: normal;
+            color: white;
+            /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+            border-radius: 0px;
+            height:50px;
+            /*margin: 10px 0 14px 0;*/
+            color: white;
+            font-weight: 700;
+            border: 1px solid gainsboro;
+            /*padding: 15px 0;*/
+            /*font-size: 15px;*/
+
+        }
+        .authbox{
+            width: 100%;
+        }
+    </style>
     <script>
         function collapse(element) {
             var before = document.getElementsByClassName("active")[0]               // 기존에 활성화된 버튼
@@ -100,7 +301,7 @@
 <div class="mainSideContainer">
     <div class="sideBar">
         <div class="sideBarName">
-            보험추천
+            Grade보험
         </div>
         <div class="sideBarContents">
             <a href="/recommendInsu" class="sideBarTabClicked">
@@ -125,6 +326,11 @@
 
             <div class="areaContainer" style="flex-direction: column;
                  align-items: center";>
+                <div style="display: flex;align-content: center;align-items: center;justify-content: center;">
+                    <div class="sideBarName" style="width:300px; text-align: center;">
+                        건강등급 산출/갱신
+                    </div>
+                </div>
                 <div style="display: flex">
                     <img src="resources/static/image/Grades.png" style="width: 520px;height: 250px;margin-top: 20px;">
                 <div class="insuMoongoo"><br>
@@ -143,7 +349,7 @@
 <%--                    <div id="gradeCalculation">--%>
 
                 <a href="#" id="recommendInsuLink">
-                    <div class="box" style="justify-content: center;align-items: center;color:#fff;margin: 0 auto; width: 160px; height: 80px">건강등급 산출</div>
+                    <div class="box" style="justify-content: center;align-items: center;color:#fff;margin: 0 auto; width: 160px; height: 80px" onclick="phoneAuth2()">건강등급 산출</div>
                 </a>
 
                 <%--                        <table>--%>
@@ -171,7 +377,7 @@
 <%--                            </tr>--%>
 <%--                        </table>--%>
                     </div>
-<%--                </div>--%>
+
             <br>
             <h2>보장내용</h2>
             <button type="button" class="collapsible" onclick="collapse(this);">건강등급이란?</button>
@@ -189,7 +395,7 @@
                 <li class="txt_dot">건강등급은 보험료 할인을 제공하기 위해 사용하는 건강 지표로,
                     계약인수심사기준으로는 활용되지 않습니다.</li>
                 </ul>
-                <div class="img mt30"><img src="resources/static/image/건강등급산출과정.jpg"></div>
+                <div class="img mt30"><img src="resources/static/image/건강등급산출과정.jpg" style="width:100%;"></div>
                 <p class="stit">[건강등급별 보험료 할인율]</p>
                 <table class="insuTable">
                     <colgroup>
@@ -252,7 +458,7 @@
                     </colgroup>
                     <thead>
                     <tr>
-                        <th colspan="3" scope="col">구 분</th>
+                        <th colspan="3" scope="col">구분</th>
                         <th scope="col">보험기간</th>
                         <th scope="col">보험료 납입기간</th>
                         <th scope="col">피보험자 가입나이</th>
@@ -570,15 +776,90 @@
                     </ul></div>
                 </p>
             </div>
+            <div id="myModal2" class="modall2">
+                <div class="modal-content">
+                    <span class="close2">&times;</span>
+                    <div class="phone-container">
+                        <div class="login">
+                            <h2 class="sideBarName">건강검진이용정보동의</h2>
+                            <p style="
+    font-size: 18px;
+">고객님의 국민건강보험공단 건강검진결과를 통해</p>
+                            <p style="
+    font-size: 18px;
+">건강등급을 산출하고자 합니다.<br>
+                            <p style="
+    font-size: 18px;
+"> 이를 위해 휴대폰 본인인증을 해주세요.</p>
+                            <img src="https://api.linkareer.com/attachments/38236" alt="">
+                            <%--                            <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요">--%>
+                            <%--                            <button type ="button" id ="auth-req-button">인증요청</button>--%>
+                            <%--                            <p id="ViewTimer"></p>--%>
+
+                                <button type="button" class="confirm-button" style="width: 100%;border-top: 0px; font-size:16px; background-color: #00857E;" onclick="phoneAuth()">본인인증하기</button>
+                            </div>
+                </div>
+                </div>
+            </div>
+
+                <div id="myModal" class="modall">
+                <div class="modal-content">
+                    <span class="close2">&times;</span>
+                    <div class="phone-container">
+                        <div class="login">
+                            <h2 class="sideBarName">휴대폰 인증</h2>
+                            <p>안전하고 간편하게 로그인하세요.</p>
+                            <p><%=name%>님의 휴대폰 인증</p>
+                            <img src="resources/static/image/플젝로고.png" alt="">
+<%--                            <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요">--%>
+<%--                            <button type ="button" id ="auth-req-button">인증요청</button>--%>
+<%--                            <p id="ViewTimer"></p>--%>
+                            <div class="authbox">
+<%--                                <div class="loader loader-9"></div>--%>
+                                <div style="display: flex;align-items: center;justify-content: center;">
+                                <select id="phoneBrand" name="phoneBrand" style="height: 50px;border: 1px solid gainsboro; border-bottom: 0px;">
+                                    <option value="SKT">SKT</option>
+                                    <option value="KT">KT</option>
+                                    <option value="LG">LG</option>
+                                    <option value="SKT알뜰폰">SKT 알뜰폰</option>
+                                    <option value="KT알뜰폰">KT 알뜰폰</option>
+                                    <option value="LG알뜰폰">LG 알뜰폰</option>
+                                </select>
+                                <input type ="tel" id ="phone-number" name="phone" placeholder="전화번호를 입력해주세요" style="border-bottom: 0px; border-left:0px; border-right: 0px;">
+                                <button type ="button" id ="auth-req-button" style="border-bottom: 0px; width: 106px;">인증요청</button>
+                                <p id="ViewTimer"></p>
+                                </div>
+                                    <div style="display: flex;align-items: center;justify-content: center;">
+                                <input type ="password" id ="auth-number" placeholder="인증번호를 입력해주세요">
+                                <button type="button" class="confirm-button" id ="auth-res-button" style="border-left:0px; width: 77px;">확인</button>
+                                    </div>
+                                <button type="button" class="confirm-button" id ="join-insu-button" style="width: 100%;border-top: 0px;background-color: #00857E;">건강등급 산출하기</button>
+                            </div>
+
+                            <%--                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=951e0627da48ee51855b252517b6352d--%>
+                            <%--&redirect_uri=http://localhost:8080/api/social/login/kakao&response_type=code" class="kakaoa"><img class="kakao_btn" src="../../resources/images/kakaologin.png" width="30"></a>--%>
+                            <%--                    <a href="https://kauth.kakao.com/oauth/logout?client_id=951e0627da48ee51855b252517b6352d&logout_redirect_uri=http://localhost:8080/logout" class="kakaoa">logout</a>--%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
 
 </div>
-<footer id="footer">
-    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
-        Hana TI 2019. ALL RIGHT RESERVE</div>
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
 </footer>
+
 <script>
     function loginFormFunc() {
         console.log("꿀");
@@ -633,6 +914,74 @@
     }
 </script>
 <script src="resources/static/vendor/sendCustomerIDToAWS/sendCustomerID.js"></script>
+<script>
+    function phoneAuth(){
+        var modal = $("#myModal");
+        modal.css("display", "block");
+        var modal2 = $("#myModal2");
+        modal2.css("display", "none");
+    };
+    var span = $(".close").eq(0);
+    span.click(function(){
+        var modal = $("#myModal");
+        modal.css("display", "none");
+    })
+    $("#auth-res-button").click(function(){
+        alert("본인 인증이 완료되었습니다.");
+    });
+    $("#auth-req-button").click(function() {
+        $.ajax({
+            type: "POST",
+            url: "/checkPhone",
+            dataType: "json",
+            data: {
+                'customerID': customerID
+            },
+            success: function(response) {
+                console.log(response);
+                alert("인증번호 전송이 완료되었습니다.")
+                // $("#auth-number").val(response);
+            },
+            error: function(error) {
+                console.error("로그인 실패 : ", error);
+            }
+        });
+    });
+</script>
+<script>
+    function phoneAuth2(){
+        var modal = $("#myModal2");
+        modal.css("display", "block");
+    };
+    var span = $(".close2").eq(0);
+    span.click(function(){
+        var modal = $("#myModal2");
+        modal.css("display", "none");
+    });
+    // $("#auth-res-button").click(function(){
+    //     alert("본인 인증이 완료되었습니다.");
+    // });
+    // $("#auth-req-button").click(function() {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/checkPhone",
+    //         dataType: "json",
+    //         data: {
+    //             'customerID': customerID
+    //         },
+    //         success: function(response) {
+    //             console.log(response);
+    //             alert("인증번호 전송이 완료되었습니다.")
+    //             // $("#auth-number").val(response);
+    //         },
+    //         error: function(error) {
+    //             console.error("로그인 실패 : ", error);
+    //         }
+    //     });
+    // });
+
+</script>
+
 </body>
 
 </html>

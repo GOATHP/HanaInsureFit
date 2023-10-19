@@ -62,7 +62,7 @@
         SELECT f.foodName, fdm.mealCode
         FROM food f
         INNER JOIN foodDietMapping fdm ON f.foodID = fdm.foodID
-        WHERE fdm.foodID = f.foodID and recorddate = TO_CHAR(SYSDATE, 'yy/MM/dd')
+        WHERE fdm.foodID = f.foodID and recorddate = TO_CHAR(SYSDATE, 'yy/MM/dd') and customerID = #{customerID}
         ORDER BY mappingID
     </select>
 

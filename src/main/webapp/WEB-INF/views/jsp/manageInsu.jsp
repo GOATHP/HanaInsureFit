@@ -129,13 +129,20 @@
         });
     });
 </script>
-<body id="page-top">
+<body id="page-top" style="
+    background-color: #F9F9FB;
+">
 
 <!-- Page Wrapper -->
-<div id="wrapper">
-
+<div id="wrapper" style="
+    width: 1500px;
+    margin: 0 auto;
+">
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="
+    height: 300px;
+    min-height: 0px;
+">
 
         <!-- Sidebar - Brand -->
         <!-- Sidebar - Brand -->
@@ -151,24 +158,29 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/dashboardMypage">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>대시보드</span></a>
+            <a class="nav-link" href="/dashboardAdmin">
+                <span style="
+    font-size: 20px;
+">대시보드</span></a>
         </li>
         <!-- Divider -->
         <hr class="sidebar-divider">
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link" href="/manageInsu">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>상품관리</span></a>
+
+                <span style="
+    font-size: 20px;
+">상품관리</span></a>
         </li>
         <hr class="sidebar-divider d-none d-md-block">
         <!-- Nav Item - Charts -->
         <li class="nav-item">
             <a class="nav-link" href="/manageMember">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>회원관리</span></a>
+
+                <span style="
+    font-size: 20px;
+">회원관리</span></a>
         </li>
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -177,10 +189,6 @@
         <!-- Divider -->
 
         <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
     </ul>
     <!-- End of Sidebar -->
 

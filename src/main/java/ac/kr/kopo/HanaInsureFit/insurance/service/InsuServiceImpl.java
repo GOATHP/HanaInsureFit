@@ -1,13 +1,12 @@
 package ac.kr.kopo.HanaInsureFit.insurance.service;
 
 import ac.kr.kopo.HanaInsureFit.insurance.dao.InsuMapper;
-import ac.kr.kopo.HanaInsureFit.insurance.vo.Insurance;
+import ac.kr.kopo.HanaInsureFit.insurance.vo.*;
 
-import ac.kr.kopo.HanaInsureFit.insurance.vo.insuByCustID;
-import ac.kr.kopo.HanaInsureFit.insurance.vo.insuNum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,5 +42,35 @@ public class InsuServiceImpl implements InsuService {
 
         return insuMapper.insuByCustIDList(insuranceProductNumber, customerID);
     }
+
+    @Override
+    public List<specialAgree> getInsuSpecial() {
+        return insuMapper.getInsuSpecial();
+    }
+
+    @Override
+    public void insertInsuMapping(HashMap<String, Object> paramMap) {
+        insuMapper.insertInsuMapping(paramMap);
+    }
+    @Override
+    public InsuMapping getSpecialInsuMapping(String customerID){
+        return insuMapper.getSpecialInsuMapping(customerID);
+    }
+    @Override
+    public List<PointTable> getPoint(String customerID){
+        return insuMapper.getPoint(customerID);
+    };
+    @Override
+    public void insertPointFood(HashMap<String, Object> paramMap){
+        insuMapper.insertPointFood(paramMap);
+    };
+    @Override
+    public void insertPointInbody(HashMap<String, Object> paramMap){
+        insuMapper.insertPointInbody(paramMap);
+    };
+    @Override
+    public void updatePoint(int pointValue){
+        insuMapper.updatePoint(pointValue);
+    };
 }
 

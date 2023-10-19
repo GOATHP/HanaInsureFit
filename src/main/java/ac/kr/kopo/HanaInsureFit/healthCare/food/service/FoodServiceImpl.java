@@ -114,8 +114,8 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.getTargetIngre(customerID);
     }
 
-    public List<FoodNames> getFoodNames(){
-        return foodMapper.getFoodNames();
+    public List<FoodNames> getFoodNames(String customerID){
+        return foodMapper.getFoodNames(customerID);
     }
 
     @Override

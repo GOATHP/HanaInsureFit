@@ -10,7 +10,13 @@
     <link href="resources/static/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<style>
+    .insuTable td {
+        font-size: 11px !important;
+    }
+</style>
 <script>
+    var customerID = "<%=(String) session.getAttribute("customerID")%>";
     $(document).ready(function () {
         // AllInsusearching 요청을 보내고 서버로부터 보험 정보를 받아옵니다.
         $.ajax({
@@ -21,31 +27,31 @@
                 // 서버로부터 받은 데이터를 처리합니다.
                 console.log("성공")
                 console.log(response)
-                    // 보험 정보를 화면에 출력하거나 다른 처리를 수행합니다.
-                    var insuList = response
-                    var insuranceData = [];
+                // 보험 정보를 화면에 출력하거나 다른 처리를 수행합니다.
+                var insuList = response
+                var insuranceData = [];
 
-                    for (var i = 0; i < insuList.length; i++) {
-                        var insurance = insuList[i];
-                        var insuranceObj = {
-                            insuContent: insurance.insuContent,
-                            insuranceCompanyCode: insurance.insuranceCompanyCode,
-                            insuranceCompanyName: insurance.insuranceCompanyName,
-                            insuranceFee: insurance.insuranceFee,
-                            insuranceProductName: insurance.insuranceProductName,
-                            insuranceProductNumber: insurance.insuranceProductNumber,
-                            maxAgeAtRegistration: insurance.maxAgeAtRegistration,
-                            minAgeAtRegistration: insurance.minAgeAtRegistration,
-                            insuranceStartDate : insurance.insuranceStartDate,
-                            insuranceEndDate : insurance.insuranceEndDate
-                        };
-                        insuranceData.push(insuranceObj);
-                        console.log(insuranceData)
-                    }
+                for (var i = 0; i < insuList.length; i++) {
+                    var insurance = insuList[i];
+                    var insuranceObj = {
+                        insuContent: insurance.insuContent,
+                        insuranceCompanyCode: insurance.insuranceCompanyCode,
+                        insuranceCompanyName: insurance.insuranceCompanyName,
+                        insuranceFee: insurance.insuranceFee,
+                        insuranceProductName: insurance.insuranceProductName,
+                        insuranceProductNumber: insurance.insuranceProductNumber,
+                        maxAgeAtRegistration: insurance.maxAgeAtRegistration,
+                        minAgeAtRegistration: insurance.minAgeAtRegistration,
+                        insuranceStartDate: insurance.insuranceStartDate,
+                        insuranceEndDate: insurance.insuranceEndDate
+                    };
+                    insuranceData.push(insuranceObj);
+                    console.log(insuranceData)
+                }
 
-                    // 데이터를 테이블에 추가
-                    appendInsuranceDataToTable(insuranceData);
-
+                // 데이터를 테이블에 추가
+                appendInsuranceDataToTable(insuranceData);
+                getInsuData(customerID);
             },
             error: function (xhr, status, error) {
                 console.error("서버 오류: " + error);
@@ -63,8 +69,9 @@
         headerRow.append("<th>보험명</th>");
         headerRow.append("<th>회사명</th>");
         headerRow.append("<th>보장 내용</th>");
-        headerRow.append("<th>보험비</th>");
+        headerRow.append('<th>보험비</th>');
         headerRow.append("<th>가입 기간</th>");
+        headerRow.append("<th>특약 내용</th>");
         tbody.append(headerRow);
 
         // insuranceData 배열을 순회하면서 각 보험 정보를 테이블에 추가합니다.
@@ -78,12 +85,13 @@
             newRow.append("<td>" + insurance.insuranceProductName + "</td>");
             newRow.append("<td>" + insurance.insuranceCompanyName + "</td>");
             newRow.append("<td>" + insurance.insuContent + "</td>");
-            newRow.append("<td>" + insurance.insuranceFee + "원(월)" + "</td>");
-            newRow.append("<td>" + insurance.insuranceStartDate +"~" + insurance.insuranceEndDate + "</td>");
-
+            newRow.append('<td class="insuFee">' + (insurance.insuranceFee * 0.8).toFixed(0) + '원(월)</td>');
+            newRow.append("<td>" + insurance.insuranceStartDate + "~" + insurance.insuranceEndDate + "</td>");
+            newRow.append('<td class="specialContent">' + "이얏호" + '</td>');
             tbody.append(newRow);
         }
     }
+
     function redirectToInsuJoin(insuranceProductNumber) {
         // You can perform any desired actions here before redirecting
         // Redirect to the '/insuJoin' page with the insurance product number as a query parameter
@@ -130,13 +138,17 @@
                     String customerID = (String) session.getAttribute("customerID");
                     if (name != null) {
                 %>
-                <li><div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div></li>
+                <li>
+                    <div class="welcomeMent"><%= name %> (<%=customerID%>)님 환영합니다</div>
+                </li>
                 <li><a href="javascript:void(0);" onclick="logout();">로그아웃</a></li>
                 <%
                 } else {
                 %>
                 <li class="item"><a href="/joinMember">회원가입</a></li>
-                <li class="item"><div class="loginButton">로그인</div></li>
+                <li class="item">
+                    <div class="loginButton">로그인</div>
+                </li>
                 <%
                     }
                 %>
@@ -169,33 +181,32 @@
             <a href="/recommendInsu" class="sideBarTab">
                 건강등급
             </a>
-            <%--            <a href="/insuGradeSubmit" class="sideBarTab">--%>
-            <%--                건강등급등록--%>
-            <%--            </a>--%>
             <a href="/insuList" class="sideBarTabClicked">
                 Grade보험목록
             </a>
-            <%--            <a href="/insuJoin" class="sideBarTabClicked">--%>
-            <%--                Grade보험가입--%>
-            <%--            </a>--%>
-            <%--            <a href="/insuRead" class="sideBarTab">--%>
-            <%--                내 건강등급보험 조회--%>
-            <%--            </a>--%>
+
         </div>
     </div>
     <div id="main">
         <main>
-            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp > &nbsp&nbspGrade보험가입</div>
-
+            <div class="navInfo">Main &nbsp&nbsp> &nbsp&nbspGrade보험 > &nbsp&nbspGrade보험목록&nbsp&nbsp >
+                &nbsp&nbspGrade보험가입
+            </div>
+            <div style="display: flex;align-content: center;align-items: center;justify-content: center;
+                    margin-top: 20px;">
+                <div class="sideBarName" style="width: 100%; margin-bottom: 0px;">
+                    보험 가입 신청 완료!
+                </div>
+            </div>
             <div class="insuMoongoo"><br>
                 <div class="insuInfo">
-                    <span class="colorText">보험 가입 완료 !</span> <br>하나 InsureFit과 함께<br> <span class="colorText">보험료 할인</span>받으세요!
+                    <br>하나 InsureFit과 함께<br> <span class="colorText">보험료 할인</span>받으세요!
                 </div>
             </div>
             <div class="areaContainer">
-                <div class="rightArea6">
+                <div class="rightArea6" style="width: 1050px;">
                     <div class="insuInfo3">
-                        <%= name %>님 보험 목록
+                        <%= name %>님 신청 보험 목록
 
 
                     </div>
@@ -257,6 +268,7 @@
             }
         });
     }
+
     function logout() {
         $.ajax({
             type: "POST",
@@ -279,6 +291,5 @@
     }
 </script>
 </body>
-
-</div>
+<script src="resources/static/js/demo/myPageInsu9.js"></script>
 </html>

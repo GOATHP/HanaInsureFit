@@ -10,6 +10,22 @@
     <link href="resources/static/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<style>
+    .insuTable th{
+        border: 1px solid #001e1f;
+        border-collapse : collapse;
+        padding: 10px 5px;
+        background-color: #009490;
+        color:white;
+    }
+    .insuTable td{
+        border: 1px solid #001e1f;
+        border-collapse : collapse;
+        padding: 10px 5px;
+        font-size: 12px;
+        text-align: left;
+    }
+</style>
 <script>
     $(document).ready(function () {
         // AllInsusearching 요청을 보내고 서버로부터 보험 정보를 받아옵니다.
@@ -53,6 +69,9 @@
         });
     });
 
+    function numberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     // 보험 정보를 테이블에 추가하는 함수
     function appendInsuranceDataToTable(insuranceData) {
         // 테이블의 tbody 요소를 가져옵니다. 여기에 데이터를 추가할 것입니다.
@@ -82,7 +101,7 @@
             newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuContent + "</a></td>");
             newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.minAgeAtRegistration + "세 ~ " +
                 insurance.maxAgeAtRegistration + "세</a></td>");
-            newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + insurance.insuranceFee + "원(월)</a></td>");
+            newRow.append("<td><a href='/insuAgreement' onclick='redirectToInsuJoin(" + insurance.insuranceProductNumber + ")'>" + numberWithCommas(insurance.insuranceFee) + "원(월)</a></td>");
             tbody.append(newRow);
         }
     }
@@ -190,8 +209,15 @@
     <div id="main">
         <main>
             <div class="navInfo">Main &nbsp&nbsp > &nbsp&nbspGrade보험&nbsp&nbsp > &nbsp&nbspGrade보험목록&nbsp&nbsp</div>
+            <div style="display: flex;align-content: center;align-items: center;justify-content: center;">
+                <div class="sideBarName" style="width: 100%;">
+                    건강등급 보험목록
+                </div>
+            </div>
             <div class="insuMoongoo"><br>
+
                 <div class="insuInfo">
+
                     <span class="colorText">건강등급</span> 확인하고<br> <span class="colorText">보험료 할인</span>받으세요!
                     <div class="explainInsu">
                         에너지 효율이 높은 등급의 전기제품을 구입하여<br>
@@ -204,10 +230,7 @@
             <div class="areaContainer">
 
                 <div class="rightArea3">
-                    <div class="centerAlign">
-                        건강등급 보험 목록
 
-                    </div>
                     <span class="basis">상품 내용을 클릭하시면 가입 페이지로 이동합니다.</span>
                     <div id="gradeCalculation">
                         <table id="insuTable" class="insuTable">
@@ -221,11 +244,17 @@
         </main>
     </div>
 </div>
-<footer id="footer">
-    <div>Contact us | 개인정보처리방침 | 고객정보취급방침 | 건강한 소리(부정제보) | 인천 서구 에코로 167 하나금융그룹 통합데이터센터 비전센터 5층 | Copyright ©
-        Hana TI 2019. ALL RIGHT RESERVE
-    </div>
+<footer style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #F9F9FB;
+">
+    <img src="resources/static/image/footer.png" style="
+    width: 1400px;
+">
 </footer>
+
 <script>
     function loginFormFunc() {
         console.log("꿀");
