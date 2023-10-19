@@ -3,7 +3,7 @@
 
 # 1. 프로젝트 개요
 ## * 프로젝트 배경
-<img src="img/프로젝트배경.jpg" width="640"/><br>
+<img src="img/슬라이드4.jpg" width="640"/><br>
 <br>
 우리나라의 기대수명은 1990년 71.7세, 2010년 80.2세, 2020년 83.5세로 계속해서 증가하고 있습니다. 반면 퇴직시기는 계속해서 빨라지고 있습니다. 2020년 잡코리아에서 실시한 설문조사에 따르면 직장인 체감 퇴직 나이는 평균 51.7세인 것으로 나타났습니다. 돈을 벌 수 있는 소득 시기는 점점 줄어들고 있는 반면에, 소비 기간은 늘어나고 있어 재무적 위험성이 증가하고 있습니다. 이에 따라 체계적인 재무설계가 중요한 시기라고 느껴 재무설계 플랫폼을 제작하게 되었습니다.
 
@@ -26,7 +26,7 @@
 # 3. 프로젝트 결과
 최종 프로젝트 결과입니다.
 ## * 발표 ppt 
-   <img src="img/ppt_cover2.jpg" width="640" /><br>
+   <img src="img/슬라이드1.jpg" width="640" /><br>
    [최종발표자료](/하나 InsureFiet_최종발표.pdf)<br>
 ## * 시연 동영상
 
@@ -41,12 +41,13 @@
    2023-09-16 ~ 2023-10-20
    
    프로젝트 진행 간트 차트입니다<br>
-    <img src="img/간트차트.jpg" width="640"/><br>
+    <img src="img/슬라이드9.jpg" width="640"/><br>
 ## * 담당업무
    하나 InsureFit 프로젝트 설계 및 제작, Front-End/Back-End 개발
 
 ## * 주요기능
-   <img src="img/기능.png" width="640"/><br>
+   <img src="img/슬라이드6.jpg" width="640"/><br>
+   <img src="img/슬라이드7.jpg" width="640"/><br>
 
 ## * 사용기술
 - Spring-MVC 패턴
@@ -65,12 +66,12 @@
 - Library : jQuery, JSTL, Datatables, Seleinum, BS4
 
 ## * ERD
-   <img src="img/erd.png" width="800"/><br>
+   <img src="img/슬라이드14.jpg" width="800"/><br>
 ## * 시스템 아키텍쳐
-   <img src="img/시스템아키텍처.png" width="640"/><br>
+   <img src="img/슬라이드12.jpg" width="640"/><br>
    
 ## * 서비스 아키텍쳐
-   <img src="img/service_architecture.png" width="640"/><br>
+   <img src="img/슬라이드11.jpg" width="640"/><br>
 <br> <br>      
 # 5. OpenAPI 제작
 사용자의 건강등급을 산출하기 위해 국민건강보험공단의 건강검진정보를 활용하여 사용자의 건강등급을 산출하는 API를 제작하였습니다.
