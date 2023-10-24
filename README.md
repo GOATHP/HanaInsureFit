@@ -3,7 +3,7 @@
 
 # 프로젝트 개요
 ## * 프로젝트 배경
-<img src="img/슬라이드4.JPG" width="640" style="display: block; margin: 0 auto;" /><br> 
+<img src="img/슬라이드4.JPG" width="800" style="display: block; margin: 0 auto;" /><br> 
 <br>
 우리나라의 기대수명은 1990년 71.7세, 2010년 80.2세, 2020년 83.5세로 계속해서 증가하고 있습니다. 반면 퇴직시기는 계속해서 빨라지고 있습니다. 2020년 잡코리아에서 실시한 설문조사에 따르면 직장인 체감 퇴직 나이는 평균 51.7세인 것으로 나타났습니다. 돈을 벌 수 있는 소득 시기는 점점 줄어들고 있는 반면에, 소비 기간은 늘어나고 있어 재무적 위험성이 증가하고 있습니다. 이에 따라 체계적인 재무설계가 중요한 시기라고 느껴 재무설계 플랫폼을 제작하게 되었습니다.
 
@@ -23,13 +23,13 @@
    2023-09-16 ~ 2023-10-20
    
    프로젝트 진행 간트 차트입니다<br>
-    <img src="img/슬라이드9.JPG" width="640"/><br>
+    <img src="img/슬라이드9.JPG" width="800"/><br>
 ## * 담당업무
    하나 InsureFit 프로젝트 설계 및 제작, Front-End/Back-End 개발
 
 ## * 주요기능
-   <img src="img/슬라이드6.JPG" width="640" style="display: block; margin: 0 auto;"/><br>
-   <img src="img/슬라이드7.JPG" width="640" style="display: block; margin: 0 auto;"/><br>
+   <img src="img/슬라이드6.JPG" width="800" style="display: block; margin: 0 auto;"/><br>
+   <img src="img/슬라이드7.JPG" width="800" style="display: block; margin: 0 auto;"/><br>
 
 ## * 사용기술
 - Spring-MVC 패턴
@@ -50,15 +50,15 @@
 ## * ERD
    <img src="img/슬라이드14.JPG" width="800" style="display: block; margin: 0 auto;" /><br> 
 ## * 시스템 아키텍쳐
-   <img src="img/슬라이드12.JPG" width="640" style="display: block; margin: 0 auto;" /><br> 
+   <img src="img/슬라이드12.JPG" width="800" style="display: block; margin: 0 auto;" /><br> 
    
 ## * 서비스 아키텍쳐
-   <img src="img/슬라이드11.JPG" width="640" style="display: block; margin: 0 auto;" /><br> 
+   <img src="img/슬라이드11.JPG" width="800" style="display: block; margin: 0 auto;" /><br> 
 <br> <br>      
 ## * OpenAPI 제작
 사용자의 건강등급을 산출하기 위해 국민건강보험공단의 건강검진정보를 활용하여 사용자의 건강등급을 산출하는 API를 제작하였습니다.
 <br> 
-<img src="img/건강등급산출과정.jpg" width="640" style="display: block; margin: 0 auto;" /><br> 
+<img src="img/건강등급산출과정.jpg" width="800" style="display: block; margin: 0 auto;" /><br> 
 <br> <br> 
 
 # * 본인 소개
