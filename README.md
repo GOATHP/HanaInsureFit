@@ -33,8 +33,10 @@
 - Spring-MVC 패턴
 - 건강등급 산출 API 설계,제작,배포 
 - Spring MailSender, CoolSMS API를 사용한 이메일, 문자 알림
-- Selenium과 BS4를 사용해 전국 식당 정보 크롤링 후 이용자에게 식당 추천
+- SELENIUM/BS4을 이용하여 전국 식당 데이터 동적 크롤링
 - Charts.js 를 활용한 데이터 시각화
+- AWS EC2에서 Python 스크립트를 통해 건강등급 산출 API 제작
+- NAVER CLOVA OCR을 활용한 지류 인식
 
 ## * 개발환경
 - OS : Window10, Oracle Linux
@@ -69,7 +71,7 @@
 |자격증| 2022.12 | SQLD ( 한국데이터산업진흥원 ) |
 |      | 2022.06   | ADsP ( 한국데이터산업진흥원 ) |
 |skill set| Frontend | HTML, CSS, Java Script |
-| | Backend | Java, Spring, Python |
+| | Backend | Java, Spring, Python, Oracle |
 |수상경력| 2021.11 | 한국교통안전공단 이사장상  |
 | | 2021.10 | 프로젝트 장려상  |
 | | 2020.09 | e-비즈니스학과 해커톤 우수상  |
