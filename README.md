@@ -26,7 +26,7 @@
 # 3. 프로젝트 결과
 최종 프로젝트 결과입니다.
 ## * 발표 ppt 
-   <img src="img/슬라이드1.jpg" width="640" /><br>
+   <img src="../img/슬라이드1.jpg" width="640" /><br>
    [최종발표자료](/하나 InsureFiet_최종발표.pdf)<br>
 ## * 시연 동영상
 
