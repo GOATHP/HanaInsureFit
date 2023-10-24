@@ -19,14 +19,14 @@
 # 2. 프로젝트 제안서
 
 하나 InsureFit 초기 프로젝트 제안 발표 자료입니다.
-   <img src="img/ppt_cover1.jpg" width="640" /><br>
+   <img src="img/ppt_cover1.JPG" width="640" /><br>
    [제안발표자료](/하나 InsureFiet_제안발표.pptx)<br>
 <br> <br> 
 
 # 3. 프로젝트 결과
 최종 프로젝트 결과입니다.
 ## * 발표 ppt 
-   <img src="../img/슬라이드1.jpg" width="640" /><br>
+   <img src="../img/슬라이드1.JPG" width="640" /><br>
    [최종발표자료](/하나 InsureFiet_최종발표.pdf)<br>
 ## * 시연 동영상
 
@@ -41,13 +41,13 @@
    2023-09-16 ~ 2023-10-20
    
    프로젝트 진행 간트 차트입니다<br>
-    <img src="img/슬라이드9.jpg" width="640"/><br>
+    <img src="img/슬라이드9.JPG" width="640"/><br>
 ## * 담당업무
    하나 InsureFit 프로젝트 설계 및 제작, Front-End/Back-End 개발
 
 ## * 주요기능
-   <img src="img/슬라이드6.jpg" width="640"/><br>
-   <img src="img/슬라이드7.jpg" width="640"/><br>
+   <img src="img/슬라이드6.JPG" width="640"/><br>
+   <img src="img/슬라이드7.JPG" width="640"/><br>
 
 ## * 사용기술
 - Spring-MVC 패턴
@@ -66,12 +66,12 @@
 - Library : jQuery, JSTL, Datatables, Seleinum, BS4
 
 ## * ERD
-   <img src="img/슬라이드14.jpg" width="800"/><br>
+   <img src="img/슬라이드14.JPG" width="800"/><br>
 ## * 시스템 아키텍쳐
-   <img src="img/슬라이드12.jpg" width="640"/><br>
+   <img src="img/슬라이드12.JPG" width="640"/><br>
    
 ## * 서비스 아키텍쳐
-   <img src="img/슬라이드11.jpg" width="640"/><br>
+   <img src="img/슬라이드11.JPG" width="640"/><br>
 <br> <br>      
 # 5. OpenAPI 제작
 사용자의 건강등급을 산출하기 위해 국민건강보험공단의 건강검진정보를 활용하여 사용자의 건강등급을 산출하는 API를 제작하였습니다.
@@ -84,7 +84,7 @@
 
 |항목|내용||
 |-----|---------------------------|----|
-|이름 |박태현| <img src="img/yk.jpg" width="80" />|
+|이름 |박태현| <img src="img/PTH.JPG" width="80" />|
 |연락처 | 이메일 | goathp@naver.com|
 |학력사항|졸업(2022.02)|아주대학교 e-비즈니스학과(주전공)/인공지능융합학과(복수전공)|
 |자격증| 2022.12 | SQLD ( 한국데이터산업진흥원 ) |
