@@ -61,7 +61,7 @@
 <img src="img/건강등급산출과정.jpg" width="800" style="display: block; margin: 0 auto;" /><br> 
 <br> <br> 
 ## 발표 ppt
-[발표자료<img src="img/슬라이드1.JPG"/>](img/HanaInsureFit_2360340010_박태현_발표자료_.pdf) <br/>
+[발표자료<img src="img/슬라이드18.JPG"/>](img/HanaInsureFit_2360340010_박태현_발표자료_.pdf) <br/>
 
 ## 시연 동영상
  <a href="https://www.youtube.com/watch?v=8LxH6F7F_M0"><img src="img/슬라이드17.JPG"></a><br/>
